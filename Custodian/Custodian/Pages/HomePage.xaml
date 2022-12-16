@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             x:Class="Custodian.Pages.HomePage">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                Text="Welcome, John"
+                Style="{StaticResource BlueHeadingLabel}"     
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" />
+            <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+        </Grid>
+        <Label Grid.Row="1" Margin="0,20,0,0" Padding="0,20,0,0" Text="Your Progress"  Style="{StaticResource BlackHeadingLabel}" VerticalOptions="End" VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
+        <progressBar:SfCircularProgressBar Grid.Row="2" 
+                                           Progress="25" 
+                                           Margin="50,0,50,0"
+                                           TrackThickness="25"
+                                           TrackFill="{StaticResource CustodianProgressRed}" 
+                                           ProgressFill="{StaticResource CustodianppProgressBlue}"
+                                           ProgressThickness="25" >
+            <progressBar:SfCircularProgressBar.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label 
+                        Grid.Row="0" 
+                   Text="3 Tasks"
+                   Style="{StaticResource BlackHeadingLabel}"
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="End">
+                    </Label>
+                    <Label Grid.Row="1" 
+                   TextColor="{StaticResource CustodianppProgressBlue}" 
+                   Text="Remaining" 
+                   VerticalOptions="Start" 
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Start">
+                    </Label>
+                </Grid>
+            </progressBar:SfCircularProgressBar.Content>
+        </progressBar:SfCircularProgressBar>
+        <VerticalStackLayout Grid.Row="3" Margin="0,0,0,30">
+            <Label Text="180" Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center"></Label>
+            <Label Text="Estimated Minutes" Style="{StaticResource BlackHeadingLabel}" FontAttributes="None" HorizontalOptions="Center"></Label>
+        </VerticalStackLayout>
+        <Button Grid.Row="4" Text="Start Working" VerticalOptions="End"></Button>
+    </Grid>
+</ContentPage>

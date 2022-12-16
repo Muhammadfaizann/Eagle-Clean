@@ -1,0 +1,102 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Custodian</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Eagle Clean</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.Custodian</ApplicationId>
+		<ApplicationIdGuid>ac01f816-ab3c-4220-b56a-404f50336b16</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>..\key.keystore</AndroidSigningKeyStore>
+		<AndroidSigningStorePass>123456</AndroidSigningStorePass>
+		<AndroidSigningKeyAlias>maui</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		
+
+		
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />                                                          
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\HelveticaNowDisplay.ttf" />
+	  <None Remove="Resources\Images\bluedlogo.svg" />
+	  <None Remove="Resources\Images\frame1.png" />
+	  <None Remove="Resources\Images\frame10.png" />
+	  <None Remove="Resources\Images\frame11.png" />
+	  <None Remove="Resources\Images\frame12.png" />
+	  <None Remove="Resources\Images\frame13.png" />
+	  <None Remove="Resources\Images\frame14.png" />
+	  <None Remove="Resources\Images\frame15.png" />
+	  <None Remove="Resources\Images\frame2.png" />
+	  <None Remove="Resources\Images\frame3.png" />
+	  <None Remove="Resources\Images\frame4.png" />
+	  <None Remove="Resources\Images\frame5.png" />
+	  <None Remove="Resources\Images\frame6.png" />
+	  <None Remove="Resources\Images\frame7.png" />
+	  <None Remove="Resources\Images\frame8.png" />
+	  <None Remove="Resources\Images\frame9.png" />
+	  <None Remove="Resources\Splash\splashscreen.svg" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Screens\" />
+	  <Folder Include="ViewModels\" />
+	  <Folder Include="Views\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <MauiSplashScreen Include="Resources\Splash\splashscreen.svg" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.3.61" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+	
+	
+	
+	
+	
+	
+
+</Project>

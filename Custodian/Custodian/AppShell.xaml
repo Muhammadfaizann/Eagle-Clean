@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Custodian.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Custodian"
+    xmlns:pages="clr-namespace:Custodian.Pages"
+    Shell.TabBarIsVisible="False">
+   
+    <Shell.FlyoutHeader>
+        <StackLayout HeightRequest="200">
+            <StackLayout.Background>
+                <LinearGradientBrush EndPoint="1,0">
+                    <GradientStop Color="{StaticResource CustodianDarkBlue}"
+                          Offset="0.1" />
+                    <GradientStop Color="{StaticResource CustodianLightBlue}"
+                          Offset="1.0" />
+                </LinearGradientBrush>
+            </StackLayout.Background>
+            <Image Source="flyout_header.png" BackgroundColor="Transparent" HeightRequest="200" WidthRequest="200" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit"/>
+        </StackLayout>
+        
+    </Shell.FlyoutHeader>
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <StackLayout.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="{StaticResource CustodianDarkBlue}"
+                          Offset="0.1" />
+                        <GradientStop Color="{StaticResource CustodianLightBlue}"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
+                </StackLayout.Background>
+                <Grid ColumnDefinitions="*" RowDefinitions="auto,5"  >
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0">
+                            <GradientStop Color="#0D337A"
+                          Offset="0.1" />
+                            <GradientStop Color="#3358BE"
+                          Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <Label Grid.Column="0" Grid.Row="0" Margin="20,10,10,10" TextColor="White" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="Helvetica-fonts" FontSize="Large" Opacity="1"></Label>
+                    <StackLayout Grid.Column="0" Grid.Row="1">
+                        <StackLayout.Background>
+                            <LinearGradientBrush EndPoint="1,0">
+                                <GradientStop Color="{StaticResource CustodianDarkBlue}"
+                              Offset="0.1" />
+                                <GradientStop Color="{StaticResource CustodianLightBlue}"
+                              Offset="1.0" />
+                            </LinearGradientBrush>
+                        </StackLayout.Background>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+    
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Title="Home"
+                      ContentTemplate="{DataTemplate pages:HomePage}"/>
+        <ShellContent Title="Work Orders"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View Active Route"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="Travel"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="Ad-hoc Work"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View Route Library"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View CTC Training Video"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View CTC Job Aids"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View CTC Monthly Video"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="View SDS Sheet"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Title="Logout"
+                      ContentTemplate="{DataTemplate local:MainPage}"/>
+    </FlyoutItem>
+</Shell>
