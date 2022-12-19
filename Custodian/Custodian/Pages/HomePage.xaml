@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
              x:Class="Custodian.Pages.HomePage">
-    <Grid Margin="20">
+    <ContentPage.Content>
+        <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -21,7 +22,7 @@
                 Style="{StaticResource BlueHeadingLabel}"     
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" />
-            <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
         </Grid>
         <Label Grid.Row="1" Margin="0,20,0,0" Padding="0,20,0,0" Text="Your Progress"  Style="{StaticResource BlackHeadingLabel}" VerticalOptions="End" VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
         <progressBar:SfCircularProgressBar Grid.Row="2" 
@@ -58,6 +59,7 @@
             <Label Text="180" Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center"></Label>
             <Label Text="Estimated Minutes" Style="{StaticResource BlackHeadingLabel}" FontAttributes="None" HorizontalOptions="Center"></Label>
         </VerticalStackLayout>
-        <Button Grid.Row="4" Text="Start Working" VerticalOptions="End"></Button>
+        <Button Grid.Row="4" Text="Start Working" VerticalOptions="End" Clicked="StartWorkingClicked"></Button>
     </Grid>
+    </ContentPage.Content>
 </ContentPage>

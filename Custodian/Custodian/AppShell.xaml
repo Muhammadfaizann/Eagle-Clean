@@ -8,30 +8,14 @@
     Shell.TabBarIsVisible="False">
    
     <Shell.FlyoutHeader>
-        <StackLayout HeightRequest="200">
-            <StackLayout.Background>
-                <LinearGradientBrush EndPoint="1,0">
-                    <GradientStop Color="{StaticResource CustodianDarkBlue}"
-                          Offset="0.1" />
-                    <GradientStop Color="{StaticResource CustodianLightBlue}"
-                          Offset="1.0" />
-                </LinearGradientBrush>
-            </StackLayout.Background>
+        <StackLayout HeightRequest="200" Background="{StaticResource GradientStyle}">
             <Image Source="flyout_header.png" BackgroundColor="Transparent" HeightRequest="200" WidthRequest="200" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit"/>
         </StackLayout>
         
     </Shell.FlyoutHeader>
     <Shell.ItemTemplate>
         <DataTemplate>
-            <StackLayout>
-                <StackLayout.Background>
-                    <LinearGradientBrush EndPoint="1,0">
-                        <GradientStop Color="{StaticResource CustodianDarkBlue}"
-                          Offset="0.1" />
-                        <GradientStop Color="{StaticResource CustodianLightBlue}"
-                          Offset="1.0" />
-                    </LinearGradientBrush>
-                </StackLayout.Background>
+            <StackLayout Background="{StaticResource GradientStyle}">
                 <Grid ColumnDefinitions="*" RowDefinitions="auto,5"  >
                     <Grid.Background>
                         <LinearGradientBrush EndPoint="1,0">
@@ -42,15 +26,7 @@
                         </LinearGradientBrush>
                     </Grid.Background>
                     <Label Grid.Column="0" Grid.Row="0" Margin="20,10,10,10" TextColor="White" VerticalTextAlignment="Center" Text="{Binding Title}" FontFamily="Helvetica-fonts" FontSize="Large" Opacity="1"></Label>
-                    <StackLayout Grid.Column="0" Grid.Row="1">
-                        <StackLayout.Background>
-                            <LinearGradientBrush EndPoint="1,0">
-                                <GradientStop Color="{StaticResource CustodianDarkBlue}"
-                              Offset="0.1" />
-                                <GradientStop Color="{StaticResource CustodianLightBlue}"
-                              Offset="1.0" />
-                            </LinearGradientBrush>
-                        </StackLayout.Background>
+                    <StackLayout Grid.Column="0" Grid.Row="1" Background="{StaticResource GradientStyle}">
                     </StackLayout>
                 </Grid>
             </StackLayout>

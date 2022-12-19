@@ -6,4 +6,9 @@ public partial class HomePage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private void StartWorkingClicked(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new DailySchedulePage());
+    }
 }

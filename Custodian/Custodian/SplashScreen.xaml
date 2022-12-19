@@ -4,6 +4,6 @@
              x:Class="Custodian.SplashScreen"
              Title="SplashScreen">
     <VerticalStackLayout>
-        <Image x:Name="splashPlaceHolder" Source="splash_screen.gif" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFit" IsAnimationPlaying="True" ></Image>    
+        <Image x:Name="placeholder" Source="splash_screen.gif" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFit" IsAnimationPlaying="True" ></Image>    
     </VerticalStackLayout>
 </ContentPage>

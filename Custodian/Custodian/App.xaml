@@ -15,15 +15,23 @@
                 <ResourceDictionary>
                     <Style x:Key="BlueHeadingLabel" TargetType="Label">
                         <Setter Property="TextColor" Value="{StaticResource CustodianHeadingBlue}" />
-                        <Setter Property="FontFamily" Value="Helvetica-fonts" />
                         <Setter Property="FontSize" Value="22" />
                         <Setter Property="FontAttributes" Value="Bold"/>
                     </Style>
                     <Style x:Key="BlackHeadingLabel" TargetType="Label">
                         <Setter Property="TextColor" Value="{StaticResource Black}" />
-                        <Setter Property="FontFamily" Value="Helvetica-fonts" />
                         <Setter Property="FontSize" Value="22" />
                         <Setter Property="FontAttributes" Value="Bold"/>
+                    </Style>
+                    <Style x:Key="SegmentedButtonClicked" TargetType="Button">
+                        <Setter Property="Background" Value="{StaticResource WhiteBrush}" />
+                        <Setter Property="TextColor" Value="{StaticResource CustodianHeadingBlue}"/>
+                        <Setter Property="CornerRadius" Value="10"></Setter>
+                    </Style>
+                    <Style x:Key="SegmentedButtonUnclicked" TargetType="Button">
+                         <Setter Property="Background" Value="{StaticResource TransparentBrush}" />
+                        <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                        <Setter Property="CornerRadius" Value="10"></Setter>
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

@@ -12,10 +12,10 @@ public partial class SplashScreen : ContentPage
     }
     private async Task RunAnimationAsync()
     {
-        for (int i = 1; i <= 15; i++)
+        for (int i = 1; i <= 90; i++)
         {
-            splashPlaceHolder.Source = "frame" + i + ".png";
-            await Task.Delay(112);
+            placeholder.Source = "frame" + i + ".png";
+            await Task.Delay(50);
         }
     }
 }

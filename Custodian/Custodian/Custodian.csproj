@@ -58,14 +58,89 @@
 	  <None Remove="Resources\Images\frame13.png" />
 	  <None Remove="Resources\Images\frame14.png" />
 	  <None Remove="Resources\Images\frame15.png" />
+	  <None Remove="Resources\Images\frame16.png" />
+	  <None Remove="Resources\Images\frame17.png" />
+	  <None Remove="Resources\Images\frame18.png" />
+	  <None Remove="Resources\Images\frame19.png" />
 	  <None Remove="Resources\Images\frame2.png" />
+	  <None Remove="Resources\Images\frame20.png" />
+	  <None Remove="Resources\Images\frame21.png" />
+	  <None Remove="Resources\Images\frame22.png" />
+	  <None Remove="Resources\Images\frame23.png" />
+	  <None Remove="Resources\Images\frame24.png" />
+	  <None Remove="Resources\Images\frame25.png" />
+	  <None Remove="Resources\Images\frame26.png" />
+	  <None Remove="Resources\Images\frame27.png" />
+	  <None Remove="Resources\Images\frame28.png" />
+	  <None Remove="Resources\Images\frame29.png" />
 	  <None Remove="Resources\Images\frame3.png" />
+	  <None Remove="Resources\Images\frame30.png" />
+	  <None Remove="Resources\Images\frame31.png" />
+	  <None Remove="Resources\Images\frame32.png" />
+	  <None Remove="Resources\Images\frame33.png" />
+	  <None Remove="Resources\Images\frame34.png" />
+	  <None Remove="Resources\Images\frame35.png" />
+	  <None Remove="Resources\Images\frame36.png" />
+	  <None Remove="Resources\Images\frame37.png" />
+	  <None Remove="Resources\Images\frame38.png" />
+	  <None Remove="Resources\Images\frame39.png" />
 	  <None Remove="Resources\Images\frame4.png" />
+	  <None Remove="Resources\Images\frame40.png" />
+	  <None Remove="Resources\Images\frame41.png" />
+	  <None Remove="Resources\Images\frame42.png" />
+	  <None Remove="Resources\Images\frame43.png" />
+	  <None Remove="Resources\Images\frame44.png" />
+	  <None Remove="Resources\Images\frame45.png" />
+	  <None Remove="Resources\Images\frame46.png" />
+	  <None Remove="Resources\Images\frame47.png" />
+	  <None Remove="Resources\Images\frame48.png" />
+	  <None Remove="Resources\Images\frame49.png" />
 	  <None Remove="Resources\Images\frame5.png" />
+	  <None Remove="Resources\Images\frame50.png" />
+	  <None Remove="Resources\Images\frame51.png" />
+	  <None Remove="Resources\Images\frame52.png" />
+	  <None Remove="Resources\Images\frame53.png" />
+	  <None Remove="Resources\Images\frame54.png" />
+	  <None Remove="Resources\Images\frame55.png" />
+	  <None Remove="Resources\Images\frame56.png" />
+	  <None Remove="Resources\Images\frame57.png" />
+	  <None Remove="Resources\Images\frame58.png" />
+	  <None Remove="Resources\Images\frame59.png" />
 	  <None Remove="Resources\Images\frame6.png" />
+	  <None Remove="Resources\Images\frame60.png" />
+	  <None Remove="Resources\Images\frame61.png" />
+	  <None Remove="Resources\Images\frame62.png" />
+	  <None Remove="Resources\Images\frame63.png" />
+	  <None Remove="Resources\Images\frame64.png" />
+	  <None Remove="Resources\Images\frame65.png" />
+	  <None Remove="Resources\Images\frame66.png" />
+	  <None Remove="Resources\Images\frame67.png" />
+	  <None Remove="Resources\Images\frame68.png" />
+	  <None Remove="Resources\Images\frame69.png" />
 	  <None Remove="Resources\Images\frame7.png" />
+	  <None Remove="Resources\Images\frame70.png" />
+	  <None Remove="Resources\Images\frame71.png" />
+	  <None Remove="Resources\Images\frame72.png" />
+	  <None Remove="Resources\Images\frame73.png" />
+	  <None Remove="Resources\Images\frame74.png" />
+	  <None Remove="Resources\Images\frame75.png" />
+	  <None Remove="Resources\Images\frame76.png" />
+	  <None Remove="Resources\Images\frame77.png" />
+	  <None Remove="Resources\Images\frame78.png" />
+	  <None Remove="Resources\Images\frame79.png" />
 	  <None Remove="Resources\Images\frame8.png" />
+	  <None Remove="Resources\Images\frame80.png" />
+	  <None Remove="Resources\Images\frame81.png" />
+	  <None Remove="Resources\Images\frame82.png" />
+	  <None Remove="Resources\Images\frame83.png" />
+	  <None Remove="Resources\Images\frame84.png" />
+	  <None Remove="Resources\Images\frame85.png" />
+	  <None Remove="Resources\Images\frame86.png" />
+	  <None Remove="Resources\Images\frame87.png" />
+	  <None Remove="Resources\Images\frame88.png" />
+	  <None Remove="Resources\Images\frame89.png" />
 	  <None Remove="Resources\Images\frame9.png" />
+	  <None Remove="Resources\Images\frame90.png" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
 	
@@ -88,10 +163,15 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <MauiXaml Update="Pages\DailySchedulePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+	
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionCustodianHideInfoBar="True" /></VisualStudio></ProjectExtensions>
 	
 	
 	
