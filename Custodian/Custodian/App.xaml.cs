@@ -7,12 +7,19 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
+        
         _ = InitializeApp();
     }
 	private async Task InitializeApp()
 	{
-        MainPage = new SplashScreen();
-        await Task.Delay(1000);
-        MainPage = new AppShell();
+        try
+        {
+            MainPage = new SplashScreen();
+            await Task.Delay(8000);
+            MainPage = new AppShell();
+        }
+        catch (Exception ex) 
+        { 
+        }
     }
 }

@@ -35,15 +35,13 @@
             </VerticalStackLayout>
             <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
             </Grid>
-            <Frame Grid.Row="1" BorderColor="LightGray" BackgroundColor="LightGray" HeightRequest="45" HasShadow="False" Padding="0" Margin="0,20,0,20">
+        <Frame Grid.Row="1" BorderColor="LightGray" BackgroundColor="LightGray" HeightRequest="45" HasShadow="False" Padding="0" Margin="0,20,0,20">
             <Grid ColumnDefinitions="*,*" Margin="2" >
                 <Button x:Name="btnOngoing" Grid.Column="0" CornerRadius="10" Text="Ongoing" Clicked="btnOngoing_Clicked" Style="{StaticResource SegmentedButtonClicked}"></Button>
                 <Button x:Name="btnCompleted" Grid.Column="1" CornerRadius="10" Text="Completed" Clicked="btnCompleted_Clicked" Style="{StaticResource SegmentedButtonUnclicked}"></Button>
-                </Grid>
-            </Frame>
-        
-       
-        <CollectionView x:Name="ongoingAssigments" Grid.Row="2" >
+            </Grid>
+        </Frame>
+        <CollectionView x:Name="ongoingAssigments" Grid.Row="2">
             <CollectionView.Header>
                 <StackLayout>
                     <Label Text="Assignment"  Style="{StaticResource BlueHeadingLabel}" ></Label>
@@ -56,10 +54,6 @@
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="5"></RowDefinition>
-                        </Grid.RowDefinitions>
                         <StackLayout Grid.Column="0" Spacing="0">
                             <Label Text="Anytown PO - Route 005" 
                                         FontSize="Medium"
@@ -71,7 +65,6 @@
                             <Label Text="Planned Time - [2:35]"  FontSize="16"></Label>
                         </StackLayout>
                         <Button Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Text="Start" FontSize="12" HeightRequest="40" WidthRequest="70"></Button>
-                        <Frame Grid.Column="0" HasShadow="False" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="{StaticResource Gray250}"/>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
@@ -83,32 +76,28 @@
         </CollectionView>
         <CollectionView x:Name="completedAssigments" Grid.Row="2" IsVisible="false">
             <CollectionView.Header>
-                <DataTemplate>
-                    <StackLayout>
-                        <Label Text="Assignment"  Style="{StaticResource BlueHeadingLabel}" ></Label>
-                    </StackLayout>
-                </DataTemplate>
+                <StackLayout>
+                    <Label Text="Assignment" Style="{StaticResource BlueHeadingLabel}" ></Label>
+                </StackLayout>
             </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,15,0,0" RowSpacing="15">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"></RowDefinition>
-                            <RowDefinition Height="2"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <StackLayout Grid.Column="0">
-                            <Label Text="Anytown PO - Route 005" ></Label>
-                            <Label Text="Clean Offices - Admin Hall"></Label>
-                            <Label Text="Planned Time - [2:35]"></Label>
+                        <StackLayout Grid.Column="0" Spacing="0">
+                            <Label Text="Anytown PO - Route 005" 
+                                        FontSize="Medium"
+                                        VerticalOptions="Center" 
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Start" ></Label>
+                            <Label Text="Clean Offices - Admin Hall" 
+                                       FontSize="Medium" ></Label>
+                            <Label Text="Planned Time - [2:35]"  FontSize="16"></Label>
                         </StackLayout>
-
-                        <Label Grid.Column="1" Text="Actual Time [2:35] " VerticalOptions="Start" HorizontalOptions="End" HorizontalTextAlignment="Center" Style="{StaticResource BlueHeadingLabel}"></Label>
-
-                        <Frame HasShadow="False" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" BackgroundColor="{StaticResource Gray250}"/>
+                        <Label Grid.Column="1" Text="Actual Time [2:35] " VerticalOptions="Start" HorizontalOptions="End" HorizontalTextAlignment="Center" TextColor="{StaticResource CustodianHeadingBlue}"  FontAttributes="Bold" FontSize="Medium"></Label>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

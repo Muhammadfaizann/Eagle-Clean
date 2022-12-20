@@ -36,6 +36,30 @@
 		<AndroidSigningKeyAlias>maui</AndroidSigningKeyAlias>
 		<AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
+	  <ApplicationId>com.IPC.Custodian</ApplicationId>
+	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		
@@ -141,6 +165,7 @@
 	  <None Remove="Resources\Images\frame89.png" />
 	  <None Remove="Resources\Images\frame9.png" />
 	  <None Remove="Resources\Images\frame90.png" />
+	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
 	
@@ -153,6 +178,7 @@
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
+	
 	
 	<ItemGroup>
 	  <MauiSplashScreen Include="Resources\Splash\splashscreen.svg" />
