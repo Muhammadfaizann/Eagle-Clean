@@ -22,4 +22,9 @@ public partial class DailySchedulePage : ContentPage
         btnOngoing.Style = (Style)Application.Current.Resources["SegmentedButtonUnclicked"];
         btnCompleted.Style = (Style)Application.Current.Resources["SegmentedButtonClicked"];
     }
+
+    private void btnStart_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ActiveCleaningRoutePage());
+    }
 }

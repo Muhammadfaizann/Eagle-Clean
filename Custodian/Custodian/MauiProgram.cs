@@ -1,5 +1,4 @@
 ﻿
-using Custodian.Platforms.Android.Renderers;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.Hosting;
 using Syncfusion.Maui.Core.Hosting;
@@ -17,9 +16,9 @@ public static class MauiProgram
             .UseMauiCompatibility()
             .ConfigureMauiHandlers(handlers =>
 			{
-			#if ANDROID
-							handlers.AddHandler(typeof(AppShell), typeof(CustomShellRenderer));
-			#endif
+			
+			
+			
             })
             .ConfigureFonts(fonts =>
 			{

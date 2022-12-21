@@ -12,14 +12,8 @@ public partial class App : Application
     }
 	private async Task InitializeApp()
 	{
-        try
-        {
             MainPage = new SplashScreen();
-            await Task.Delay(8000);
+            await Task.Delay(12000);
             MainPage = new AppShell();
-        }
-        catch (Exception ex) 
-        { 
-        }
     }
 }

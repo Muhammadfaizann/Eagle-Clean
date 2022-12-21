@@ -75,6 +75,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\HelveticaNowDisplay.ttf" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
+	  <None Remove="Resources\Images\clock.svg" />
 	  <None Remove="Resources\Images\frame1.png" />
 	  <None Remove="Resources\Images\frame10.png" />
 	  <None Remove="Resources\Images\frame11.png" />
@@ -165,6 +166,7 @@
 	  <None Remove="Resources\Images\frame89.png" />
 	  <None Remove="Resources\Images\frame9.png" />
 	  <None Remove="Resources\Images\frame90.png" />
+	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
@@ -189,6 +191,9 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <MauiXaml Update="Pages\ActiveCleaningRoutePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\DailySchedulePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
