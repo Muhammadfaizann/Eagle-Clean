@@ -1,4 +1,7 @@
-﻿
+﻿#if ANDROID
+using CommunityToolkit.Maui;
+using Custodian.Platforms.Android.Renderers;
+#endif
 using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Microsoft.Maui.Hosting;
 using Syncfusion.Maui.Core.Hosting;
@@ -14,11 +17,14 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			.ConfigureSyncfusionCore()
             .UseMauiCompatibility()
-            .ConfigureMauiHandlers(handlers =>
+			#if ANDROID	
+            .UseMauiCommunityToolkit()
+			#endif
+			.ConfigureMauiHandlers(handlers =>
 			{
-			
-			
-			
+			#if ANDROID
+				handlers.AddHandler(typeof(Shell), typeof(CustomShellRenderer));
+			#endif
             })
             .ConfigureFonts(fonts =>
 			{

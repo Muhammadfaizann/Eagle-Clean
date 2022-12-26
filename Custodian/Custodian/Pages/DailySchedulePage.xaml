@@ -3,7 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Custodian.Pages.DailySchedulePage"
              Title="My Daily Schedule">
-    <Grid Margin="20">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="SegmentedButtonClicked" TargetType="Frame">
+                <Setter Property="HasShadow" Value="False"></Setter>
+            </Style>
+            <Style x:Key="SegmentedButtonUnclicked" TargetType="Frame">
+
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -35,12 +46,22 @@
             </VerticalStackLayout>
             <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
             </Grid>
-        <Frame Grid.Row="1" BorderColor="LightGray" BackgroundColor="LightGray" HeightRequest="45" HasShadow="False" Padding="0" Margin="0,20,0,20">
-            <Grid ColumnDefinitions="*,*" Margin="2" >
-                <Button x:Name="btnOngoing" Grid.Column="0" CornerRadius="10" Text="Ongoing" Clicked="btnOngoing_Clicked" Style="{StaticResource SegmentedButtonClicked}"></Button>
-                <Button x:Name="btnCompleted" Grid.Column="1" CornerRadius="10" Text="Completed" Clicked="btnCompleted_Clicked" Style="{StaticResource SegmentedButtonUnclicked}"></Button>
-            </Grid>
-        </Frame>
+            <Frame Grid.Row="1" BorderColor="LightGray" BackgroundColor="LightGray" HeightRequest="40" HasShadow="False" Padding="0" Margin="0,20,0,20">
+                <Grid ColumnDefinitions="*,*" Margin="2" >
+                    <Frame x:Name="frmOngoing" Grid.Column="0" BackgroundColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btnOngoing_Clicked"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                            <Label x:Name="lblOngoing" Text="Ongoing" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{StaticResource CustodianHeadingBlue}" ></Label>
+                    </Frame>
+                        <Frame x:Name="frmCompleted" Grid.Column="1" BackgroundColor="Transparent"  >
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btnCompleted_Clicked"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                            <Label x:Name="lblCompleted" Text="Completed" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black" ></Label>
+                    </Frame>
+                </Grid>
+            </Frame>
         <CollectionView x:Name="ongoingAssigments" Grid.Row="2">
             <CollectionView.Header>
                 <StackLayout>
@@ -111,4 +132,5 @@
 
 
     </Grid>
+    </ContentPage.Content>
 </ContentPage>

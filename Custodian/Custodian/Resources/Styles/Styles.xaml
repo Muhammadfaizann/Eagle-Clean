@@ -6,6 +6,8 @@
 
     <Style TargetType="Frame">
         <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="HasShadow" Value="False"></Setter>
+        <Setter Property="Padding" Value="0"></Setter>
     </Style>
 
     <Style TargetType="Button">
@@ -21,6 +23,7 @@
 
     <Style TargetType="Label">
         <Setter Property="FontFamily" Value="Helvetica-fonts"/>
+        <Setter Property="TextColor" Value="{StaticResource Black}"/>
     </Style>
 
     <Style TargetType="ListView">

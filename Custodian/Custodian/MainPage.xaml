@@ -4,7 +4,7 @@
              x:Class="Custodian.MainPage">
     
     <StackLayout>
-        <Label x:Name="text" Text="Hello, Start scanning now" FontSize="Title" Padding="30,10,30,10"/>
+        <Label x:Name="text" Text="Start scanning now" FontSize="Title" Padding="30,10,30,10"/>
         <ListView x:Name="list"></ListView>
     </StackLayout>
 

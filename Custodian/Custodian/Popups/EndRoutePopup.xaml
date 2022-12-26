@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Custodian.Popups.EndRoutePopup"
+             Color="Transparent"  
+             >
+    <Frame BackgroundColor="White" Padding="25" HeightRequest="275" WidthRequest="300" CornerRadius="25">
+        <VerticalStackLayout>
+            <Label 
+                Text="End Route?"
+                FontSize="20"
+                FontAttributes="Bold"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <VerticalStackLayout Margin="0,15">
+                <Label 
+                Text="You have reached the end of a route."
+                FontSize="14"
+                
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <VerticalStackLayout Margin="0,15">
+            <Label 
+                Text="Route 001 - Anytown PO"
+                FontSize="14"
+                
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Label 
+                Text="Estimated Time : 60 Minute"
+                FontSize="14"
+               
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Label 
+                Text="Actual Time : 49 Minutes"
+                FontSize="14"
+               
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            </VerticalStackLayout>
+            <Label 
+                Text=" Select the Partial or Complete button to end the route."
+                FontSize="14"
+                
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            </VerticalStackLayout>
+            <HorizontalStackLayout HorizontalOptions="EndAndExpand" Spacing="20">
+                <Label Text="Cancel" BackgroundColor="White"  FontSize="14" TextColor="{StaticResource CustodianHeadingBlue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="cancel_Clicked"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Partial" BackgroundColor="White"  FontSize="14" TextColor="{StaticResource CustodianHeadingBlue}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="partial_Clicked"></TapGestureRecognizer>
+                    </Label.GestureRecognizers>
+                </Label>
+            </HorizontalStackLayout>
+
+
+
+
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

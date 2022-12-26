@@ -13,7 +13,7 @@ public partial class App : Application
 	private async Task InitializeApp()
 	{
             MainPage = new SplashScreen();
-            await Task.Delay(12000);
+            await Task.Delay(11500);
             MainPage = new AppShell();
     }
 }

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-maccatalyst;net7.0-ios;net7.0-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
 		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
@@ -15,19 +15,13 @@
 		<ApplicationTitle>Eagle Clean</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.Custodian</ApplicationId>
+		<ApplicationId>com.IPC.Custodian</ApplicationId>
 		<ApplicationIdGuid>ac01f816-ab3c-4220-b56a-404f50336b16</ApplicationIdGuid>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
-
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
 		<AndroidKeyStore>True</AndroidKeyStore>
@@ -42,24 +36,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-android|AnyCPU'">
 	  <ApplicationId>com.IPC.Custodian</ApplicationId>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-ios|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-maccatalyst|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-maccatalyst|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net6.0-windows10.0.19041.0|AnyCPU'">
-	  <ApplicationId>com.IPC.Custodian</ApplicationId>
-	</PropertyGroup>
+	
 	<ItemGroup>
 		<!-- App Icon -->
 		
@@ -75,7 +52,9 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\HelveticaNowDisplay.ttf" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
+	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
+	  <None Remove="Resources\Images\delete_button.svg" />
 	  <None Remove="Resources\Images\frame1.png" />
 	  <None Remove="Resources\Images\frame10.png" />
 	  <None Remove="Resources\Images\frame11.png" />
@@ -166,6 +145,7 @@
 	  <None Remove="Resources\Images\frame89.png" />
 	  <None Remove="Resources\Images\frame9.png" />
 	  <None Remove="Resources\Images\frame90.png" />
+	  <None Remove="Resources\Images\green_tick.svg" />
 	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
@@ -187,7 +167,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.3.61" />
+	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.38" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -200,6 +180,30 @@
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\AddPicturesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\EndRoutePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-ios'">
+	  <PackageReference Include="CommunityToolkit.Maui">
+	    <Version>3.1.0</Version>
+	  </PackageReference>
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+	  <PackageReference Include="CommunityToolkit.Maui">
+	    <Version>3.1.0</Version>
+	  </PackageReference>
+	</ItemGroup>
+	
+	<ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">
+	  <PackageReference Include="CommunityToolkit.Maui">
+	    <Version>3.1.0</Version>
+	  </PackageReference>
 	</ItemGroup>
 	
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionCustodianHideInfoBar="True" /></VisualStudio></ProjectExtensions>

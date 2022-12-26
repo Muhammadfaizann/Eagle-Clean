@@ -12,15 +12,19 @@ public partial class DailySchedulePage : ContentPage
     {
         ongoingAssigments.IsVisible = true;
         completedAssigments.IsVisible = false;
-        btnCompleted.Style = (Style)Application.Current.Resources["SegmentedButtonUnclicked"];
-        btnOngoing.Style = (Style)Application.Current.Resources["SegmentedButtonClicked"];
+        frmCompleted.BackgroundColor = Color.FromArgb("#00FFFFFF");
+        frmOngoing.BackgroundColor = Color.FromArgb("#FFFFFF");
+        lblCompleted.TextColor= Color.FromArgb("#000000");
+        lblOngoing.TextColor = Color.FromArgb("#005F9D");
     }
     void btnCompleted_Clicked(System.Object sender, System.EventArgs e)
     {
         ongoingAssigments.IsVisible = false;
         completedAssigments.IsVisible = true;
-        btnOngoing.Style = (Style)Application.Current.Resources["SegmentedButtonUnclicked"];
-        btnCompleted.Style = (Style)Application.Current.Resources["SegmentedButtonClicked"];
+        frmOngoing.BackgroundColor = Color.FromArgb("#00FFFFFF");
+        frmCompleted.BackgroundColor = Color.FromArgb("#FFFFFF");
+        lblCompleted.TextColor = Color.FromArgb("#005F9D");
+        lblOngoing.TextColor = Color.FromArgb("#000000");
     }
 
     private void btnStart_Clicked(object sender, EventArgs e)

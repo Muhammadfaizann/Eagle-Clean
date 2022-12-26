@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Custodian"
     xmlns:pages="clr-namespace:Custodian.Pages"
-    BackgroundColor="Transparent"
+    BackgroundColor="{StaticResource GradientStyle}"
     Shell.TabBarIsVisible="False">
-   
+
     <Shell.FlyoutHeader>
         <StackLayout HeightRequest="200" Background="{StaticResource GradientStyle}">
             <Image Source="flyout_header.png" BackgroundColor="Transparent" HeightRequest="200" WidthRequest="200" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit"/>
