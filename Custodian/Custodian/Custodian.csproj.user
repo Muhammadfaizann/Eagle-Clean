@@ -24,10 +24,16 @@
     <MauiXaml Update="Pages\AddPicturesPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Pages\WorkOrderPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Pages\WorkOrdersListPage.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Popups\EndRoutePopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="SplashScreen.xaml">
+    <MauiXaml Update="Screens\SplashScreen.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

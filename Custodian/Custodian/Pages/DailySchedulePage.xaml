@@ -9,7 +9,6 @@
                 <Setter Property="HasShadow" Value="False"></Setter>
             </Style>
             <Style x:Key="SegmentedButtonUnclicked" TargetType="Frame">
-
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>

@@ -1,4 +1,4 @@
-﻿using Custodian.Pages;
+﻿using Custodian.Screens;
 
 namespace Custodian;
 
@@ -13,7 +13,7 @@ public partial class App : Application
 	private async Task InitializeApp()
 	{
             MainPage = new SplashScreen();
-            await Task.Delay(11500);
+            await Task.Delay(12000);
             MainPage = new AppShell();
     }
 }

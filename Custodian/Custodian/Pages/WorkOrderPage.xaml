@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             x:Class="Custodian.Pages.WorkOrderPage"
+             Title="Work Order">
+    <ContentPage.Content>
+        <Grid Margin="20" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="200" />
+                   
+
+
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                          Grid.Column="0"  
+                          Text="WO#1 - Cutting Grass"
+                          FontSize="20" 
+                          FontAttributes="Bold"
+                          TextColor="{StaticResource Black}"
+                          VerticalOptions="Start" 
+                          HorizontalOptions="Start" />
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="0,20,0,0"  ColumnDefinitions="*,*" VerticalOptions="Center" >
+                <Grid Grid.Column="0" RowDefinitions="*,2,*" >
+                    <HorizontalStackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
+                        <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
+                            <Label Text="Planned Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
+                            <Label Text="2 : 30" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                        </StackLayout>
+                    </HorizontalStackLayout>
+                    <Frame Grid.Row="1"  BackgroundColor="{StaticResource Gray100}" ></Frame>
+                    <HorizontalStackLayout Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
+                        <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
+                            <Label Text="Actual Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
+                            <Label Text="_ _ _ _ _ " HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                        </StackLayout>
+                    </HorizontalStackLayout>
+                </Grid>
+                <progressBar:SfCircularProgressBar 
+                                           x:Name="timer"
+                                           Grid.Column="1" 
+                                           Progress="100" 
+                                           VerticalOptions="CenterAndExpand"            
+                                           HorizontalOptions="CenterAndExpand"            
+                                           TrackThickness="15"
+                                           TrackFill="{StaticResource White}" 
+                                           ProgressFill="{StaticResource CustodianppProgressBlue}"
+                                           ProgressThickness="15" >
+                    <progressBar:SfCircularProgressBar.Content>
+
+                        <Label 
+                                     x:Name="lblTime"
+                                     IsVisible="false"
+                                     Style="{StaticResource BlackHeadingLabel}"
+                                     HorizontalTextAlignment="Center" 
+                                     VerticalTextAlignment="Center">
+                        </Label>
+
+                    </progressBar:SfCircularProgressBar.Content>
+                </progressBar:SfCircularProgressBar>
+            </Grid>
+            </Grid>
+
+            <Button x:Name="btnEndRoute" Grid.Row="2" Margin="0,10,0,10" Text="Start Timer"  VerticalOptions="End" Clicked="btnStartTimer_Clicked"></Button>
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

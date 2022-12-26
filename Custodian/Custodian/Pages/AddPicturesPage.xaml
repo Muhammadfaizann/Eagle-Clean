@@ -11,31 +11,19 @@
                 <RowDefinition Height="*" />
 
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" >
+            <Grid Grid.Row="0"  >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <StackLayout Orientation="Vertical" Grid.Column="0">
-                    <Label 
-                        Style="{StaticResource BlueHeadingLabel}"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Start" >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span  Text="Logged in as," TextColor="Black" Style="{StaticResource BlueHeadingLabel}"></Span>
-                                <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" Style="{StaticResource BlueHeadingLabel}"></Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Label 
+                <Label 
+                          Grid.Column="0"  
                           Text="Anytown PO - Route 001"
-                          FontSize="24" 
+                          FontSize="20" 
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"
-                          VerticalOptions="Center" 
+                          VerticalOptions="Start" 
                           HorizontalOptions="Start" />
-                </StackLayout>
                 <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
             </Grid>
 
