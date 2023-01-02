@@ -26,12 +26,13 @@ public static class MauiProgram
 				handlers.AddHandler(typeof(Shell), typeof(CustomShellRenderer));
 			#endif
             })
+            .UseMauiMaps()
             .ConfigureFonts(fonts =>
 			{
 			fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 			fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			fonts.AddFont("HelveticaNowDisplay.ttf", "Helvetica-fonts");
-
+			
             });
 
 		return builder.Build();

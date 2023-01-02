@@ -54,6 +54,7 @@
 	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
 	  <None Remove="Resources\Images\delete_button.svg" />
+	  <None Remove="Resources\Images\document_icon.svg" />
 	  <None Remove="Resources\Images\frame1.png" />
 	  <None Remove="Resources\Images\frame10.png" />
 	  <None Remove="Resources\Images\frame11.png" />
@@ -146,7 +147,10 @@
 	  <None Remove="Resources\Images\frame90.png" />
 	  <None Remove="Resources\Images\green_tick.svg" />
 	  <None Remove="Resources\Images\grey_tick.svg" />
+	  <None Remove="Resources\Images\hazard_icon.svg" />
+	  <None Remove="Resources\Images\Map.png" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
+	  <None Remove="Resources\Images\play_button_icon.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
 	
@@ -155,7 +159,6 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="ViewModels\" />
 	  <Folder Include="Views\" />
 	</ItemGroup>
 	
@@ -165,17 +168,33 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.52" />
 	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.38" />
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Compile Update="Pages\WorkOrdersListPage.xaml.cs">
-	    <DependentUpon>WorkOrdersListPage.xaml</DependentUpon>
+	  <Compile Update="Pages\WorkOrderListPage.xaml.cs">
+	    <DependentUpon>WorkOrderListPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	
 	<ItemGroup>
 	  <MauiXaml Update="Pages\ActiveCleaningRoutePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ActiveRoutePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\AdhocWorkPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CTCJobAidsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CTCMonthlyTraining.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\CTCTrainingVideo.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\DailySchedulePage.xaml">
@@ -187,10 +206,19 @@
 	  <MauiXaml Update="Pages\AddPicturesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\MapNavigationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\TravelPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ViewSDSSheetPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\WorkOrderPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\WorkOrdersListPage.xaml">
+	  <MauiXaml Update="Pages\WorkOrderListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\EndRoutePopup.xaml">

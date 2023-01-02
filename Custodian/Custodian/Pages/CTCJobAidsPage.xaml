@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Custodian.Pages.CTCJobAidsPage"
+             Title="CTC Job Aids">
+    <ContentPage.Content>
+        <Grid Margin="20" RowDefinitions="auto,auto,*">
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Column="0">
+                    <Label 
+                         VerticalOptions="Center"
+                         HorizontalOptions="Start"
+                          >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span  
+                                    Text="Logged in as," 
+                                    TextColor="Black" 
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"></Span>
+                                <Span Text=" John" 
+                                      TextColor="{StaticResource CustodianHeadingBlue}"
+                                      FontSize="Medium"
+                                      FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+
+                </VerticalStackLayout>
+                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+            </Grid>
+            <Frame  Grid.Row="1" CornerRadius="10" BackgroundColor="{StaticResource Gray100}" Padding="0,0,0,-5" Margin="0,15">
+                <SearchBar  Placeholder="Search" PlaceholderColor="{StaticResource Gray600}" >
+
+                </SearchBar>
+            </Frame>
+            <CollectionView Grid.Row="2" x:Name="collection">
+                <CollectionView.Header>
+                    <Label   Text="Title/Subject" 
+                                                    FontSize="Medium"
+                                                    TextColor="{StaticResource CustodianHeadingBlue}"
+                                                    VerticalOptions="Center" 
+                                                    FontAttributes="Bold"
+                                                    HorizontalOptions="Start" ></Label>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Margin="0,10">
+                            <Image Source="document_icon.png" VerticalOptions="Start">
+                            
+                        </Image>
+                        <Label Margin="10,0" Text="{Binding .}"></Label>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

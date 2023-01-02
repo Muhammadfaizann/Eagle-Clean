@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="Custodian.Pages.MapNavigationPage"
+             Title="Travel">
+    <ContentPage.Content>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+
+            <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <VerticalStackLayout Grid.Column="0">
+                <Label 
+                         VerticalOptions="Center"
+                         HorizontalOptions="Start"
+                          >
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  
+                                    Text="Logged in as," 
+                                    TextColor="Black" 
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"></Span>
+                            <Span Text=" John" 
+                                      TextColor="{StaticResource CustodianHeadingBlue}"
+                                      FontSize="Medium"
+                                      FontAttributes="Bold"></Span>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label  
+                          Text="Anytown PO - Route 001"
+                          FontSize="20" 
+                          FontAttributes="Bold"
+                          TextColor="{StaticResource Black}"
+                          VerticalOptions="Start" 
+                          HorizontalOptions="Start" />
+            </VerticalStackLayout>
+            <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+        </Grid>
+            <HorizontalStackLayout Grid.Row="1" Margin="0,15" Spacing="15">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Estimate Time :" 
+                                            FontSize="Medium"
+                                            VerticalOptions="Center" 
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start" ></Label>
+                    <Label Text="Distance :" 
+                                            FontSize="Medium"
+                                            VerticalOptions="Center" 
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="Start" ></Label>
+                    
+                </VerticalStackLayout>
+                <VerticalStackLayout Spacing="13">
+                    <Label Text="14 Minutes" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
+                    <Label Text="1.5 Miles" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <Image Source="map.png" Grid.Row="2" x:Name="map" />
+        </Grid>
+        </ContentPage.Content>
+</ContentPage>

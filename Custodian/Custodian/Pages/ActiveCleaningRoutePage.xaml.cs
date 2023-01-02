@@ -5,10 +5,11 @@ namespace Custodian.Pages;
 
 public partial class ActiveCleaningRoutePage : ContentPage
 {
-	public ActiveCleaningRoutePage()
+	public ActiveCleaningRoutePage(string route)
 	{
 		InitializeComponent();
-        cleaningPlan.ItemsSource = new object[] { "", "" , "" , "" };
+        routeTitle.Text = route;
+        cleaningPlan.ItemsSource = new object[] { "Mop Floor 2 - 20 Minutes", "Restock - 25 Minutes", "Clean Furniture - 20 Minutes" };
     }
 
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

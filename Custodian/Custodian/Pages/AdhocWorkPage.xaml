@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             x:Class="Custodian.Pages.AdhocWorkPage"
+             Title="Ad-Hoc Work">
+    <ContentPage.Content>
+        <Grid Margin="20" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+
+
+
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
+                        Grid.Column="0"
+                         VerticalOptions="Center"
+                         HorizontalOptions="Start"
+                          >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span  
+                                    Text="Logged in as," 
+                                    TextColor="Black" 
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"></Span>
+                                <Span Text=" John" 
+                                      TextColor="{StaticResource CustodianHeadingBlue}"
+                                      FontSize="Medium"
+                                      FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+
+              
+                    <progressBar:SfCircularProgressBar 
+                                           x:Name="timer"
+                                           Grid.Row="1"
+                                           Margin="20"
+                                           Progress="100" 
+                                           VerticalOptions="CenterAndExpand"            
+                                           HorizontalOptions="CenterAndExpand"            
+                                           TrackThickness="15"
+                                           TrackFill="{StaticResource White}" 
+                                           ProgressFill="{StaticResource CustodianppProgressBlue}"
+                                           ProgressThickness="15" >
+                        <progressBar:SfCircularProgressBar.Content>
+
+                            <Label 
+                                     x:Name="lblTime"
+                                     IsVisible="false"
+                                     Style="{StaticResource BlackHeadingLabel}"
+                                     HorizontalTextAlignment="Center" 
+                                     VerticalTextAlignment="Center">
+                            </Label>
+
+                        </progressBar:SfCircularProgressBar.Content>
+                    </progressBar:SfCircularProgressBar>
+                </Grid>
+
+
+            <Button x:Name="btnEndRoute" Grid.Row="2" Margin="0,10,0,10" Text="Start Timer"  VerticalOptions="End" Clicked="btnStartTimer_Clicked"></Button>
+        </Grid>
+
+
+    </ContentPage.Content>
+</ContentPage>

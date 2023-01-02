@@ -5,8 +5,8 @@ public partial class DailySchedulePage : ContentPage
 	public DailySchedulePage()
 	{
 		InitializeComponent();
-        ongoingAssigments.ItemsSource = new object[] { "", "", "", "", "" };
-        completedAssigments.ItemsSource = new object[] { "", "", "", "", "" };
+        ongoingAssigments.ItemsSource = new object[] { "Anytown PO - Route 006", "Anytown PO - Route 007", "Anytown PO - Route 008", "Anytown PO - Route 009" };
+        completedAssigments.ItemsSource = new object[] { "Anytown PO - Route 001", "Anytown PO - Route 002", "Anytown PO - Route 003", "Anytown PO - Route 004", "Anytown PO - Route 005" };
     }
     void btnOngoing_Clicked(System.Object sender, System.EventArgs e)
     {
@@ -27,8 +27,5 @@ public partial class DailySchedulePage : ContentPage
         lblOngoing.TextColor = Color.FromArgb("#000000");
     }
 
-    private void btnStart_Clicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new ActiveCleaningRoutePage());
-    }
+   
 }

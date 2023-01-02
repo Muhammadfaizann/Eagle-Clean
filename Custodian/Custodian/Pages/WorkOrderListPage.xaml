@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Custodian.Pages.WorkOrderListPage"
+             Title="Work Order List">
+    <ContentPage.Content>
+        <Grid Margin="20" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Column="0">
+                    <Label 
+                        Style="{StaticResource BlueHeadingLabel}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start" >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span  Text="Logged in as," TextColor="Black" Style="{StaticResource BlueHeadingLabel}"></Span>
+                                <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" Style="{StaticResource BlueHeadingLabel}"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+            </Grid>
+           
+            <CollectionView x:Name="workOrderList" Grid.Row="1" Margin="0,20,0,0">
+                <CollectionView.Header>
+                    <StackLayout>
+                        <Label Text="Task Description"  Style="{StaticResource BlueHeadingLabel}" ></Label>
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,15,0,0" RowSpacing="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Grid.Column="0" Spacing="0">
+                                <Label Text="WO# 1" 
+                                        FontSize="Medium"
+                                        VerticalOptions="Center" 
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="Start" ></Label>
+                                <Label Text="Mowing - 26 times / year"  FontSize="16"></Label>
+                            </StackLayout>
+                            <Button Grid.Column="1" HorizontalOptions="End" VerticalOptions="Start" Text="Start" Clicked="btnStart_Clicked" FontSize="12" HeightRequest="40" WidthRequest="70"></Button>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="No Work Order"></Label>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+            
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
