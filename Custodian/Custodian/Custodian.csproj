@@ -49,7 +49,7 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\HelveticaNowDisplay.ttf" />
+	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
 	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
@@ -168,8 +168,9 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
 	  <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.52" />
-	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.38" />
+	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.41" />
 	</ItemGroup>
 	
 	<ItemGroup>

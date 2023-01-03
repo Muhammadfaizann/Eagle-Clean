@@ -7,8 +7,8 @@ public partial class HomePage : ContentPage
 		InitializeComponent();
 	}
 
-    private void StartWorkingClicked(object sender, EventArgs e)
+    private async void StartWorkingClicked(object sender, EventArgs e)
     {
-		Navigation.PushAsync(new DailySchedulePage());
+        await Shell.Current.GoToAsync(nameof(DailySchedulePage));
     }
 }

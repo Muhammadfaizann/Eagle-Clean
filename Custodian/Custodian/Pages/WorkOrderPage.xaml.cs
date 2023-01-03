@@ -1,16 +1,22 @@
 
 using Android.Content;
 using Android.Widget;
+using Custodian.Models;
 
 namespace Custodian.Pages;
 
-public partial class WorkOrderPage : ContentPage
+public partial class WorkOrderPage : ContentPage, IQueryAttributable
 {
     bool stopTimer= false;
 	public WorkOrderPage()
 	{
 		InitializeComponent();
 	}
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        Workorder obj = query["param"] as Workorder;
+        lblTitle.Text = obj.Title+ " - "+ obj.Subject;
+    }
 
     private void btnStartTimer_Clicked(object sender, EventArgs e)
     {

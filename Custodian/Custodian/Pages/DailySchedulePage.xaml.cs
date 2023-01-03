@@ -1,10 +1,13 @@
+using Custodian.ViewModels;
+
 namespace Custodian.Pages;
 
 public partial class DailySchedulePage : ContentPage
 {
-	public DailySchedulePage()
+	public DailySchedulePage(DailyScheduleViewModel vm)
 	{
 		InitializeComponent();
+        BindingContext= vm;
         ongoingAssigments.ItemsSource = new object[] { "Anytown PO - Route 006", "Anytown PO - Route 007", "Anytown PO - Route 008", "Anytown PO - Route 009" };
         completedAssigments.ItemsSource = new object[] { "Anytown PO - Route 001", "Anytown PO - Route 002", "Anytown PO - Route 003", "Anytown PO - Route 004", "Anytown PO - Route 005" };
     }

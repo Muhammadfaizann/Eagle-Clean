@@ -13,9 +13,6 @@
             </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ContentPage.BindingContext>
-        <viewModels:DailyScheduleViewModel/>
-    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -94,7 +91,7 @@
                                     HorizontalOptions="End" 
                                     VerticalOptions="Start" 
                                     Text="Start"  
-                                    Command="{Binding Path=BindingContext.StartCommand, Source={x:Reference Name=ongoingAssigments}}"  
+                                    Command="{Binding Path=BindingContext.NavigateCommand, Source={x:Reference Name=ongoingAssigments}}"  
                                     CommandParameter="{Binding .}" 
                                     FontSize="12" 
                                     HeightRequest="40" 
@@ -110,42 +107,39 @@
                 </StackLayout>
             </CollectionView.EmptyView>
         </CollectionView>
-        <CollectionView x:Name="completedAssigments" Grid.Row="2" IsVisible="false">
-            <CollectionView.Header>
-                <StackLayout>
-                    <Label Text="Assignment" Style="{StaticResource BlueHeadingLabel}" ></Label>
-                </StackLayout>
-            </CollectionView.Header>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,15,0,0" RowSpacing="15">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <StackLayout Grid.Column="0" Spacing="0">
+            <CollectionView x:Name="completedAssigments" Grid.Row="2" IsVisible="false">
+                <CollectionView.Header>
+                    <StackLayout>
+                        <Label Text="Assignment" Style="{StaticResource BlueHeadingLabel}" ></Label>
+                    </StackLayout>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,15,0,0" RowSpacing="15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackLayout Grid.Column="0" Spacing="0">
                                 <Label Text="{Binding .}" 
                                         FontSize="Medium"
                                         VerticalOptions="Center" 
                                         FontAttributes="Bold"
                                         HorizontalOptions="Start" ></Label>
-                            <Label Text="Clean Offices - Admin Hall" 
+                                <Label Text="Clean Offices - Admin Hall" 
                                        FontSize="Medium" ></Label>
-                            <Label Text="Planned Time - [2:35]"  FontSize="16"></Label>
-                        </StackLayout>
-                        <Label Grid.Column="1" Text="Actual Time [2:35] " VerticalOptions="Start" HorizontalOptions="End" HorizontalTextAlignment="Center" TextColor="{StaticResource CustodianHeadingBlue}"  FontAttributes="Bold" FontSize="Medium"></Label>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            <CollectionView.EmptyView>
-                <StackLayout>
-                    <Label Text="No Assignment"></Label>
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
-
-
-
-    </Grid>
+                                <Label Text="Planned Time - [2:35]"  FontSize="16"></Label>
+                            </StackLayout>
+                            <Label Grid.Column="1" Text="Actual Time [2:35] " VerticalOptions="Start" HorizontalOptions="End" HorizontalTextAlignment="Center" TextColor="{StaticResource CustodianHeadingBlue}"  FontAttributes="Bold" FontSize="Medium"></Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <StackLayout>
+                        <Label Text="No Assignment"></Label>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

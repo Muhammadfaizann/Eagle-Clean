@@ -8,8 +8,7 @@ public partial class CTCMonthlyTraining : ContentPage
 	public CTCMonthlyTraining()
 	{
 		InitializeComponent();
-		ObservableCollection<MonthlyTraining> monthlyTraining = new ObservableCollection<MonthlyTraining>();
-        
+		
 		collection.ItemsSource = new MonthlyTraining[]
 		{
 			new MonthlyTraining { Title = "CTC Recuring Session - July", Subject = "Recycle" },

@@ -1,9 +1,8 @@
-﻿#if ANDROID
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
+using Custodian.Pages;
 using Custodian.Platforms.Android.Renderers;
-#endif
+using Custodian.ViewModels;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
-using Microsoft.Maui.Hosting;
 using Syncfusion.Maui.Core.Hosting;
 
 namespace Custodian;
@@ -17,24 +16,23 @@ public static class MauiProgram
 			.UseMauiApp<App>()
 			.ConfigureSyncfusionCore()
             .UseMauiCompatibility()
-			#if ANDROID	
             .UseMauiCommunityToolkit()
-			#endif
 			.ConfigureMauiHandlers(handlers =>
 			{
-			#if ANDROID
 				handlers.AddHandler(typeof(Shell), typeof(CustomShellRenderer));
-			#endif
             })
             .UseMauiMaps()
             .ConfigureFonts(fonts =>
 			{
-			fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-			fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			fonts.AddFont("HelveticaNowDisplay.ttf", "Helvetica-fonts");
-			
+				fonts.AddFont("Helvetica-fonts.ttf", "Helvetica-fonts");
             });
+		builder.Services.AddSingleton<DailyScheduleViewModel>();
+        builder.Services.AddSingleton<WorkOrderListViewModel>();
 
-		return builder.Build();
+        builder.Services.AddSingleton<DailySchedulePage>();
+        builder.Services.AddSingleton<WorkOrderListPage>();
+
+
+        return builder.Build();
 	}
 }

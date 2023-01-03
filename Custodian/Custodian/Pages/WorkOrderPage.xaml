@@ -19,19 +19,25 @@
 
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0" >
+                    <Grid.RowDefinitions >
+                        <RowDefinition Height="50"></RowDefinition>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2.5*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    
                     <Label 
-                          Grid.Column="0"  
-                          Text="WO#1 - Cutting Grass"
+                          x:Name="lblTitle"
+                          Grid.Row="0"
+                          Grid.Column="0"
                           FontSize="20" 
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"
                           VerticalOptions="Start" 
                           HorizontalOptions="Start" />
-                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+
+                    <Image Grid.Row="0" Grid.Column="1" Source="bluedlogo.png" VerticalOptions="Start" HorizontalOptions="EndAndExpand" ></Image>
                 </Grid>
 
                 <Grid Grid.Row="1" Margin="0,20,0,0"  ColumnDefinitions="*,*" VerticalOptions="Center" >

@@ -3,15 +3,17 @@ using Custodian.Popups;
 
 namespace Custodian.Pages;
 
-public partial class ActiveCleaningRoutePage : ContentPage
+public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 {
-	public ActiveCleaningRoutePage(string route)
+	public ActiveCleaningRoutePage()
 	{
 		InitializeComponent();
-        routeTitle.Text = route;
         cleaningPlan.ItemsSource = new object[] { "Mop Floor 2 - 20 Minutes", "Restock - 25 Minutes", "Clean Furniture - 20 Minutes" };
     }
-
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        routeTitle.Text = query["param"].ToString();
+    }
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         var args = e as TappedEventArgs;
@@ -33,4 +35,6 @@ public partial class ActiveCleaningRoutePage : ContentPage
         var popup = new EndRoutePopup();
         this.ShowPopup(popup);
     }
+
+    
 }

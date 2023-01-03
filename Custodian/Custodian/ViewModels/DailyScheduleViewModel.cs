@@ -1,33 +1,23 @@
 ﻿using Custodian.Pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Microsoft.Maui.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Custodian.ViewModels
 {
-    public class DailyScheduleViewModel : BaseViewModel
+    public partial class DailyScheduleViewModel : ObservableObject
     {
-        #region Commands  
-        public ICommand StartCommand { get; private set; }
-        #endregion
+        [ObservableProperty]
+        string activeRoute;
 
-        public DailyScheduleViewModel()
+        [RelayCommand]
+        async Task Navigate(object arg)
         {
-            StartCommand = new Command<object>((object arg) =>
+            var navigationParameter = new Dictionary<string, object>
             {
-                try
-                {
-                    Shell.Current.Navigation.PushAsync(new ActiveCleaningRoutePage(arg as string));
-                }
-                catch (Exception ex)
-                {
-                   
-                }
-            });
+                { "param", arg }
+            };
+            await Shell.Current.GoToAsync(nameof(ActiveCleaningRoutePage), navigationParameter);
         }
     }
 }
