@@ -1,3 +1,4 @@
+using Custodian.Models;
 using Custodian.ViewModels;
 
 namespace Custodian.Pages;
@@ -8,8 +9,20 @@ public partial class DailySchedulePage : ContentPage
 	{
 		InitializeComponent();
         BindingContext= vm;
-        ongoingAssigments.ItemsSource = new object[] { "Anytown PO - Route 006", "Anytown PO - Route 007", "Anytown PO - Route 008", "Anytown PO - Route 009" };
-        completedAssigments.ItemsSource = new object[] { "Anytown PO - Route 001", "Anytown PO - Route 002", "Anytown PO - Route 003", "Anytown PO - Route 004", "Anytown PO - Route 005" };
+        ongoingAssigments.ItemsSource = new Assignment[]
+        {
+            new Assignment { Title = "Anytown PO - Route 006", IsStarted = false },
+            new Assignment { Title = "Anytown PO - Route 007", IsStarted = false },
+            new Assignment { Title = "Anytown PO - Route 008", IsStarted = true },
+            new Assignment { Title = "Anytown PO - Route 009" , IsStarted = false },
+        };
+        completedAssigments.ItemsSource = new CompletedAssignment[]
+        {
+            new CompletedAssignment { Title = "Anytown PO - Route 001", IsOverTime = true },
+            new CompletedAssignment { Title = "Anytown PO - Route 002", IsOverTime = false },
+            new CompletedAssignment { Title = "Anytown PO - Route 003", IsOverTime = false },
+            new CompletedAssignment { Title = "Anytown PO - Route 004" , IsOverTime = true },
+        };
     }
     void btnOngoing_Clicked(System.Object sender, System.EventArgs e)
     {

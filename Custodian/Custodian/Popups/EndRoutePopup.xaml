@@ -5,9 +5,11 @@
              x:Class="Custodian.Popups.EndRoutePopup"
              Color="Transparent"  
              >
-    <Frame BackgroundColor="White" Padding="25" HeightRequest="275" WidthRequest="300" CornerRadius="25">
+    
+    <Frame BackgroundColor="White" Padding="25" HeightRequest="310" WidthRequest="300" CornerRadius="25">
         <VerticalStackLayout>
-            <Label 
+            <Label
+                x:Name="lbl"
                 Text="End Route?"
                 FontSize="20"
                 FontAttributes="Bold"
@@ -47,18 +49,15 @@
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             </VerticalStackLayout>
-            <HorizontalStackLayout HorizontalOptions="EndAndExpand" Spacing="20">
-                <Label Text="Cancel" BackgroundColor="White"  FontSize="14" TextColor="{StaticResource CustodianHeadingBlue}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="cancel_Clicked"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
-                <Label Text="Partial" BackgroundColor="White"  FontSize="14" TextColor="{StaticResource CustodianHeadingBlue}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="partial_Clicked"></TapGestureRecognizer>
-                    </Label.GestureRecognizers>
-                </Label>
-            </HorizontalStackLayout>
+            <Grid HorizontalOptions="Center" ColumnSpacing="20" ColumnDefinitions="100,100">
+
+                <Button Grid.Column="0" Text="Cancel" BackgroundColor="White"  FontSize="14" Background="{x:StaticResource GreyGradient}" Clicked="cancel_Clicked" TextColor="{StaticResource White}">
+                 
+                </Button>
+                <Button Grid.Column="1" x:Name="lblButton" Text="Partial" BackgroundColor="White" Background="{x:StaticResource YellowGradient}" Clicked="partial_Clicked" FontSize="14" TextColor="{StaticResource White}">
+                    
+                </Button>
+            </Grid>
 
 
 

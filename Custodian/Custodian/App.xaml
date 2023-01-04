@@ -23,7 +23,14 @@
                         <Setter Property="FontSize" Value="22" />
                         <Setter Property="FontAttributes" Value="Bold"/>
                     </Style>
-                    
+                    <LinearGradientBrush
+                    x:Key="GreenGradient"
+                    EndPoint="1,0">
+                        <GradientStop Color="{StaticResource Green100Accent}"
+                          Offset="0.1" />
+                        <GradientStop Color="{StaticResource Green100Accent}"
+                          Offset="1.0" />
+                    </LinearGradientBrush>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

@@ -105,27 +105,27 @@
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" ></Label>
-                <Label Text="Time - [0:50]" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
+                <Label Text="1.2 Miles" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
             </Grid>
             <Frame Grid.Row="10"  BackgroundColor="{StaticResource Gray100}" ></Frame>
 
             <Grid Grid.Row="11" Margin="0,10" HorizontalOptions="FillAndExpand">
-                <Label   Text="Eastside Branch" 
+                <Label   Text="Northville PO" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" ></Label>
-                <Label Text="Time - [0:50]" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
+                <Label Text="2.2 Miles" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
             </Grid>
             <Frame Grid.Row="12"  BackgroundColor="{StaticResource Gray100}" ></Frame>
 
             <Grid Grid.Row="13" Margin="0,10" HorizontalOptions="FillAndExpand">
-                <Label   Text="Eastside Branch" 
+                <Label   Text="Central Station" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" ></Label>
-                <Label Text="Time - [0:50]" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
+                <Label Text="4.2 Miles" Opacity=".7" HorizontalOptions="End" FontSize="16"></Label>
             </Grid>
 
         </Grid>

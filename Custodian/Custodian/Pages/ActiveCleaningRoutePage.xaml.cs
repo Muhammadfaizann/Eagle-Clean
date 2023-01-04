@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Views;
+using Custodian.Models;
 using Custodian.Popups;
 
 namespace Custodian.Pages;
@@ -12,10 +13,12 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        routeTitle.Text = query["param"].ToString();
+        var obj = query["param"] as Assignment;
+        routeTitle.Text =obj.Title;
     }
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
+        
         var args = e as TappedEventArgs;
         var label = args.Parameter as Label;
         var image = sender as Image;
@@ -23,6 +26,8 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
         label.TextDecorations = TextDecorations.Strikethrough;
         label.Opacity = 0.5;
         btnEndRoute.IsVisible = true;
+        if (label.Text == "Clean Furniture - 20 Minutes")
+            btnEndRoute.Text = "Complete Route";
     }
 
     private void AddPictures_Clicked(object sender, EventArgs e)
@@ -32,8 +37,17 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 
     private void btnEndRoute_Clicked(object sender, EventArgs e)
     {
-        var popup = new EndRoutePopup();
-        this.ShowPopup(popup);
+
+        if (btnEndRoute.Text == "Complete Route")
+        {
+            var popup = new EndRoutePopup(true);
+            this.ShowPopup(popup);
+        }
+        else
+        {
+            var popup = new EndRoutePopup(false);
+            this.ShowPopup(popup);
+        }
     }
 
     
