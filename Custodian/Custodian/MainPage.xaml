@@ -5,6 +5,7 @@
     
     <StackLayout>
         <Label x:Name="text" Text="Welcome to main page" FontSize="Title" Padding="30,10,30,10"/>
+        <Button x:Name="btn" Text="Test Button" HorizontalOptions="Center"></Button>
     </StackLayout>
 
 </ContentPage>

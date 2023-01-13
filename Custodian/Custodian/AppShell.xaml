@@ -46,7 +46,7 @@
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
         <ShellContent Title="View Route Library"
                       ContentTemplate="{DataTemplate local:MainPage}"/>
-        <ShellContent Title="View CTC Training Video"
+        <ShellContent Title="View CTC Training Video" 
                       ContentTemplate="{DataTemplate pages:CTCTrainingVideo}"/>
         <ShellContent Title="View CTC Job Aids"
                       ContentTemplate="{DataTemplate pages:CTCJobAidsPage}"/>

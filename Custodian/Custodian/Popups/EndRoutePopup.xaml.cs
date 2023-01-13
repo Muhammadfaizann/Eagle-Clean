@@ -1,5 +1,5 @@
 using CommunityToolkit.Maui.Views;
-using System.Reflection;
+using System.Reflection;           
 using System.Runtime.CompilerServices;
 
 namespace Custodian.Popups;
@@ -23,6 +23,6 @@ public partial class EndRoutePopup : Popup
     private void partial_Clicked(object sender, EventArgs e)
     {
         Close();
-    }
+    } 
     
 }

@@ -47,7 +47,7 @@
 
               
                     <progressBar:SfCircularProgressBar 
-                                           x:Name="timer"
+                                           x:Name="timerProgressBar"
                                            Grid.Row="1"
                                            Margin="20"
                                            Progress="100" 

@@ -1,5 +1,6 @@
 
 using Android.Content;
+using Android.OS;
 using Android.Widget;
 using Custodian.Models;
 
@@ -7,11 +8,11 @@ namespace Custodian.Pages;
 
 public partial class WorkOrderPage : ContentPage, IQueryAttributable
 {
-    bool stopTimer= false;
-	public WorkOrderPage()
+    IDispatcherTimer timer;
+    public WorkOrderPage()
 	{
 		InitializeComponent();
-	}
+    }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         Workorder obj = query["param"] as Workorder;
@@ -27,26 +28,40 @@ public partial class WorkOrderPage : ContentPage, IQueryAttributable
             btnEndRoute.BackgroundColor = Color.FromArgb("#E71921");
             btnEndRoute.Background = Brush.Default;
             btnEndRoute.CornerRadius = 10;
-            Task task = StartTimerCountDownAsync();
+            StartTimerCountDown();
         }
         else
         {
-            stopTimer= true;
+            timer.Stop();
+            DateTime dateTime = DateTime.ParseExact(plannedTime.Text, "HH:mm:ss", null);
+            DateTime Timer = DateTime.ParseExact(lblTime.Text, "HH:mm:ss", null);
+            TimeSpan timeDifference = dateTime.Subtract(Timer);
+            DateTime dateTime1 = new DateTime() + timeDifference;
+            actualTime.Text = dateTime1.ToString("HH:mm:ss");
         }
+        
     }
 
-    private async Task StartTimerCountDownAsync()
+    private void StartTimerCountDown()
     {
-        lblTime.IsVisible= true;
-        for(int progress=100; progress >=0; progress--) 
+        
+        DateTime dateTime = DateTime.ParseExact(plannedTime.Text, "HH:mm:ss", null) ;
+        var seconds = dateTime.TimeOfDay.TotalSeconds;
+        var progressPerSec =  (1 / seconds )* 100;
+        timer = Dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(1);
+        lblTime.IsVisible = true;
+        timer.Tick += (s, e) =>
         {
-            if (stopTimer)
-                break;
-            await Task.Delay(1000);
-            lblTime.Text = progress.ToString();
-            timer.Progress = progress;
-           
-        }
+            lblTime.Dispatcher.Dispatch(() =>
+            {
+                lblTime.Text = dateTime.ToString("HH:mm:ss");
+                dateTime = dateTime.AddSeconds(-1);
+                timerProgressBar.Progress = timerProgressBar.Progress - progressPerSec;
+            });
+
+        };
+        timer.Start();
 
     }
 }

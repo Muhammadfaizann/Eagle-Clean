@@ -50,6 +50,7 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
+	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
 	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
@@ -149,6 +150,7 @@
 	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\hazard_icon.svg" />
 	  <None Remove="Resources\Images\Map.png" />
+	  <None Remove="Resources\Images\mapicon.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Images\play_button_icon.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
@@ -223,6 +225,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\EndRoutePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Screens\LoginScreen.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Screens\UserAgreementScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

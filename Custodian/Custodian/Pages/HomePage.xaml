@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
              x:Class="Custodian.Pages.HomePage">
+    
     <ContentPage.Content>
         <Grid Margin="20">
         <Grid.RowDefinitions>
@@ -17,15 +18,19 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0"
-                Text="Hello, John"
-                Style="{StaticResource BlueHeadingLabel}"     
-                VerticalOptions="Center" 
-                HorizontalOptions="Start" />
-                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-        </Grid>
-        <Label Grid.Row="1" Margin="0,20,0,0" Padding="0,20,0,0" Text="Your Progress"  Style="{StaticResource BlackHeadingLabel}" VerticalOptions="End" VerticalTextAlignment="Center" HorizontalOptions="Center"></Label>
-        <progressBar:SfCircularProgressBar Grid.Row="2" 
+                <Label Grid.Column="0"
+                    Text="Welcome, John"     
+                    Style="{StaticResource labelStyle}"
+                    HorizontalOptions="Start"
+                    TextColor="{x:StaticResource CustodianHeadingBlue}"/>
+                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
+            </Grid>
+            <Label Grid.Row="1" 
+               Margin="0,20,0,0" 
+               Padding="0,20,0,0" 
+               Text="Your Progress"  
+               Style="{StaticResource labelStyle}" />
+            <progressBar:SfCircularProgressBar Grid.Row="2" 
                                            Progress="25" 
                                            Margin="40,0,40,0"
                                            TrackThickness="30"
@@ -38,27 +43,27 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Label 
-                        Grid.Row="0" 
-                   Text="3 Tasks"
-                   Style="{StaticResource BlackHeadingLabel}"
-                   HorizontalTextAlignment="Center" 
-                   VerticalTextAlignment="End">
-                    </Label>
-                    <Label Grid.Row="1" 
-                   TextColor="{StaticResource CustodianppProgressBlue}" 
-                   Text="Remaining" 
-                   VerticalOptions="Start" 
-                   HorizontalTextAlignment="Center" 
-                   VerticalTextAlignment="Start">
-                    </Label>
-                </Grid>
+                        <Label 
+                            Grid.Row="0" 
+                            Text="3 Facilities"
+                            Style="{StaticResource labelStyle}"/>
+                        <Label Grid.Row="1"  
+                           Text="Remaining"
+                           Style="{x:StaticResource labelStyle}"
+                           TextColor="{x:StaticResource CustodianppProgressBlue}"
+                           FontSize="14"/>
+                    </Grid>
             </progressBar:SfCircularProgressBar.Content>
         </progressBar:SfCircularProgressBar>
         <VerticalStackLayout Grid.Row="3" Margin="0,0,0,30">
-            <Label Text="180" Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center"></Label>
-            <Label Text="Estimated Minutes" Style="{StaticResource BlackHeadingLabel}" FontAttributes="None" HorizontalOptions="Center"></Label>
-        </VerticalStackLayout>
+                <Label 
+                    Text="180" 
+                    Style="{StaticResource labelStyle}"/>
+                <Label 
+                    Text="Estimated Minutes" 
+                    Style="{StaticResource labelStyle}" 
+                    FontAttributes="None"/>
+            </VerticalStackLayout>
         <Button Grid.Row="4" Text="Start Working" VerticalOptions="End" Clicked="StartWorkingClicked"></Button>
     </Grid>
     </ContentPage.Content>

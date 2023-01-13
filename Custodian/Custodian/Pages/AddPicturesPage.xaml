@@ -62,9 +62,6 @@
             </CollectionView>
 
             <ImageButton Grid.Row="2" Source="camera_button.png" HeightRequest="70" WidthRequest="70" HorizontalOptions="End" VerticalOptions="End" CornerRadius="35" Clicked="CameraButton_Clicked" ></ImageButton>
-            
-
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

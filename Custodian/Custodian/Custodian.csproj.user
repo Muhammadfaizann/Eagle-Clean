@@ -6,7 +6,7 @@
     <ActiveDebugProfile>Zebra Technologies TC77 (Android 8.1 - API 27)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>galaxy_nexus_-_api_30</DefaultDevice>
-    <SelectedDevice>Zebra Technologies TC77</SelectedDevice>
+    <SelectedDevice>galaxy_nexus_-_api_30</SelectedDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
@@ -57,7 +57,13 @@
     <MauiXaml Update="Popups\EndRoutePopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Screens\LoginScreen.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Screens\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
+    <MauiXaml Update="Screens\UserAgreementScreen.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>
