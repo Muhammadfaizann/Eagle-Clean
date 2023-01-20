@@ -3,15 +3,14 @@
     x:Class="Custodian.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Custodian"
     xmlns:pages="clr-namespace:Custodian.Pages"
-    BackgroundColor="#005F9D"
+    Shell.NavBarIsVisible="false"
     Shell.TabBarIsVisible="False">
 
     <Shell.FlyoutHeader>
-        <StackLayout HeightRequest="200" Background="{StaticResource GradientStyle}">
+        <VerticalStackLayout HeightRequest="200" Background="{StaticResource GradientStyle}">
             <Image Source="flyout_header.png" BackgroundColor="Transparent" HeightRequest="200" WidthRequest="200" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Aspect="AspectFit"/>
-        </StackLayout>
+        </VerticalStackLayout>
     </Shell.FlyoutHeader>
     <Shell.ItemTemplate>
         <DataTemplate>
@@ -36,8 +35,6 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home"
                       ContentTemplate="{DataTemplate pages:HomePage}"/>
-        <ShellContent Title="Work Orders"
-                      ContentTemplate="{DataTemplate pages:WorkOrderListPage}"/>
         <ShellContent Title="View Active Route"
                       ContentTemplate="{DataTemplate pages:ActiveRoutePage}"/>
         <ShellContent Title="Travel"
@@ -45,16 +42,14 @@
         <ShellContent Title="Ad-hoc Work"
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
         <ShellContent Title="View Route Library"
-                      ContentTemplate="{DataTemplate local:MainPage}"/>
-        <ShellContent Title="View CTC Training Video" 
-                      ContentTemplate="{DataTemplate pages:CTCTrainingVideo}"/>
-        <ShellContent Title="View CTC Job Aids"
-                      ContentTemplate="{DataTemplate pages:CTCJobAidsPage}"/>
-        <ShellContent Title="View CTC Monthly Video"
-                      ContentTemplate="{DataTemplate pages:CTCMonthlyTraining}"/>
+                      ContentTemplate="{DataTemplate pages:ViewRouteLibrary}"/>
+        <ShellContent Title="Training" 
+                      ContentTemplate="{DataTemplate pages:Training}"/>
         <ShellContent Title="View SDS Sheet"
                       ContentTemplate="{DataTemplate pages:ViewSDSSheetPage}"/>
+        <ShellContent Title="Diagnostic Menu"
+                      ContentTemplate="{DataTemplate pages:DiagnosticMenuPage}"/>
         <ShellContent Title="Logout"
-                      ContentTemplate="{DataTemplate local:MainPage}"/>
+                       ContentTemplate="{DataTemplate pages:Logout}"/>
     </FlyoutItem>
 </Shell>

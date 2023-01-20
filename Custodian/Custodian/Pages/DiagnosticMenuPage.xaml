@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+             x:Class="Custodian.Pages.DiagnosticMenuPage"
+             Title="DiagnosticMenuPage">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Diagnostic Menu" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0" Spacing="5">
+                        <Label HorizontalOptions="Start">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span  Text="Logged in as," TextColor="Black" FontSize="14" FontAttributes="Bold"></Span>
+                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" FontSize="14" FontAttributes="Bold"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
+                </Grid>
+                <VerticalStackLayout Margin="0,20,0,0" Grid.Row="1" Spacing="10">
+                    <Button Text="Test Scanner"></Button>
+                    <Button Text="Test Buzzer"></Button>
+                    <Button Text="Test Keyboard"></Button>
+                    <Button Text="Test Communication"></Button>
+                    <Button Text="Power Status"></Button>
+                    <Button Text="Test Imager"></Button>
+                    <Button Text="Test Printing"></Button>
+                    <Button Text="System Information"></Button>
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

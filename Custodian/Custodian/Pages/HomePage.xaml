@@ -2,69 +2,98 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
              x:Class="Custodian.Pages.HomePage">
     
     <ContentPage.Content>
-        <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"
-                    Text="Welcome, John"     
-                    Style="{StaticResource labelStyle}"
-                    HorizontalOptions="Start"
-                    TextColor="{x:StaticResource CustodianHeadingBlue}"/>
-                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Home" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
             </Grid>
-            <Label Grid.Row="1" 
-               Margin="0,20,0,0" 
-               Padding="0,20,0,0" 
-               Text="Your Progress"  
-               Style="{StaticResource labelStyle}" />
-            <progressBar:SfCircularProgressBar Grid.Row="2" 
-                                           Progress="25" 
-                                           Margin="40,0,40,0"
-                                           TrackThickness="30"
-                                           TrackFill="{StaticResource CustodianProgressRed}" 
-                                           ProgressFill="{StaticResource CustodianppProgressBlue}"
-                                           ProgressThickness="30" >
-            <progressBar:SfCircularProgressBar.Content>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                        <Label 
-                            Grid.Row="0" 
-                            Text="3 Facilities"
-                            Style="{StaticResource labelStyle}"/>
-                        <Label Grid.Row="1"  
-                           Text="Remaining"
-                           Style="{x:StaticResource labelStyle}"
-                           TextColor="{x:StaticResource CustodianppProgressBlue}"
-                           FontSize="14"/>
-                    </Grid>
-            </progressBar:SfCircularProgressBar.Content>
-        </progressBar:SfCircularProgressBar>
-        <VerticalStackLayout Grid.Row="3" Margin="0,0,0,30">
-                <Label 
-                    Text="180" 
-                    Style="{StaticResource labelStyle}"/>
-                <Label 
-                    Text="Estimated Minutes" 
-                    Style="{StaticResource labelStyle}" 
-                    FontAttributes="None"/>
-            </VerticalStackLayout>
-        <Button Grid.Row="4" Text="Start Working" VerticalOptions="End" Clicked="StartWorkingClicked"></Button>
-    </Grid>
+            <Grid Grid.Row="2" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                        Text="Welcome, John"     
+                        Style="{StaticResource labelStyle}"
+                        HorizontalOptions="Start"
+                        TextColor="{x:StaticResource CustodianHeadingBlue}"/>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
+                </Grid>
+                <Label Grid.Row="1" 
+                   Margin="0,20,0,0" 
+                   Padding="0,20,0,0" 
+                   Text="Your Progress"  
+                   Style="{StaticResource labelStyle}" />
+                <progressBar:SfCircularProgressBar Grid.Row="2" 
+                                               Progress="25" 
+                                               Margin="40,0,40,0"
+                                               TrackThickness="30"
+                                               TrackFill="{StaticResource CustodianProgressRed}" 
+                                               ProgressFill="{StaticResource CustodianppProgressBlue}"
+                                               ProgressThickness="30" >
+                <progressBar:SfCircularProgressBar.Content>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                            <Label 
+                                Grid.Row="0" 
+                                Text="3 Facilities"
+                                Style="{StaticResource labelStyle}"/>
+                            <Label Grid.Row="1"  
+                               Text="Remaining"
+                               Style="{x:StaticResource labelStyle}"
+                               TextColor="{x:StaticResource CustodianppProgressBlue}"
+                               FontSize="14"/>
+                        </Grid>
+                </progressBar:SfCircularProgressBar.Content>
+            </progressBar:SfCircularProgressBar>
+            <VerticalStackLayout Grid.Row="3" Margin="0,0,0,30">
+                    <Label 
+                        Text="180" 
+                        Style="{StaticResource labelStyle}"/>
+                    <Label 
+                        Text="Estimated Minutes" 
+                        Style="{StaticResource labelStyle}" 
+                        FontAttributes="None"/>
+                </VerticalStackLayout>
+                <Button Grid.Row="4" Text="Start Working" VerticalOptions="End" Clicked="StartWorkingClicked"></Button>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

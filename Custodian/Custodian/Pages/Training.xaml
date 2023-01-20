@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+             x:Class="Custodian.Pages.Training"
+             Title="Training">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Training" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

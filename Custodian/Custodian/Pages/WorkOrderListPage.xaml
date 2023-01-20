@@ -2,63 +2,91 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Custodian.Pages.WorkOrderListPage"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
              xmlns:viewModels="clr-namespace:Custodian.ViewModels"
              Title="Work Order List">
     
     <ContentPage.Content>
-        <Grid Margin="20" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <VerticalStackLayout Grid.Column="0">
-                    <Label 
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Work Order List" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label 
                         Style="{StaticResource BlueHeadingLabel}"
                         VerticalOptions="Center" 
                         HorizontalOptions="Start" >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span  Text="Logged in as," TextColor="Black" Style="{StaticResource BlueHeadingLabel}"></Span>
-                                <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" Style="{StaticResource BlueHeadingLabel}"></Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                </VerticalStackLayout>
-                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-            </Grid>
-           
-            <CollectionView x:Name="workOrderList" Grid.Row="1" Margin="0,20,0,0">
-                <CollectionView.Header>
-                    <StackLayout>
-                        <Label Text="Task Description"  Style="{StaticResource BlueHeadingLabel}" ></Label>
-                    </StackLayout>
-                </CollectionView.Header>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,15,0,0" RowSpacing="15">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <StackLayout Grid.Column="0" Spacing="0">
-                                <HorizontalStackLayout Spacing="10">
-                                    <Label Text="{Binding Title}" 
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span  Text="Logged in as," TextColor="Black" Style="{StaticResource BlueHeadingLabel}"></Span>
+                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" Style="{StaticResource BlueHeadingLabel}"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+
+                <CollectionView x:Name="workOrderList" Grid.Row="1" Margin="0,20,0,0">
+                    <CollectionView.Header>
+                        <StackLayout>
+                            <Label Text="Task Description"  Style="{StaticResource BlueHeadingLabel}" ></Label>
+                        </StackLayout>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,15,0,0" RowSpacing="15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Column="0" Spacing="0">
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Label Text="{Binding Title}" 
                                         FontSize="Medium"
                                         VerticalOptions="Center" 
                                         FontAttributes="Bold"
                                         HorizontalOptions="Start" />
-                                    <Frame BackgroundColor="{x:StaticResource Yellow200Accent}" CornerRadius="5">
-                                        <Label Text="4776-P" FontSize="12" Margin="5" VerticalOptions="Center"></Label>
-                                    </Frame>
-                                </HorizontalStackLayout>
-                                <Label Text="{Binding Subject}"   FontSize="16"></Label>
-                            </StackLayout>
-                            <Button 
+                                        <Frame BackgroundColor="{x:StaticResource Yellow200Accent}" CornerRadius="5">
+                                            <Label Text="4776-P" FontSize="12" Margin="5" VerticalOptions="Center"></Label>
+                                        </Frame>
+                                    </HorizontalStackLayout>
+                                    <Label Text="{Binding Subject}"   FontSize="16"></Label>
+                                </StackLayout>
+                                <Button 
                                 Grid.Column="1" 
                                 HorizontalOptions="End"
                                 VerticalOptions="Start" Text="Start" CornerRadius="5"
@@ -66,19 +94,20 @@
                                 CommandParameter="{Binding .}" 
                                 FontSize="10" HeightRequest="30" >
 
-                            </Button>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <StackLayout>
-                        <Label Text="No Work Order"></Label>
-                    </StackLayout>
-                </CollectionView.EmptyView>
-            </CollectionView>
-            
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout>
+                            <Label Text="No Work Order"></Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
 
 
+
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

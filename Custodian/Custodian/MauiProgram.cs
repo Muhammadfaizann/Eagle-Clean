@@ -26,6 +26,7 @@ public static class MauiProgram
             .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("Helvetica-fonts.ttf", "Helvetica-fonts");
+                fonts.AddFont("FontAwesome.otf", "Awesome-fonts");
             });
 		builder.Services.AddSingleton<DailyScheduleViewModel>();
         builder.Services.AddSingleton<WorkOrderListViewModel>();

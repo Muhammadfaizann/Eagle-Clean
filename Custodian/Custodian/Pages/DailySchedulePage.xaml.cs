@@ -52,5 +52,8 @@ public partial class DailySchedulePage : ContentPage
         lblOngoing.TextColor = Color.FromArgb("#000000");
     }*/
 
-   
+    private void NavigateBack(object sender, TappedEventArgs e)
+    {
+        Navigation.PopAsync();
+    }
 }

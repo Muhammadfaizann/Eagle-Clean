@@ -48,9 +48,15 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+	
 	<ItemGroup>
+	  <Compile Remove="Resources\Fonts\fontAwesomeIcons.cs" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\FontAwesome.otf" />
 	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
 	  <None Remove="Resources\Images\arrow.svg" />
+	  <None Remove="Resources\Images\battery.svg" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
 	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
@@ -149,10 +155,12 @@
 	  <None Remove="Resources\Images\green_tick.svg" />
 	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\hazard_icon.svg" />
+	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\Map.png" />
 	  <None Remove="Resources\Images\mapicon.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Images\play_button_icon.svg" />
+	  <None Remove="Resources\Images\wifi.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
 	
@@ -162,6 +170,10 @@
 	
 	<ItemGroup>
 	  <Folder Include="Views\" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <MauiFont Include="FontAwesomeIcon\FontAwesomeIcons.cs" />
 	</ItemGroup>
 	
 	
@@ -203,16 +215,28 @@
 	  <MauiXaml Update="Pages\DailySchedulePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\DiagnosticMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\AddPicturesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Logout.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\MapNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Training.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\TravelPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ViewRouteLibrary.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ViewSDSSheetPage.xaml">
