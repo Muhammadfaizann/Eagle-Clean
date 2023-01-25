@@ -9,11 +9,13 @@
     <Color x:Key="CustodianppProgressBlue">#224BA9</Color>
     <Color x:Key="CustodianHeadingBlue">#005F9D</Color>
     <Color x:Key="CustodianProgressRed">#F44336</Color>
+    <Color x:Key="CustodianBlue">#007BFF</Color>
     <Color x:Key="Primary">#4169E1</Color>
     <Color x:Key="Secondary">#00296B</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
+    <Color x:Key="Gray000">#F1F2F3</Color>
     <Color x:Key="Gray100">#EAEAEA</Color>
     <Color x:Key="Gray200">#C8C8C8</Color>
     <Color x:Key="Gray300">#ACACAC</Color>

@@ -22,6 +22,7 @@
 
     <Style TargetType="Label">
         <Setter Property="FontFamily" Value="Helvetica-fonts"/>
+        <Setter Property="TextColor" Value="Black"/>
     </Style>
 
     <Style TargetType="ListView">

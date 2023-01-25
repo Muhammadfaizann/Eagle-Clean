@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
              x:Class="Custodian.Pages.AddPicturesPage"
              Title="Add Pictures">
     <ContentPage.Content>
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Add Pictures" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
 
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"  >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.5*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label 
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"  >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label 
                           Grid.Column="0"  
                           Text="Anytown PO - Route 001"
                           FontSize="20" 
@@ -24,44 +51,45 @@
                           TextColor="{StaticResource Black}"
                           VerticalOptions="Start" 
                           HorizontalOptions="Start" />
-                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-            </Grid>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
 
-            <CollectionView x:Name="pictures" Grid.Row="1" FlowDirection="LeftToRight" Margin="-10,20,0,0">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical"
+                <CollectionView x:Name="pictures" Grid.Row="1" FlowDirection="LeftToRight" Margin="-10,20,0,0">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical"
                         Span="3" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="10,10,0,10" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Frame Grid.Row="0" HeightRequest="100" WidthRequest="100" CornerRadius="15" BorderColor="Transparent" HasShadow="False" Padding="0" Margin="0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
-                                <Grid >
-                                    <Image x:Name="picture" Margin="0" Grid.Column="0" Source="{Binding .}" Aspect="Fill" ></Image>
-                                    <Image Margin="5" Grid.Column="0" Source="delete_button.png" Aspect="Fill" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"  >
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="DeleteImage_Clicked" CommandParameter="{Binding Source={Reference picture}}">
-                                            </TapGestureRecognizer>
-                                        </Image.GestureRecognizers>
-                                    </Image> 
-                                </Grid>
-                            </Frame>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10,10,0,10" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Frame Grid.Row="0" HeightRequest="100" WidthRequest="100" CornerRadius="15" BorderColor="Transparent" HasShadow="False" Padding="0" Margin="0" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand">
+                                    <Grid >
+                                        <Image x:Name="picture" Margin="0" Grid.Column="0" Source="{Binding .}" Aspect="Fill" ></Image>
+                                        <Image Margin="5" Grid.Column="0" Source="delete_button.png" Aspect="Fill" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand"  >
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="DeleteImage_Clicked" CommandParameter="{Binding Source={Reference picture}}">
+                                                </TapGestureRecognizer>
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Grid>
+                                </Frame>
 
 
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <StackLayout Margin="10">
-                        <Label Text="No Pictures" TextColor="Red"></Label>
-                    </StackLayout>
-                </CollectionView.EmptyView>
-            </CollectionView>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout Margin="10">
+                            <Label Text="No Pictures" TextColor="Red"></Label>
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
 
-            <ImageButton Grid.Row="2" Source="camera_button.png" HeightRequest="70" WidthRequest="70" HorizontalOptions="End" VerticalOptions="End" CornerRadius="35" Clicked="CameraButton_Clicked" ></ImageButton>
+                <ImageButton Grid.Row="2" Source="camera_button.png" HeightRequest="70" WidthRequest="70" HorizontalOptions="End" VerticalOptions="End" CornerRadius="35" Clicked="CameraButton_Clicked" ></ImageButton>
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

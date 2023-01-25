@@ -17,8 +17,9 @@ public partial class CTCMonthlyTraining : ContentPage
 			new MonthlyTraining { Title = "CTC Recurring Session - April", Subject = "Utility Specialist" },
 			new MonthlyTraining { Title = "CTC Recurring Session - March", Subject = "Utility Specialist" },
 		};
-		
-		
-
+    }
+    private async void NavigateBack(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
     }
 }

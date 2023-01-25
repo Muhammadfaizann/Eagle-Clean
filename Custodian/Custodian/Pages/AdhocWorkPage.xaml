@@ -31,20 +31,18 @@
                         <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Grid.Column="1" Text="Work Order List" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+                <Label Grid.Column="1" Text="Ad-Hoc Work" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
             </Grid>
             <Grid Grid.Row="2" Margin="20" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" >
+                <Grid Grid.Row="0" RowSpacing="10" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                         <RowDefinition Height="*" />
-
-
-
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" >
                         <Grid.ColumnDefinitions>
@@ -72,11 +70,19 @@
                         </Label>
                         <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
                     </Grid>
-
+                    <Grid Grid.Row="1" RowDefinitions="auto,auto" RowSpacing="10">
+                        <Label Grid.Row="0" Text="Work Description" 
+                                TextColor="Black" 
+                                FontSize="20"
+                                FontAttributes="Bold"></Label>
+                        <Frame Grid.Row="1" BackgroundColor="{x:StaticResource Gray000}" HeightRequest="70" Padding="10,0,0,-10">
+                            <Editor Placeholder="Describe Your Work"></Editor>
+                        </Frame>
+                    </Grid>
 
                     <progressBar:SfCircularProgressBar 
                                            x:Name="timerProgressBar"
-                                           Grid.Row="1"
+                                           Grid.Row="2"
                                            Margin="20"
                                            Progress="100" 
                                            VerticalOptions="CenterAndExpand"            

@@ -2,30 +2,58 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
              x:Class="Custodian.Pages.ActiveCleaningRoutePage"
              Title="Active Cleaning Route">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="50"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="20,20,20,0">
-       
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="Active Cleaning Route" Grid.Column="1" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
+            </Grid>
+            <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="auto"/>
-
-
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0"  >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2.5*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
+                <Grid Grid.Row="0" Margin="20,20,20,0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto"/>
+
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"  >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.5*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
                           x:Name="routeTitle"
                           Grid.Column="0"  
                           Text="Anytown PO - Route 001"
@@ -34,28 +62,28 @@
                           TextColor="{StaticResource Black}"
                           VerticalOptions="Start" 
                           HorizontalOptions="Start" />
-                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-                </Grid>
-
-                <Grid Grid.Row="1" Margin="0,20,0,10" ColumnDefinitions="*,*"   >
-                    <Grid Grid.Column="0" RowDefinitions="*,2,*" >
-                        <HorizontalStackLayout Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Center">
-                            <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
-                            <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
-                                <Label Text="Planned Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
-                                <Label Text="2 : 30" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
-                            </StackLayout>
-                        </HorizontalStackLayout>
-                        <Frame Grid.Row="1"  BackgroundColor="{StaticResource Gray100}" ></Frame>
-                        <HorizontalStackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
-                            <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
-                            <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
-                                <Label Text="Actual Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
-                                <Label Text="2 : 30" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
-                            </StackLayout>
-                        </HorizontalStackLayout>
+                        <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
                     </Grid>
-                    <progressBar:SfCircularProgressBar Grid.Column="1" 
+
+                    <Grid Grid.Row="1" Margin="0,20,0,10" ColumnDefinitions="*,*"   >
+                        <Grid Grid.Column="0" RowDefinitions="*,2,*" >
+                            <HorizontalStackLayout Grid.Row="0" VerticalOptions="Start" HorizontalOptions="Center">
+                                <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
+                                <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
+                                    <Label Text="Planned Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
+                                    <Label Text="2 : 30" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </HorizontalStackLayout>
+                            <Frame Grid.Row="1"  BackgroundColor="{StaticResource Gray100}" ></Frame>
+                            <HorizontalStackLayout Grid.Row="2" VerticalOptions="End" HorizontalOptions="Center">
+                                <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
+                                <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
+                                    <Label Text="Actual Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
+                                    <Label Text="2 : 30" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                                </StackLayout>
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <progressBar:SfCircularProgressBar Grid.Column="1" 
                                            Progress="60" 
                                            VerticalOptions="CenterAndExpand"            
                                            HorizontalOptions="CenterAndExpand"            
@@ -63,8 +91,8 @@
                                            TrackFill="{StaticResource White}" 
                                            ProgressFill="{StaticResource CustodianppProgressBlue}"
                                            ProgressThickness="15" >
-                        <progressBar:SfCircularProgressBar.Content>
-                          
+                            <progressBar:SfCircularProgressBar.Content>
+
                                 <Label 
                                      Grid.Row="0" 
                                      Text="00:55"
@@ -72,48 +100,48 @@
                                      HorizontalTextAlignment="Center" 
                                      VerticalTextAlignment="End">
                                 </Label>
-                               
-                        </progressBar:SfCircularProgressBar.Content>
-                    </progressBar:SfCircularProgressBar>
+
+                            </progressBar:SfCircularProgressBar.Content>
+                        </progressBar:SfCircularProgressBar>
+                    </Grid>
+
+                    <CollectionView x:Name="cleaningPlan" Grid.Row="2">
+                        <CollectionView.Header>
+                            <StackLayout>
+                                <Label Text="Cleaning Plan"  Style="{StaticResource BlueHeadingLabel}" ></Label>
+                            </StackLayout>
+                        </CollectionView.Header>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,10,0,10" RowSpacing="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="50"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label x:Name="lbl" Grid.Column="0" Text="{Binding .}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Black}"
+                                       FontSize="Medium" ></Label>
+                                    <Image Grid.Column="1"  HorizontalOptions="End" Source="grey_tick.png" VerticalOptions="Center">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Source={Reference lbl}}">
+                                            </TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <StackLayout>
+                                <Label Text="No Assignment"></Label>
+                            </StackLayout>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                    <Button x:Name="btnEndRoute" Grid.Row="3" Margin="0,10,0,10" Text="End Route" IsVisible="false" VerticalOptions="End" Clicked="btnEndRoute_Clicked"></Button>
                 </Grid>
 
-                <CollectionView x:Name="cleaningPlan" Grid.Row="2">
-                    <CollectionView.Header>
-                        <StackLayout>
-                            <Label Text="Cleaning Plan"  Style="{StaticResource BlueHeadingLabel}" ></Label>
-                        </StackLayout>
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,10,0,10" RowSpacing="15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="50"/>
-                                </Grid.ColumnDefinitions>
-                                <Label x:Name="lbl" Grid.Column="0" Text="{Binding .}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Black}"
-                                       FontSize="Medium" ></Label>
-                                <Image Grid.Column="1"  HorizontalOptions="End" Source="grey_tick.png" VerticalOptions="Center">
-                                    <Image.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Source={Reference lbl}}">
-                                        </TapGestureRecognizer>
-                                    </Image.GestureRecognizers> 
-                                </Image>
-                            
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label Text="No Assignment"></Label>
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-                <Button x:Name="btnEndRoute" Grid.Row="3" Margin="0,10,0,10" Text="End Route" IsVisible="false" VerticalOptions="End" Clicked="btnEndRoute_Clicked"></Button>
+                <Button Grid.Row="1" Background="#EAEAEA" TextColor="Black" VerticalOptions="End" CornerRadius="0" Text="Add Picture" Clicked="AddPictures_Clicked" ></Button>
+            </Grid>
         </Grid>
 
-            <Button Grid.Row="1" Background="#EAEAEA" TextColor="Black" VerticalOptions="End" CornerRadius="0" Text="Add Picture" Clicked="AddPictures_Clicked" ></Button>
-        </Grid>
-            
-        
     </ContentPage.Content>
 </ContentPage>

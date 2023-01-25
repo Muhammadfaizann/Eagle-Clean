@@ -10,14 +10,6 @@ namespace Custodian.ViewModels
         [ObservableProperty]
         string activeRoute;
 
-        [RelayCommand]
-        async Task Navigate(object arg)
-        {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { "param", arg }
-            };
-            await Shell.Current.GoToAsync(nameof(ActiveCleaningRoutePage), navigationParameter);
-        }
+        
     }
 }

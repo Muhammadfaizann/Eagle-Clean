@@ -3,70 +3,100 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
              x:Class="Custodian.Pages.MapNavigationPage"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
              Title="Travel">
     <ContentPage.Content>
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Travel" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
 
-            <Grid Grid.Row="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <VerticalStackLayout Grid.Column="0">
-                <Label 
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label 
                          VerticalOptions="Center"
                          HorizontalOptions="Start"
                           >
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span  
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span  
                                     Text="Logged in as," 
                                     TextColor="Black" 
                                     FontSize="Medium"
                                     FontAttributes="Bold"></Span>
-                            <Span Text=" John" 
+                                    <Span Text=" John" 
                                       TextColor="{StaticResource CustodianHeadingBlue}"
                                       FontSize="Medium"
                                       FontAttributes="Bold"></Span>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Label  
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label  
                           Text="Anytown PO - Route 001"
                           FontSize="20" 
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"
                           VerticalOptions="Start" 
                           HorizontalOptions="Start" />
-            </VerticalStackLayout>
-            <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-        </Grid>
-            <HorizontalStackLayout Grid.Row="1" Margin="0,15" Spacing="15">
-                <VerticalStackLayout Spacing="10">
-                    <Label Text="Estimate Time :" 
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+                <HorizontalStackLayout Grid.Row="1" Margin="0,15" Spacing="15">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Estimate Time :" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" ></Label>
-                    <Label Text="Distance :" 
+                        <Label Text="Distance :" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" ></Label>
-                    
-                </VerticalStackLayout>
-                <VerticalStackLayout Spacing="13">
-                    <Label Text="14 Minutes" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
-                    <Label Text="1.5 Miles" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
-                </VerticalStackLayout>
-            </HorizontalStackLayout>
-            <Image Source="map.png" Grid.Row="2" x:Name="map" />
+
+                    </VerticalStackLayout>
+                    <VerticalStackLayout Spacing="13">
+                        <Label Text="14 Minutes" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
+                        <Label Text="1.5 Miles" Opacity=".7" VerticalOptions="Center"   FontSize="16"></Label>
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+                <Image Source="map.png" Grid.Row="2" x:Name="map" />
+            </Grid>
         </Grid>
-        </ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>

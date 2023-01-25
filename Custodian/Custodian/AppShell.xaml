@@ -50,6 +50,6 @@
         <ShellContent Title="Diagnostic Menu"
                       ContentTemplate="{DataTemplate pages:DiagnosticMenuPage}"/>
         <ShellContent Title="Logout"
-                       ContentTemplate="{DataTemplate pages:Logout}"/>
+                       ContentTemplate="{DataTemplate pages:Login}"/>
     </FlyoutItem>
 </Shell>

@@ -3,7 +3,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using Custodian.Platforms.Android;
+
 
 namespace Custodian;
 

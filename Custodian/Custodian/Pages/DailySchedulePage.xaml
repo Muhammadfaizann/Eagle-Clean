@@ -41,7 +41,7 @@
                         <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
                     </Image.GestureRecognizers>
                 </Image>
-                <Label Grid.Column="1" Text="My Daily Schedule" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+                <Label Grid.Column="1" Text="My Daily Schedule" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
             </Grid>
             <Grid Grid.Row="2" Margin="20">
                 <Grid.RowDefinitions>
@@ -93,7 +93,11 @@
                                     <Label Text="{Binding Subject}" Style="{x:StaticResource lblstyle}" FontAttributes="None" Opacity=".4"></Label>
                                 </VerticalStackLayout>
                                 <Grid Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="End">
-                                    <Image Grid.Column="0" Source="arrow.png" ></Image>
+                                    <Image Grid.Column="0" Source="arrow.png" >
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}" ></TapGestureRecognizer>
+                                        </Image.GestureRecognizers>
+                                    </Image>
                                     <Image Grid.Column="1" Source="mapicon.png" HeightRequest="25" WidthRequest="25" ></Image>
                                 </Grid>
                             </Grid>

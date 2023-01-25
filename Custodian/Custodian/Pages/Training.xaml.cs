@@ -12,4 +12,17 @@ public partial class Training : ContentPage
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
         Shell.Current.FlyoutIsPresented = true;
     }
+
+    private async void btnCTCVideoClicked(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CTCTrainingVideo));
+    }
+    private async void btnJobAidClicked(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CTCJobAidsPage));
+    }
+    private async void btnMonthlyCTCClicked(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(CTCMonthlyTraining));
+    }
 }

@@ -32,7 +32,61 @@
                 </Image>
                 <Label Grid.Column="1" Text="Training" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
             </Grid>
-
+            <Grid Grid.Row="2" Margin="20" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"  HorizontalOptions="Start">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span  Text="Logged in as," TextColor="Black" FontSize="14" FontAttributes="Bold"></Span>
+                                <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" FontSize="14" FontAttributes="Bold"></Span>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+                <Label Grid.Row="1" Text="Tap the training resources you need." FontSize="22" FontAttributes="Bold" HorizontalOptions="Start"></Label>
+                <VerticalStackLayout Grid.Row="2" Spacing="10" Margin="0,20">
+                    <HorizontalStackLayout Spacing="10">
+                        <Frame HeightRequest="150"  WidthRequest="150" HorizontalOptions="Start" CornerRadius="10" Background="{x:StaticResource GradientStyle}">
+                            <Grid RowDefinitions="*,*" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" >
+                                <Image Grid.Row="0"  Source="ctc_video.png"  ></Image>
+                                <Label Grid.Row="1"  Text="CTC Video" Margin="0,10,0,0" TextColor="White" FontSize="18" FontAttributes="Bold" VerticalOptions="End"></Label>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btnCTCVideoClicked"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame HeightRequest="150"  WidthRequest="150" HorizontalOptions="Start" CornerRadius="10" Background="{x:StaticResource GradientStyle}">
+                            <Grid RowDefinitions="*,*" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" >
+                                <Image Grid.Row="0"  Source="job_aid.png"  ></Image>
+                                <Label Grid.Row="1"  Text="Job Aid" Margin="0,10,0,0" TextColor="White" FontSize="18" FontAttributes="Bold" VerticalOptions="End"></Label>
+                            </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="btnJobAidClicked"></TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                     </HorizontalStackLayout>
+                    <Frame HeightRequest="150"  WidthRequest="150" HorizontalOptions="Start" CornerRadius="10" Background="{x:StaticResource GradientStyle}">
+                        <Grid RowDefinitions="*,*" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" >
+                            <Image Grid.Row="0"  Source="monthly_ctc.png"  ></Image>
+                            <Label Grid.Row="1"  Text="Monthly CTC" Margin="0,10,0,0" TextColor="White" FontSize="18" FontAttributes="Bold" VerticalOptions="End"></Label>
+                        </Grid>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="btnMonthlyCTCClicked"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </VerticalStackLayout>
+            </Grid>
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

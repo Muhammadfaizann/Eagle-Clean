@@ -7,4 +7,8 @@ public partial class CTCJobAidsPage : ContentPage
 		InitializeComponent();
 		collection.ItemsSource = new string[] { "Light Duty Specialist Job Aid", "Vacuum Specialist Job Aid", "Utility Specialist Job Aid", "Rest Room Specialist Job Aid", "Harness Fitment Specialist Job Aid", "Vacuum Specialist Job Aid" };
 	}
+    private async void NavigateBack(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }

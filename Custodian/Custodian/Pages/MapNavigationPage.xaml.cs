@@ -6,4 +6,8 @@ public partial class MapNavigationPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    private async void NavigateBack(object sender, TappedEventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }

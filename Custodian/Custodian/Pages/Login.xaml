@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+             x:Class="Custodian.Pages.Login"
+             NavigationPage.HasNavigationBar="False"
+             Title="Login">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
+                <Grid Margin="10,0">
+                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
+                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
+                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+                    </HorizontalStackLayout>
+
+                </Grid>
+            </Frame>
+            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
+                <Image Grid.Column="0" HorizontalOptions="Center" >
+                    <Image.Source>
+                        <FontImageSource
+                                FontFamily="Awesome-fonts"
+                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
+                                Size="Large"
+                                Color="White"/>
+                    </Image.Source>
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Grid.Column="1" Text="Login" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
+            </Grid>
+            <Grid Grid.Row="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <VerticalStackLayout Grid.Row="0">
+                    <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                        Text="Login to Eagle Clean"     
+                        Style="{StaticResource labelStyle}"
+                        HorizontalOptions="Start"
+                        TextColor="{x:StaticResource CustodianHeadingBlue}"/>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
+                </Grid>
+                    <Label 
+                        Margin="0,20,0,0"
+                        Text="You can either enter your badge number or scan your badge to log in"
+                        FontSize="18"
+                        TextColor="Black"
+                        FontAttributes="None"
+                        HorizontalOptions="Start"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="1" VerticalOptions="Center" Spacing="10" >
+                    <Label  
+                        Text="Enter Bagde ID"
+                        FontSize="18"
+                        TextColor="Black"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Start"/>
+                    <HorizontalStackLayout VerticalOptions="Start"  HorizontalOptions="Start" Spacing="7">
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId1" MaxLength="1" Keyboard="Numeric"  HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId1_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId2" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId2_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId3" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId3_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId4" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId4_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId5" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId5_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId6" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId6_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId7" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId7_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId8" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId8_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame  Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId9" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId9_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId10" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId10_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId11" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId11_TextChanged" ></Entry>
+                        </Frame>
+                        <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
+                            <Entry x:Name="entryId12" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" ></Entry>
+                        </Frame>
+
+
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+                <Button Grid.Row="2" Text="Login" VerticalOptions="End" Clicked="btnLogin_Clicked" ></Button>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

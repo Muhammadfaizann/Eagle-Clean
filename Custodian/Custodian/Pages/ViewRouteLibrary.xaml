@@ -32,7 +32,81 @@
             </Image>
                 <Label Grid.Column="1" Text="Facility List" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
         </Grid>
-        
-    </Grid>
+            <Grid Grid.Row="2" Margin="20" RowDefinitions="auto,auto,*">
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0">
+                        <Label 
+                         VerticalOptions="Center"
+                         HorizontalOptions="Start"
+                          >
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span  
+                                    Text="Logged in as," 
+                                    TextColor="Black" 
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"></Span>
+                                    <Span Text=" John" 
+                                      TextColor="{StaticResource CustodianHeadingBlue}"
+                                      FontSize="Medium"
+                                      FontAttributes="Bold"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+                <Frame  Grid.Row="1" CornerRadius="10" BackgroundColor="{StaticResource Gray100}" Padding="0,0,0,-5" Margin="0,15">
+                    <SearchBar  Placeholder="Search" PlaceholderColor="{StaticResource Gray600}" >
+
+                    </SearchBar>
+                </Frame>
+                <CollectionView Grid.Row="2" x:Name="collection">
+                    <CollectionView.Header>
+                        <Grid>
+                            <Label   
+                                Text="Facility Name" 
+                                FontSize="14"
+                                TextColor="{StaticResource CustodianHeadingBlue}"
+                                VerticalOptions="Center" 
+                                FontAttributes="Bold"
+                                HorizontalOptions="Start" ></Label>
+                            <Label   
+                                Text="Map" 
+                                FontSize="14"
+                                TextColor="{StaticResource CustodianHeadingBlue}"
+                                VerticalOptions="Center" 
+                                FontAttributes="Bold"
+                                HorizontalOptions="End" ></Label>
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,10" ColumnDefinitions="auto,*">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label  Text="{Binding .}" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                    <Label  Text="Distance : 1.2 Miles" Opacity="0.7" ></Label>
+                                </VerticalStackLayout>
+                                <HorizontalStackLayout Grid.Column="1" Spacing="15" HorizontalOptions="End">
+                                    <VerticalStackLayout>
+                                        <Image  Source="edit.png" HeightRequest="25" WidthRequest="25" ></Image>
+                                        <Label Text="Edit"/>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout>
+                                        <Image  Source="mapicon.png" HeightRequest="25" WidthRequest="25" ></Image>
+                                        <Label Text="Map"/>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

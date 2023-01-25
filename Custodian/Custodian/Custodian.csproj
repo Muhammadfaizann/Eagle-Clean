@@ -60,8 +60,10 @@
 	  <None Remove="Resources\Images\bluedlogo.svg" />
 	  <None Remove="Resources\Images\camera_button.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
+	  <None Remove="Resources\Images\ctc_video.svg" />
 	  <None Remove="Resources\Images\delete_button.svg" />
 	  <None Remove="Resources\Images\document_icon.svg" />
+	  <None Remove="Resources\Images\edit.svg" />
 	  <None Remove="Resources\Images\frame1.png" />
 	  <None Remove="Resources\Images\frame10.png" />
 	  <None Remove="Resources\Images\frame11.png" />
@@ -155,9 +157,11 @@
 	  <None Remove="Resources\Images\green_tick.svg" />
 	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\hazard_icon.svg" />
+	  <None Remove="Resources\Images\job_aid.svg" />
 	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\Map.png" />
 	  <None Remove="Resources\Images\mapicon.svg" />
+	  <None Remove="Resources\Images\monthly_ctc.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Images\play_button_icon.svg" />
 	  <None Remove="Resources\Images\wifi.svg" />
@@ -169,7 +173,7 @@
 	</ItemGroup>
 	
 	<ItemGroup>
-	  <Folder Include="Views\" />
+	  <Folder Include="Views\HomeViews\" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -188,12 +192,21 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <Compile Update="Controls\CustomImageButton.xaml.cs">
+	    <DependentUpon>CustomImageButton.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\WorkOrderListPage.xaml.cs">
 	    <DependentUpon>WorkOrderListPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <MauiXaml Update="Controls\CustomImageButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\CustomStatusBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\ActiveCleaningRoutePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -218,10 +231,16 @@
 	  <MauiXaml Update="Pages\DiagnosticMenuPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\Facility.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\HomePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\AddPicturesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Logout.xaml">
@@ -234,6 +253,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\TravelPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\UserAgreement.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ViewRouteLibrary.xaml">
@@ -249,12 +271,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\EndRoutePopup.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Screens\LoginScreen.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Screens\UserAgreementScreen.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
