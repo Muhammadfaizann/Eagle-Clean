@@ -26,10 +26,12 @@ public partial class DailySchedulePage : ContentPage
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
+        loader.IsRunning = loader.IsVisible = true;
         var navigationParameter = new Dictionary<string, object>
             {
                 { "param", e.Parameter }
             };
         await Shell.Current.GoToAsync(nameof(Facility), navigationParameter);
+        loader.IsRunning = loader.IsVisible = false;
     }
 }

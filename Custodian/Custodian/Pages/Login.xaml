@@ -108,8 +108,13 @@
 
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-                <Button Grid.Row="2" Text="Login" VerticalOptions="End" Clicked="btnLogin_Clicked" ></Button>
+                <Button Grid.Row="2" Text="Login" VerticalOptions="End" Command="{Binding LoginCommand}" ></Button>
             </Grid>
+            <ActivityIndicator Grid.Row="2" IsRunning="{Binding LoginCommand.IsRunning}" IsVisible="{Binding LoginCommand.IsRunning}" Color="{x:StaticResource CustodianppProgressBlue}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
         </Grid>
+        
+        
     </ContentPage.Content>
 </ContentPage>

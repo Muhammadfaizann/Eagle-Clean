@@ -26,25 +26,29 @@ public partial class AdhocWorkPage : ContentPage
     }
     private void StartTimerCountDown()
     {
-        DateTime dateTime = DateTime.ParseExact("00:03:00", "HH:mm:ss", null);
+        DateTime dateTime = DateTime.ParseExact("00:01:00", "HH:mm:ss", null);
         var seconds = dateTime.TimeOfDay.TotalSeconds;
         var progressPerSec = (1 / seconds) * 100;
         timer = Dispatcher.CreateTimer();
         timer.Interval = TimeSpan.FromSeconds(1);
         lblTime.IsVisible = true;
+        DateTime timer_date_time = new DateTime();
         timer.Tick += (s, e) =>
         {
             lblTime.Dispatcher.Dispatch(() =>
             {
-                lblTime.Text = dateTime.ToString("HH:mm:ss");
-                dateTime = dateTime.AddSeconds(-1);
-                timerProgressBar.Progress = timerProgressBar.Progress - progressPerSec;
+                
+                lblTime.Text = timer_date_time.ToString("HH:mm:ss");
+                timer_date_time = timer_date_time.AddSeconds(1);
+                timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
             });
 
         };
         timer.Start();
 
     }
+    
+
     private void OpenFlyoutMenu(object sender, TappedEventArgs e)
     {
         Shell.Current.FlyoutBehavior = FlyoutBehavior.Locked;

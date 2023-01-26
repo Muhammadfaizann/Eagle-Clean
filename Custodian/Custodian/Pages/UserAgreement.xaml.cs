@@ -14,7 +14,7 @@ public partial class UserAgreement : ContentPage
 
     private async void btnIAgree_Clicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new Login());
+        await Navigation.PushAsync(new Login(new ViewModels.LoginViewModel()));
     }
    
 }

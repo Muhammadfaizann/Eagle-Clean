@@ -110,6 +110,9 @@
                     </CollectionView.EmptyView>
                 </CollectionView>
             </Grid>
+            <ActivityIndicator x:Name="loader" Grid.Row="2" IsVisible="false" Color="{x:StaticResource CustodianppProgressBlue}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

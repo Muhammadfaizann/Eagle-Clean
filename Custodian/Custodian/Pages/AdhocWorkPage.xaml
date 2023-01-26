@@ -84,7 +84,7 @@
                                            x:Name="timerProgressBar"
                                            Grid.Row="2"
                                            Margin="20"
-                                           Progress="100" 
+                                           Progress="0" 
                                            VerticalOptions="CenterAndExpand"            
                                            HorizontalOptions="CenterAndExpand"            
                                            TrackThickness="15"
@@ -110,4 +110,4 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</ContentPage> 

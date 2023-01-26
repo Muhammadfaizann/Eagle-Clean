@@ -9,7 +9,9 @@ public partial class HomePage : ContentPage
 
     private async void StartWorkingClicked(object sender, EventArgs e)
     {
+        loader.IsRunning = loader.IsVisible = true;
         await Shell.Current.GoToAsync(nameof(DailySchedulePage));
+        loader.IsRunning = loader.IsVisible = false;
     }
 
     private void OpenFlyoutMenu(object sender, TappedEventArgs e)

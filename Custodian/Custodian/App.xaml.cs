@@ -9,8 +9,8 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-        //MainPage = new AppShell();
-        _ = InitializeApp();
+        MainPage = new AppShell();
+        //_ = InitializeApp();
         WeakReferenceMessenger.Default.Register<string>(this, (sender, arg) => {
             MainPage = new AppShell();
         });

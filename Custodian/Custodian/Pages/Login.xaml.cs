@@ -1,13 +1,15 @@
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ViewModels;
 using System;
 
 namespace Custodian.Pages;
 
 public partial class Login : ContentPage
 {
-    public Login()
+    public Login(LoginViewModel vm)
     {  
         InitializeComponent();
+        BindingContext = vm;
     }
 
     private void entryId1_TextChanged(object sender, TextChangedEventArgs e)
