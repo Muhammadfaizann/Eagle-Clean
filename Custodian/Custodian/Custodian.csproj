@@ -57,8 +57,12 @@
 	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
 	  <None Remove="Resources\Images\arrow.svg" />
 	  <None Remove="Resources\Images\battery.svg" />
+	  <None Remove="Resources\Images\battery1cell.svg" />
+	  <None Remove="Resources\Images\battery2cell.svg" />
+	  <None Remove="Resources\Images\battery3cell.svg" />
 	  <None Remove="Resources\Images\bluedlogo.svg" />
 	  <None Remove="Resources\Images\camera_button.svg" />
+	  <None Remove="Resources\Images\charging_icon.svg" />
 	  <None Remove="Resources\Images\clock.svg" />
 	  <None Remove="Resources\Images\ctc_video.svg" />
 	  <None Remove="Resources\Images\delete_button.svg" />
@@ -157,6 +161,7 @@
 	  <None Remove="Resources\Images\green_tick.svg" />
 	  <None Remove="Resources\Images\grey_tick.svg" />
 	  <None Remove="Resources\Images\hazard_icon.svg" />
+	  <None Remove="Resources\Images\help_icon.svg" />
 	  <None Remove="Resources\Images\job_aid.svg" />
 	  <None Remove="Resources\Images\location.svg" />
 	  <None Remove="Resources\Images\Map.png" />
@@ -202,6 +207,9 @@
 	
 	<ItemGroup>
 	  <MauiXaml Update="Controls\CustomImageButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Controls\CustomNavBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Controls\CustomStatusBar.xaml">

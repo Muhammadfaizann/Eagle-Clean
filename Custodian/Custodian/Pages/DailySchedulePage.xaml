@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Custodian.Pages.DailySchedulePage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+              xmlns:controls="clr-namespace:Custodian.Controls"
              xmlns:viewModels="clr-namespace:Custodian.ViewModels"
              Title="My Daily Schedule">
     <ContentPage.Resources>
@@ -17,32 +17,8 @@
     </ContentPage.Resources>
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,*">
-            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
-                <Grid Margin="10,0">
-                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
-                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
-                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                    </HorizontalStackLayout>
-
-                </Grid>
-            </Frame>
-            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
-                <Image Grid.Column="0" HorizontalOptions="Center" >
-                    <Image.Source>
-                        <FontImageSource
-                                FontFamily="Awesome-fonts"
-                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
-                                Size="Large"
-                                Color="White"/>
-                    </Image.Source>
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Grid.Column="1" Text="My Daily Schedule" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
-            </Grid>
+            <controls:CustomStatusBar Grid.Row="0"/>
+            <controls:CustomNavBar Grid.Row="1" Title="My Daily Schedule" Icon="Navigation"/>
             <Grid Grid.Row="2" Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -93,13 +69,12 @@
                                     <Label Text="{Binding Subject}" Style="{x:StaticResource lblstyle}" FontAttributes="None" Opacity=".4"></Label>
                                 </VerticalStackLayout>
                                 <Grid Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="End">
-                                    <Image Grid.Column="0" Source="arrow.png" >
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}" ></TapGestureRecognizer>
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                                    <Image Grid.Column="0" Source="arrow.png" />
                                     <Image Grid.Column="1" Source="mapicon.png" HeightRequest="25" WidthRequest="25" ></Image>
                                 </Grid>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}" ></TapGestureRecognizer>
+                                </Grid.GestureRecognizers>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

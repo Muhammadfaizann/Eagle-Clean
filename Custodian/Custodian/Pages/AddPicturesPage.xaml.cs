@@ -30,10 +30,6 @@ public partial class AddPicturesPage : ContentPage
             }
         }
     }
-    private async void NavigateBack(object sender, TappedEventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
-    }
     private void DeleteImage_Clicked(object sender, EventArgs e)
     {
         var args = e as TappedEventArgs;

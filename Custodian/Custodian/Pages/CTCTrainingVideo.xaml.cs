@@ -7,8 +7,5 @@ public partial class CTCTrainingVideo : ContentPage
 		InitializeComponent();
         collection.ItemsSource = new string[] { "CTC Recuring Session - July", "CTC Recuring Session - June", "CTC Recurring Session - May", "CTC Recurring Session - April", "CTC Recurring Session - March" };
     }
-    private async void NavigateBack(object sender, TappedEventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
-    }
+   
 }

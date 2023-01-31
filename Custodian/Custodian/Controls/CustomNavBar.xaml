@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid  
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+    x:Class="Custodian.Controls.CustomNavBar" 
+    ColumnDefinitions="*" HeightRequest="50"  Background="{x:StaticResource GradientStyle}" >
+    <Image x:Name="menuTab" Grid.Column="0" HorizontalOptions="Start" IsVisible="false" Margin="15,0" >
+        <Image.Source>
+            <FontImageSource
+                FontFamily="Awesome-fonts"
+                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
+                Size="Large"
+                Color="White"/>
+        </Image.Source>
+        <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
+        </Image.GestureRecognizers>
+    </Image>
+    <Image x:Name="navTab" Grid.Column="0" HorizontalOptions="Start" IsVisible="false" Margin="15,0" >
+        <Image.Source>
+            <FontImageSource
+                FontFamily="Awesome-fonts"
+                Glyph="{x:Static fontAwesone:FontAwesomeIcons.ArrowLeft}"
+                Size="Large"
+                Color="White"/>
+        </Image.Source>
+        <Image.GestureRecognizers>
+            <TapGestureRecognizer Tapped="NavigateBack"></TapGestureRecognizer>
+        </Image.GestureRecognizers>
+    </Image>
+    <Label x:Name="title" Grid.Column="0" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"></Label>
+</Grid>

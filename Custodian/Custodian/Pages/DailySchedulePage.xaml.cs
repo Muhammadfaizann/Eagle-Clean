@@ -19,10 +19,6 @@ public partial class DailySchedulePage : ContentPage
         };
        
     }
-    private async void NavigateBack(object sender, TappedEventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
-    }
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {

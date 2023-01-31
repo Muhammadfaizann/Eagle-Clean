@@ -10,5 +10,6 @@ namespace Custodian.Models
     {
         public string Title { get; set; }
         public string Subject { get; set; }
+        public bool IsStarted { get; set; }
     }
 }

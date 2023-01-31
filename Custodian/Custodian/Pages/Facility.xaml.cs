@@ -23,12 +23,12 @@ public partial class Facility : ContentPage, IQueryAttributable
                     new CompletedAssignment { Title = "Route 003", IsOverTime = false },
                     new CompletedAssignment { Title = "Route 004" , IsOverTime = true },
                 };
-            ongoingWorkOrders.ItemsSource = new Assignment[]
+            ongoingWorkOrders.ItemsSource = new Workorder[]
                 {
-                    new Assignment { Title = "WO# 1", IsStarted = false },
-                    new Assignment { Title = "WO# 2", IsStarted = false },
-                    new Assignment { Title = "WO# 3", IsStarted = true },
-                    new Assignment { Title = "WO# 4" , IsStarted = false },
+                    new Workorder { Title = "WO# 1", Subject = "Mowing - 26 times / year" , IsStarted = false },
+                    new Workorder { Title = "WO# 2", Subject = "Mowing - 26 times / year" , IsStarted = false },
+                    new Workorder { Title = "WO# 3", Subject = "Mowing - 26 times / year" , IsStarted = true },
+                    new Workorder { Title = "WO# 4" , Subject = "Mowing - 26 times / year", IsStarted = false },
                 };
             completedWorkorders.ItemsSource = new CompletedAssignment[]
                {
@@ -41,12 +41,13 @@ public partial class Facility : ContentPage, IQueryAttributable
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         Models.Task obj = query["param"] as Models.Task;
-        lblTitle.Text = "Facility - " +obj.Title;
+        navBar.Title = "Facility - " +obj.Title;
         lblFacility.Text = obj.Title;
     }
     
     void btnOngoing_Clicked(System.Object sender, System.EventArgs e)
     {
+        loader.IsRunning = loader.IsVisible = true;
         ongoingAssigments.IsVisible = true;
         completedAssigments.IsVisible = false;
         ongoingWorkOrders.IsVisible = true;
@@ -55,9 +56,11 @@ public partial class Facility : ContentPage, IQueryAttributable
         frmOngoing.BackgroundColor = Color.FromArgb("#FFFFFF");
         lblCompleted.TextColor= Color.FromArgb("#000000");
         lblOngoing.TextColor = Color.FromArgb("#005F9D");
+        loader.IsRunning = loader.IsVisible = false;
     }
     void btnCompleted_Clicked(System.Object sender, System.EventArgs e)
     {
+        loader.IsRunning = loader.IsVisible = true;
         ongoingAssigments.IsVisible = false;
         completedAssigments.IsVisible = true;
         ongoingWorkOrders.IsVisible = false;
@@ -66,9 +69,7 @@ public partial class Facility : ContentPage, IQueryAttributable
         frmCompleted.BackgroundColor = Color.FromArgb("#FFFFFF");
         lblCompleted.TextColor = Color.FromArgb("#005F9D");
         lblOngoing.TextColor = Color.FromArgb("#000000");
+        loader.IsRunning = loader.IsVisible = false;
     }
-    private async void NavigateBack(object sender, TappedEventArgs e)
-    {
-        await Shell.Current.GoToAsync("..");
-    }
+   
 }

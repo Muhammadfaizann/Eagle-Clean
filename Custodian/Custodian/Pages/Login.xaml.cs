@@ -56,10 +56,7 @@ public partial class Login : ContentPage
     {
         entryId12.Focus();
     }
-    private async void NavigateBack(object sender, TappedEventArgs e)
-    {
-        await Navigation.PopToRootAsync();
-    }
+    
     private async void btnLogin_Clicked(object sender, EventArgs e)
     {
         WeakReferenceMessenger.Default.Send(new string("loadlogin"));

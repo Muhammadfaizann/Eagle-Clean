@@ -2,38 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Custodian.Pages.WorkOrderListPage"
-             xmlns:fontAwesone="clr-namespace:Custodian.FontAwesomeIcon"
+              xmlns:controls="clr-namespace:Custodian.Controls"
              xmlns:viewModels="clr-namespace:Custodian.ViewModels"
              Title="Work Order List">
     
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,*">
-            <Frame Grid.Row="0" CornerRadius="0" HeightRequest="25" BackgroundColor="#005F9D">
-                <Grid Margin="10,0">
-                    <Label Text="9:30 PM" TextColor="White" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"></Label>
-                    <HorizontalStackLayout  HorizontalOptions="End" Spacing="5">
-                        <Image Source="location.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                        <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                        <Image Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-                    </HorizontalStackLayout>
-
-                </Grid>
-            </Frame>
-            <Grid Grid.Row="1" ColumnDefinitions="50,*" HeightRequest="50" Background="{x:StaticResource GradientStyle}" >
-                <Image Grid.Column="0" HorizontalOptions="Center" >
-                    <Image.Source>
-                        <FontImageSource
-                                FontFamily="Awesome-fonts"
-                                Glyph="{x:Static fontAwesone:FontAwesomeIcons.Bars}"
-                                Size="Large"
-                                Color="White"/>
-                    </Image.Source>
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OpenFlyoutMenu"></TapGestureRecognizer>
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Grid.Column="1" Text="Work Order List" TextColor="White" VerticalOptions="Center" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Start"></Label>
-            </Grid>
+            <controls:CustomStatusBar Grid.Row="0"/>
+            <controls:CustomNavBar Grid.Row="1" Title="Work Order List" Icon="Menu"/>
             <Grid Grid.Row="2" Margin="20" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

@@ -11,13 +11,22 @@ namespace Custodian.ViewModels
     public partial class FacilityViewModel
     {
         [RelayCommand]
-        async Task Navigate(object arg)
+        async Task NavigateAssignment(object arg)
         {
             var navigationParameter = new Dictionary<string, object>
             {
                 { "param", arg }
             };
             await Shell.Current.GoToAsync(nameof(ActiveCleaningRoutePage), navigationParameter);
+        } 
+        [RelayCommand]
+        async Task NavigateWorkorder(object arg)
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "param", arg }
+            };
+            await Shell.Current.GoToAsync(nameof(WorkOrderPage), navigationParameter);
         }
     }
 }

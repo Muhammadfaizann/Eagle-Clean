@@ -9,8 +9,8 @@ public partial class App : Application
 	public App()
 	{
 		InitializeComponent();
-        MainPage = new AppShell();
-        //_ = InitializeApp();
+        //MainPage = new AppShell();
+        _ = InitializeApp();
         WeakReferenceMessenger.Default.Register<string>(this, (sender, arg) => {
             MainPage = new AppShell();
         });
@@ -18,7 +18,7 @@ public partial class App : Application
 	private async Task InitializeApp()
 	{
             MainPage = new SplashScreen();
-            await Task.Delay(13000);
+            await Task.Delay(12000);
             MainPage = new NavigationPage(new UserAgreement());
     }
 }
