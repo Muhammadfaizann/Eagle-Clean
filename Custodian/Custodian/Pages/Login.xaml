@@ -78,7 +78,7 @@
                             <Entry x:Name="entryId11" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId11_TextChanged" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId12" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" ></Entry>
+                            <Entry x:Name="entryId12" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId12_TextChanged" ></Entry>
                         </Frame>
 
 

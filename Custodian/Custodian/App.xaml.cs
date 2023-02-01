@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Messages;
 using Custodian.Pages;
 using Custodian.Screens;
 
@@ -10,8 +11,8 @@ public partial class App : Application
 	{
 		InitializeComponent();
         //MainPage = new AppShell();
-        _ = InitializeApp();
-        WeakReferenceMessenger.Default.Register<string>(this, (sender, arg) => {
+        _ = InitializeApp(); 
+        WeakReferenceMessenger.Default.Register<LoginMessage>(this, (sender, args) => { 
             MainPage = new AppShell();
         });
     }

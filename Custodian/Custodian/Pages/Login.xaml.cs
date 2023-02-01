@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Messages;
 using Custodian.ViewModels;
 using System;
 
@@ -10,6 +11,26 @@ public partial class Login : ContentPage
     {  
         InitializeComponent();
         BindingContext = vm;
+
+            WeakReferenceMessenger.Default.Register<BarcodeScanMessage>(this, (sender, args) => { 
+                 if(args.Value.Length==14)
+                 {
+                    entryId1.Text=args.Value[0].ToString();
+                    entryId2.Text=args.Value[1].ToString();
+                    entryId3.Text=args.Value[2].ToString();
+                    entryId4.Text=args.Value[3].ToString();
+                    entryId5.Text=args.Value[4].ToString();
+                    entryId6.Text=args.Value[5].ToString();
+                    entryId7.Text=args.Value[6].ToString();
+                    entryId8.Text=args.Value[7].ToString();
+                    entryId9.Text=args.Value[8].ToString();
+                    entryId10.Text=args.Value[9].ToString();
+                    entryId11.Text=args.Value[10].ToString();
+                    entryId12.Text=args.Value[11].ToString();
+                    vm.LoginCommand.Execute(null);
+                 }
+        });
+
     }
 
     private void entryId1_TextChanged(object sender, TextChangedEventArgs e)
@@ -56,10 +77,9 @@ public partial class Login : ContentPage
     {
         entryId12.Focus();
     }
-    
-    private async void btnLogin_Clicked(object sender, EventArgs e)
+    private void entryId12_TextChanged(object sender, TextChangedEventArgs e)
     {
-        WeakReferenceMessenger.Default.Send(new string("loadlogin"));
-        await Navigation.PopToRootAsync();
+        var vm = BindingContext as LoginViewModel;
+        vm.LoginCommand.Execute(null);
     }
 }

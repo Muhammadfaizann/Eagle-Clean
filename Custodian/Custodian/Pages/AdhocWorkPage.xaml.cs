@@ -13,10 +13,10 @@ public partial class AdhocWorkPage : ContentPage
         var button = sender as Microsoft.Maui.Controls.Button;
         if (button.Text == "Start Timer")
         {
-            btnEndRoute.Text = "Stop Timer";
-            btnEndRoute.CornerRadius = 10;
-            btnEndRoute.Background = Brush.Default;
-            btnEndRoute.BackgroundColor = Color.Parse("#E71921");
+            btn.Text = "Finish";
+            btn.CornerRadius = 10;
+            btn.Background = Brush.Default;
+            btn.BackgroundColor = Color.Parse("#E71921");
             StartTimerCountDown();
         }
         else
@@ -47,6 +47,9 @@ public partial class AdhocWorkPage : ContentPage
         timer.Start();
 
     }
-    
 
+    private void Editor_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        btn.IsVisible = true;
+    }
 }

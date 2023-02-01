@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Custodian.ViewModels
         private async Task Login(object arg)
         {
             await Task.Delay(2000);
-            WeakReferenceMessenger.Default.Send(new string("loadlogin"));
+            WeakReferenceMessenger.Default.Send(new LoginMessage(""));
         }
     }
 }

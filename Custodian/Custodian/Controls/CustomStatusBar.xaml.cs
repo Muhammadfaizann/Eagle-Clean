@@ -1,4 +1,6 @@
 namespace Custodian.Controls;
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 
 public partial class CustomStatusBar : Frame
 {
@@ -25,5 +27,18 @@ public partial class CustomStatusBar : Frame
             BatteryState.Charging => true,
             _ => false
         };
+    }
+
+    private async void Help_Icon_Tapped(object sender, TappedEventArgs e)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+        string text = "App version: " + AppInfo.Current.VersionString;
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 12;
+
+        var toast = Toast.Make(text, duration, fontSize);
+
+        await toast.Show(cancellationTokenSource.Token);
     }
 }
