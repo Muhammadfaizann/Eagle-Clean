@@ -55,7 +55,10 @@ public partial class CustomNavBar : Grid
 	}
     private async void NavigateBack(object sender, TappedEventArgs e)
     {
-        await Shell.Current.GoToAsync("..");
+        if (Title == "Login")
+            await Navigation.PopAsync();
+        else
+            await Shell.Current.GoToAsync("..");
     }
     private void OpenFlyoutMenu(object sender, TappedEventArgs e)
     {

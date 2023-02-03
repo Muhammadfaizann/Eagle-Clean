@@ -15,7 +15,7 @@ public partial class SplashScreen : ContentPage
         for (int i = 1; i <= 90; i++)
         {
             placeholder.Source = "frame" + i + ".png";
-            await Task.Delay(50);
+            await Task.Delay(10);
         }
     }
 }

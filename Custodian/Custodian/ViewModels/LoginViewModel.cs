@@ -15,8 +15,15 @@ namespace Custodian.ViewModels
         [RelayCommand]
         private async Task Login(object arg)
         {
-            await Task.Delay(2000);
-            WeakReferenceMessenger.Default.Send(new LoginMessage(""));
+            try
+            {
+                await Task.Delay(2000);
+                WeakReferenceMessenger.Default.Send(new LoginMessage(""));
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

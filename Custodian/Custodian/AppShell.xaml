@@ -49,7 +49,8 @@
                       ContentTemplate="{DataTemplate pages:ViewSDSSheetPage}"/>
         <ShellContent Title="Diagnostic Menu"
                       ContentTemplate="{DataTemplate pages:DiagnosticMenuPage}"/>
-        <ShellContent Title="Logout"
-                       ContentTemplate="{DataTemplate pages:Login}"/>
+        <ShellContent Title="Logout" 
+                      ContentTemplate="{DataTemplate pages:Logout}"
+                       />
     </FlyoutItem>
 </Shell>

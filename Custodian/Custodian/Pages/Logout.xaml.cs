@@ -1,3 +1,5 @@
+using Android.Service.Voice;
+
 namespace Custodian.Pages;
 
 public partial class Logout : ContentPage
@@ -6,4 +8,9 @@ public partial class Logout : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    protected override async void OnAppearing()
+    {
+        await Shell.Current.GoToAsync(nameof(Login));
+    }
 }

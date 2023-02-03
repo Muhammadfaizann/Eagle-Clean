@@ -13,6 +13,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(DailySchedulePage), typeof(DailySchedulePage));
 
         Routing.RegisterRoute(nameof(Facility), typeof(Facility));
+        Routing.RegisterRoute("Login", typeof(Login));
 
         Routing.RegisterRoute(nameof(CTCTrainingVideo), typeof(CTCTrainingVideo));
         Routing.RegisterRoute(nameof(CTCMonthlyTraining), typeof(CTCMonthlyTraining));

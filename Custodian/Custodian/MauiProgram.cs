@@ -32,7 +32,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<DailySchedulePage>();
         builder.Services.AddSingleton<WorkOrderListPage>();
         builder.Services.AddSingleton<Facility>();
-        builder.Services.AddSingleton<Login>();
+        builder.Services.AddTransient<Login>();
 
 
         return builder.Build();
