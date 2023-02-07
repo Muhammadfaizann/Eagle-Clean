@@ -16,7 +16,7 @@ public partial class Login : ContentPage
         InitializeComponent();
         BindingContext = vm;
         WeakReferenceMessenger.Default.Register<BarcodeScanMessage>(this, (sender, args) =>
-        { //multipul calls
+        { //multiple calls are triggering
             try
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
@@ -51,7 +51,7 @@ public partial class Login : ContentPage
             }
             catch (Exception ex)
             {
-
+                
             }
         });
     }

@@ -1,3 +1,8 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Helpers;
+using Custodian.Messages;
 using Custodian.Models;
 using Custodian.ViewModels;
 
@@ -9,34 +14,22 @@ public partial class Facility : ContentPage, IQueryAttributable
 	{
 		InitializeComponent();
         this.BindingContext = vm;
-             ongoingAssigments.ItemsSource = new Assignment[]
-                {
-                    new Assignment { Title = "Route 006", IsStarted = false },
-                    new Assignment { Title = "Route 007", IsStarted = false },
-                    new Assignment { Title = "Route 008", IsStarted = true },
-                    new Assignment { Title = "Route 009" , IsStarted = false },
-                };
-            completedAssigments.ItemsSource = new CompletedAssignment[]
-                {
-                    new CompletedAssignment { Title = "Route 001", IsOverTime = true },
-                    new CompletedAssignment { Title = "Route 002", IsOverTime = false },
-                    new CompletedAssignment { Title = "Route 003", IsOverTime = false },
-                    new CompletedAssignment { Title = "Route 004" , IsOverTime = true },
-                };
-            ongoingWorkOrders.ItemsSource = new Workorder[]
+        ongoingAssigments.ItemsSource = Utils.ongoingAssigments;
+        completedAssigments.ItemsSource =Utils.completedAssigments;
+                ongoingWorkOrders.ItemsSource = new Workorder[]
                 {
                     new Workorder { Title = "WO# 1", Subject = "Mowing - 26 times / year" , IsStarted = false },
                     new Workorder { Title = "WO# 2", Subject = "Mowing - 26 times / year" , IsStarted = false },
                     new Workorder { Title = "WO# 3", Subject = "Mowing - 26 times / year" , IsStarted = true },
                     new Workorder { Title = "WO# 4" , Subject = "Mowing - 26 times / year", IsStarted = false },
                 };
-            completedWorkorders.ItemsSource = new CompletedAssignment[]
-               {
+                completedWorkorders.ItemsSource = new CompletedAssignment[]
+                {
                     new CompletedAssignment { Title = "WO# 004", IsOverTime = true },
                     new CompletedAssignment { Title = "WO# 005", IsOverTime = false },
                     new CompletedAssignment { Title = "WO# 006", IsOverTime = false },
                     new CompletedAssignment { Title = "WO# 007" , IsOverTime = true },
-               };
+                };
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {

@@ -1,15 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Custodian.Models
 {
-    public class Assignment
+    public class Assignment : INotifyPropertyChanged
     {
         public string Title { get; set; }
-        public bool IsStarted { get; set; }
+        bool _IsStarted = false;
+        public bool IsStarted
+        {
+            get { return _IsStarted; }
+            set { SetProperty(ref _IsStarted, value); }
+        }
+
+        #region INotifyPropertyChanged
+        protected bool SetProperty<T>(ref T backingStore, T value,
+            [CallerMemberName] string propertyName = "",
+            Action onChanged = null)
+            {
+                if (EqualityComparer<T>.Default.Equals(backingStore, value))
+                    return false;
+
+                backingStore = value;
+                onChanged?.Invoke();
+                OnPropertyChanged(propertyName);
+                return true;
+            }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            var changed = PropertyChanged;
+            if (changed == null)
+                return;
+
+            changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
     }
     public class CompletedAssignment
     {

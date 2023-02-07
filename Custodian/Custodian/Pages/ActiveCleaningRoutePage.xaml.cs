@@ -1,4 +1,6 @@
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Messages;
 using Custodian.Models;
 using Custodian.Popups;
 
@@ -6,11 +8,32 @@ namespace Custodian.Pages;
 
 public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 {
-	public ActiveCleaningRoutePage()
+    
+    public ActiveCleaningRoutePage()
 	{
 		InitializeComponent();
         cleaningPlan.ItemsSource = new object[] { "Mop Floor 2 - 20 Minutes", "Restock - 25 Minutes", "Clean Furniture - 20 Minutes" };
+        WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnMessageReceived);
+           
     }
+
+    private void OnMessageReceived(object recipient, EndRouteMessage message)
+    {
+
+        try
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                btnEndRoute_Clicked(null, null);
+            });
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         var obj = query["param"] as Assignment;
@@ -48,6 +71,7 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
             var popup = new EndRoutePopup(false);
             this.ShowPopup(popup);
         }
+
     }
 
 }

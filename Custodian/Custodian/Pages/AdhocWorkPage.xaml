@@ -14,7 +14,7 @@
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" RowSpacing="10" >
+                <Grid  Grid.Row="0" RowSpacing="10" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
@@ -28,8 +28,7 @@
                         <Label 
                         Grid.Column="0"
                          VerticalOptions="Center"
-                         HorizontalOptions="Start"
-                          >
+                         HorizontalOptions="Start">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span  
@@ -86,4 +85,4 @@
             </Grid>
         </Grid>
     </ContentPage.Content>
-</ContentPage> 
+</ContentPage>  
