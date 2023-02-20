@@ -18,7 +18,7 @@
 		<ApplicationIdGuid>ac01f816-ab3c-4220-b56a-404f50336b16</ApplicationIdGuid>
 
 		<!-- Versions -->
-		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationDisplayVersion>1.1</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 	</PropertyGroup>
@@ -53,6 +53,7 @@
 	  <Compile Remove="Resources\Fonts\fontAwesomeIcons.cs" />
 	</ItemGroup>
 	<ItemGroup>
+	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Fonts\FontAwesome.otf" />
 	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
 	  <None Remove="Resources\Images\arrow.svg" />
@@ -172,6 +173,9 @@
 	  <None Remove="Resources\Images\wifi.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json" />
+	</ItemGroup>
 	
 	<ItemGroup>
 	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
@@ -192,7 +196,9 @@
 	
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
 	  <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.52" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	  <PackageReference Include="PCLStorage" Version="1.0.2" />
 	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.41" />
 	</ItemGroup>
@@ -200,9 +206,6 @@
 	<ItemGroup>
 	  <Compile Update="Controls\CustomImageButton.xaml.cs">
 	    <DependentUpon>CustomImageButton.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Pages\WorkOrderListPage.xaml.cs">
-	    <DependentUpon>WorkOrderListPage.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	
@@ -274,9 +277,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\WorkOrderPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\WorkOrderListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\EndRoutePopup.xaml">

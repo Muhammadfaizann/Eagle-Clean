@@ -9,12 +9,12 @@ public partial class DailySchedulePage : ContentPage
 	{
 		InitializeComponent();
         BindingContext= vm;
-        collection.ItemsSource = new Models.Task[]
+        collection.ItemsSource = new Models.Schedual[]
         {
-            new Models.Task { Title = "Anytown PO", Subject = "6 Routes & 1 Work Order"},
-            new Models.Task { Title = "ALMA MI Post Office", Subject = "3 Routes"},
-            new Models.Task { Title = "ITHICA MI Post Office", Subject = "2 Routes & 2 Work Order"},
-            new Models.Task { Title = "ITHICA MI Post Office", Subject = "1 Work Order"},
+            new Models.Schedual { Title = "Anytown PO", Subject = "6 Routes & 1 Work Order"},
+            new Models.Schedual { Title = "ALMA MI Post Office", Subject = "3 Routes"},
+            new Models.Schedual { Title = "ITHICA MI Post Office", Subject = "2 Routes & 2 Work Order"},
+            new Models.Schedual { Title = "ITHICA MI Post Office", Subject = "1 Work Order"},
 
         };
        

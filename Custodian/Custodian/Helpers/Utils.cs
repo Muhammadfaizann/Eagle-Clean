@@ -8,23 +8,18 @@ using System.Threading.Tasks;
 
 namespace Custodian.Helpers
 {
-    public class Utils
+    public static class Utils
     {
-        public static Assignment activeAssigment { get; set; }
-        public static ObservableCollection<Assignment> ongoingAssigments = new ObservableCollection<Assignment>
+        public static string ROOT_PATH = "/storage/emulated/0/";
+        public static Route activeAssigment { get; set; }
+        public static ObservableCollection<Route> ongoingRoutes = new ObservableCollection<Route>();
+        public static ObservableCollection<CompletedRoute> completedRoutes = new ObservableCollection<CompletedRoute>
         {
-            new Assignment { Title = "Route 005", IsStarted = false },
-            new Assignment { Title = "Route 006", IsStarted = false },
-            new Assignment { Title = "Route 007", IsStarted = false },
-            new Assignment { Title = "Route 008", IsStarted = true },
-            new Assignment { Title = "Route 009", IsStarted = false },
+            new CompletedRoute { Title = "Route 001", IsOverTime = true },
+            new CompletedRoute { Title = "Route 002", IsOverTime = false },
+            new CompletedRoute { Title = "Route 003", IsOverTime = false },
+            new CompletedRoute { Title = "Route 004", IsOverTime = true },
         };
-        public static ObservableCollection<CompletedAssignment> completedAssigments = new ObservableCollection<CompletedAssignment>
-        {
-            new CompletedAssignment { Title = "Route 001", IsOverTime = true },
-            new CompletedAssignment { Title = "Route 002", IsOverTime = false },
-            new CompletedAssignment { Title = "Route 003", IsOverTime = false },
-            new CompletedAssignment { Title = "Route 004", IsOverTime = true },
-        };
+        public static Config config { get; set; }
     }
 }

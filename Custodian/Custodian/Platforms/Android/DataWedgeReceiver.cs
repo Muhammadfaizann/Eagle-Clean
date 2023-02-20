@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Custodian.ActivityLog;
 
 namespace Custodian.Platforms.Android
 { 
@@ -30,54 +31,59 @@ public class DataWedgeReceiver : BroadcastReceiver
 
     public override void OnReceive(Context context, Intent i)
     {
-        // check the intent action is for us
-        if (i.Action.Equals(IntentAction))
-        {
-            // define a string that will hold our output
-            String Out = "";
-            // get the source of the data
-            String source = i.GetStringExtra(SOURCE_TAG);
-            // save it to use later
-            if (source == null)
-                source = "scanner";
-            // get the data from the intent
-            String data = i.GetStringExtra(DATA_STRING_TAG);
-            // let's define a variable for the data length
-            int data_len = 0;
-            // and set it to the length of the data
-            if (data != null)
-                data_len = data.Length;
-            // check if the data has come from the barcode scanner
-            if (source.Equals("scanner"))
-            {
-                // check if there is anything in the data
-                if (data != null && data.Length > 0)
+            try {
+                // check the intent action is for us
+                if (i.Action.Equals(IntentAction))
                 {
-                    // we have some data, so let's get it's symbology
-                    String sLabelType = i.GetStringExtra(LABEL_TYPE_TAG);
-                    // check if the string is empty
-                    if (sLabelType != null && sLabelType.Length > 0)
+                    // define a string that will hold our output
+                    String Out = "";
+                    // get the source of the data
+                    String source = i.GetStringExtra(SOURCE_TAG);
+                    // save it to use later
+                    if (source == null)
+                        source = "scanner";
+                    // get the data from the intent
+                    String data = i.GetStringExtra(DATA_STRING_TAG);
+                    // let's define a variable for the data length
+                    int data_len = 0;
+                    // and set it to the length of the data
+                    if (data != null)
+                        data_len = data.Length;
+                    // check if the data has come from the barcode scanner
+                    if (source.Equals("scanner"))
                     {
-                        // format of the label type string is LABEL-TYPE-SYMBOLOGY
-                        // so let's skip the LABEL-TYPE- portion to get just the symbology
-                        sLabelType = sLabelType.Substring(11);
-                    }
-                    else
-                    {
-                        // the string was empty so let's set it to "Unknown"
-                        sLabelType = "Unknown";
+                        // check if there is anything in the data
+                        if (data != null && data.Length > 0)
+                        {
+                            // we have some data, so let's get it's symbology
+                            String sLabelType = i.GetStringExtra(LABEL_TYPE_TAG);
+                            // check if the string is empty
+                            if (sLabelType != null && sLabelType.Length > 0)
+                            {
+                                // format of the label type string is LABEL-TYPE-SYMBOLOGY
+                                // so let's skip the LABEL-TYPE- portion to get just the symbology
+                                sLabelType = sLabelType.Substring(11);
+                            }
+                            else
+                            {
+                                // the string was empty so let's set it to "Unknown"
+                                sLabelType = "Unknown";
+                            }
+
+                            // let's construct the beginning of our output string
+                            Out = data.ToString() + "\r\n";
+                        }
                     }
 
-                    // let's construct the beginning of our output string
-                    Out = data.ToString() + "\r\n";
+                    if (scanDataReceived != null)
+                    {
+                        scanDataReceived(this, Out);
+                    }
                 }
+            } catch (Exception e) {
+                app_activity_logger.write(e.ToString());
             }
-
-            if (scanDataReceived != null)
-            {
-                scanDataReceived(this, Out);
-            }
-        }
+        
     }
 }
 }

@@ -83,7 +83,7 @@
 
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
-                <Button Grid.Row="2" Text="Login" VerticalOptions="End" Command="{Binding LoginCommand}" ></Button>
+                <Button Grid.Row="2" Text="Login" VerticalOptions="End" Clicked="Login_Clicked" ></Button>
             </Grid>
             <ActivityIndicator Grid.Row="2" IsRunning="{Binding LoginCommand.IsRunning}" IsVisible="{Binding LoginCommand.IsRunning}" Color="{x:StaticResource CustodianppProgressBlue}"
                            HorizontalOptions="Center"

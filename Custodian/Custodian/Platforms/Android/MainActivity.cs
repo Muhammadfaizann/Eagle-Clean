@@ -30,9 +30,9 @@ public class MainActivity : MauiAppCompatActivity
 
         _broadcastReceiver.scanDataReceived += (s, scanData) =>
         {
-            if (scanData.Equals("type:^Cust|fac:123456|rte:R006|action:Start\r\n") )
+            if (scanData.Contains("start") )
                 WeakReferenceMessenger.Default.Send(new StartRouteMessage(scanData));
-            else if (scanData.Equals("type:^Cust|fac:123456|rte:R006|action:End\r\n"))
+            else if (scanData.Contains("end"))
                 WeakReferenceMessenger.Default.Send(new EndRouteMessage(scanData));
             else
                 WeakReferenceMessenger.Default.Send(new BarcodeScanMessage(scanData));

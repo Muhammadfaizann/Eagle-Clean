@@ -3,25 +3,25 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
 using Custodian.Messages;
 using Custodian.ViewModels;
-using System;
-using System.Linq.Expressions;
 
 namespace Custodian.Pages;
 
 public partial class Login : ContentPage
 {
     bool IsScanned = false;
+    string bagdeID = string.Empty;
     public Login(LoginViewModel vm) 
     {  
         InitializeComponent();
         BindingContext = vm;
         WeakReferenceMessenger.Default.Register<BarcodeScanMessage>(this, (sender, args) =>
-        { //multiple calls are triggering
+        { 
             try
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     IsScanned = true;
+                    bagdeID = args.Value.ToString();
                     if (args.Value.Length == 14)
                     {
                         entryId1.Text = args.Value[0].ToString();
@@ -58,55 +58,130 @@ public partial class Login : ContentPage
 
     private void entryId1_TextChanged(object sender, TextChangedEventArgs e)
     {
-		entryId2.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = string.Empty;
+            bagdeID = entryId1.Text;
+            entryId2.Focus();
+        }
     }
     private void entryId2_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId3.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId2.Text;
+            entryId3.Focus();
+        }
     }
     private void entryId3_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId4.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId3.Text;
+            entryId4.Focus();
+        }
     }
     private void entryId4_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId5.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId4.Text;
+            entryId5.Focus();
+        }
     }
     private void entryId5_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId6.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId5.Text;
+            entryId6.Focus();
+        }
     }
     private void entryId6_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId7.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId6.Text;
+            entryId7.Focus();
+        }
     }
     private void entryId7_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId8.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId7.Text;
+            entryId8.Focus();
+        }
     }
     private void entryId8_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId9.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId8.Text;
+            entryId9.Focus();
+        }
     }
     private void entryId9_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId10.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId9.Text;
+            entryId10.Focus();
+        }
     }
     private void entryId10_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId11.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId10.Text;
+            entryId11.Focus();
+        }
     }
     private void entryId11_TextChanged(object sender, TextChangedEventArgs e)
     {
-        entryId12.Focus();
+        if (!IsScanned)
+        {
+            bagdeID = bagdeID + entryId11.Text;
+            entryId12.Focus();
+        }
     }
     private void entryId12_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (!IsScanned)
         {
-            var vm = BindingContext as LoginViewModel;
-            vm.LoginCommand.Execute(null);
+            bagdeID = bagdeID + entryId12.Text;
+            Login_Clicked(null, null);
         }
         IsScanned = false;
-    } 
+    }
+
+    private async void Login_Clicked(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(bagdeID))
+        {
+            if (bagdeID.Length == 12)
+            {
+                var vm = BindingContext as LoginViewModel;
+                vm.LoginCommand.Execute(null);
+            }
+            else
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                string text = "Kindly Provide your whole 12 digits badge ID";
+                ToastDuration duration = ToastDuration.Short;
+                double fontSize = 12;
+                var toast = Toast.Make(text, duration, fontSize);
+                await toast.Show(cancellationTokenSource.Token);
+            }
+        }
+        else
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+            string text = "Provide your badge ID";
+            ToastDuration duration = ToastDuration.Short;
+            double fontSize = 12;
+            var toast = Toast.Make(text, duration, fontSize);
+            await toast.Show(cancellationTokenSource.Token);
+        }
+    }
 }

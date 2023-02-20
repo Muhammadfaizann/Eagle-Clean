@@ -1,3 +1,4 @@
+using Bumptech.Glide.Util;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
 using Custodian.Messages;
@@ -8,13 +9,11 @@ namespace Custodian.Pages;
 
 public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 {
-    
+    IDispatcherTimer timer;
     public ActiveCleaningRoutePage()
 	{
 		InitializeComponent();
-        cleaningPlan.ItemsSource = new object[] { "Mop Floor 2 - 20 Minutes", "Restock - 25 Minutes", "Clean Furniture - 20 Minutes" };
         WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnMessageReceived);
-           
     }
 
     private void OnMessageReceived(object recipient, EndRouteMessage message)
@@ -36,8 +35,12 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        var obj = query["param"] as Assignment;
-        routeTitle.Text =obj.Title;
+        var obj = query["param"] as Route;
+        routeTitle.Text = obj.rte;
+        description.Text = obj.desc;
+        cleaningPlan.ItemsSource = obj.tasks;
+        lblPlannedTime.Text= obj.plannedTime;
+        StartTimerUpword();
     }
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
@@ -73,5 +76,34 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
         }
 
     }
+    private void StartTimerUpword()
+    {
+        try
+        {
+            TimeSpan dateTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
+            var seconds = dateTime.TotalSeconds;
+            var progressPerSec = (1 / seconds) * 100;
+            timer = Dispatcher.CreateTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            lblTime.IsVisible = true;
+            TimeSpan timer_date_time = new TimeSpan(0,0,0);
+            timer.Tick += (s, e) =>
+            {
+                lblTime.Dispatcher.Dispatch(() =>
+                {
 
+                    lblTime.Text = timer_date_time.ToString("t");
+                    timer_date_time = timer_date_time.Add(new TimeSpan(0,0,1));
+                    timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
+                });
+
+            };
+            timer.Start();
+        }
+        catch(Exception ex)
+        {
+
+        }
+
+    }
 }

@@ -81,9 +81,6 @@
     <MauiXaml Update="Pages\WorkOrderPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
-    <MauiXaml Update="Pages\WorkOrderListPage.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
     <MauiXaml Update="Popups\EndRoutePopup.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

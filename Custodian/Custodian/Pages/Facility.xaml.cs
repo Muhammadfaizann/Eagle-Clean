@@ -5,6 +5,7 @@ using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.Models;
 using Custodian.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace Custodian.Pages;
 
@@ -13,9 +14,9 @@ public partial class Facility : ContentPage, IQueryAttributable
 	public Facility(FacilityViewModel vm)
 	{
 		InitializeComponent();
-        this.BindingContext = vm;
-        ongoingAssigments.ItemsSource = Utils.ongoingAssigments;
-        completedAssigments.ItemsSource =Utils.completedAssigments;
+        BindingContext = vm;
+        ongoingAssigments.ItemsSource = Utils.ongoingRoutes;
+        completedAssigments.ItemsSource =Utils.completedRoutes;
                 ongoingWorkOrders.ItemsSource = new Workorder[]
                 {
                     new Workorder { Title = "WO# 1", Subject = "Mowing - 26 times / year" , IsStarted = false },
@@ -23,17 +24,17 @@ public partial class Facility : ContentPage, IQueryAttributable
                     new Workorder { Title = "WO# 3", Subject = "Mowing - 26 times / year" , IsStarted = true },
                     new Workorder { Title = "WO# 4" , Subject = "Mowing - 26 times / year", IsStarted = false },
                 };
-                completedWorkorders.ItemsSource = new CompletedAssignment[]
+                completedWorkorders.ItemsSource = new CompletedRoute[]
                 {
-                    new CompletedAssignment { Title = "WO# 004", IsOverTime = true },
-                    new CompletedAssignment { Title = "WO# 005", IsOverTime = false },
-                    new CompletedAssignment { Title = "WO# 006", IsOverTime = false },
-                    new CompletedAssignment { Title = "WO# 007" , IsOverTime = true },
+                    new CompletedRoute { Title = "WO# 004", IsOverTime = true },
+                    new CompletedRoute { Title = "WO# 005", IsOverTime = false },
+                    new CompletedRoute { Title = "WO# 006", IsOverTime = false },
+                    new CompletedRoute { Title = "WO# 007" , IsOverTime = true },
                 };
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        Models.Task obj = query["param"] as Models.Task;
+        Models.Schedual obj = query["param"] as Models.Schedual;
         navBar.Title = "Facility - " +obj.Title;
         lblFacility.Text = obj.Title;
     }

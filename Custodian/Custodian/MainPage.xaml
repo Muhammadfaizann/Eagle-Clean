@@ -6,8 +6,8 @@
 
     <ContentPage.Content>
         <Grid RowDefinitions="20,*">
-           
-            <pages:AppShell Grid.Row="1"></pages:AppShell>
+
+     
         </Grid>
     </ContentPage.Content>
 

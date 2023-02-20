@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-              xmlns:controls="clr-namespace:Custodian.Controls"
+             xmlns:controls="clr-namespace:Custodian.Controls"
+             xmlns:viewmodel="clr-namespace:Custodian.ViewModels"
              x:Class="Custodian.Pages.Facility"
              Title="Facility">
     <ContentPage.Resources>
@@ -99,31 +100,31 @@
                                         </Frame>
                                         <Label 
                                             x:Name="lbl"
-                                            Text="{Binding Title}" 
+                                            Text="{Binding rte}" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" />
                                     </HorizontalStackLayout>
-                                    <Label Text="Clean Offices - Admin Hall" 
+                                            <Label Text="{Binding desc}" 
                                        FontSize="Medium" ></Label>
                                     <Label Text="Planned Time - 02:35 hrs"  FontSize="16"></Label>
                                 </VerticalStackLayout>
-                                <Button 
-                                Grid.Column="1" 
-                                IsVisible="{Binding IsStarted,Converter={StaticResource InvertedBoolConverter}}"
-                                Text="Start" 
-                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
-                                CommandParameter="{Binding .}" 
-                                Style="{x:StaticResource btnStartStyle}"/>
-                                <Button 
-                                Grid.Column="1" 
-                                IsVisible="{Binding IsStarted}"
-                                Text="Continue" 
-                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
-                                CommandParameter="{Binding .}"
-                                Style="{x:StaticResource btnContinueStyle}"/>
-                            </Grid>
+                                        <Grid x:Name="btnGrid" Grid.Column="1" IsVisible="{Binding Path=BindingContext.IsButtonsVisible , Source={x:Reference Name=ongoingAssigments}}" >
+                                            <Button 
+                                                IsVisible="{Binding IsStarted,Converter={StaticResource InvertedBoolConverter}}"
+                                                Text="Start" 
+                                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
+                                                CommandParameter="{Binding .}" 
+                                                Style="{x:StaticResource btnStartStyle}"/>
+                                            <Button 
+                                                IsVisible="{Binding IsStarted}"
+                                                Text="Continue" 
+                                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
+                                                CommandParameter="{Binding .}"
+                                                Style="{x:StaticResource btnContinueStyle}"/>   
+                                        </Grid>
+                                    </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>

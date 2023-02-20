@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ActivityLog;
 using Custodian.Messages;
 using Custodian.Pages;
 using Custodian.Screens;
@@ -9,7 +10,9 @@ public partial class App : Application
 { 
 	public App()
 	{
-		InitializeComponent();
+        app_activity_logger.createConfigFile();
+        app_activity_logger.importConfigurations();
+        InitializeComponent();
         MainPage = new AppShell();
         _ = InitializeApp(); 
         WeakReferenceMessenger.Default.Register<LoginMessage>(this, (sender, args) => 
@@ -26,7 +29,13 @@ public partial class App : Application
             }
         });
     }
-	private async Task InitializeApp()
+    protected override void OnStart()
+    {
+       Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTExNjMwM0AzMjMwMmUzNDJlMzBVMkJaZDBDdHdVYnFBOFcrOFlrYStVVFRUZzByNjNqWXZjci9iaUNGVkZVPQ==");
+       
+    }
+   
+    private async Task InitializeApp()
 	{
             MainPage = new SplashScreen();
             await Task.Delay(9000);

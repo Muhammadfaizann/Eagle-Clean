@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Custodian.Models
 {
-    public class Task
+    public class Schedual
     {
         public string Title { get; set; }
         public string Subject { get; set; }
