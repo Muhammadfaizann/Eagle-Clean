@@ -108,7 +108,14 @@
                                     </HorizontalStackLayout>
                                             <Label Text="{Binding desc}" 
                                        FontSize="Medium" ></Label>
-                                    <Label Text="Planned Time - 02:35 hrs"  FontSize="16"></Label>
+                                    <Label   FontSize="16">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="Planned Time -  "></Span>
+                                                        <Span Text="{Binding plannedTime}"></Span>
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                    </Label>
                                 </VerticalStackLayout>
                                         <Grid x:Name="btnGrid" Grid.Column="1" IsVisible="{Binding Path=BindingContext.IsButtonsVisible , Source={x:Reference Name=ongoingAssigments}}" >
                                             <Button 

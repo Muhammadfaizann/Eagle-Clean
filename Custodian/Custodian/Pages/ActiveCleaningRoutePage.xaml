@@ -101,8 +101,19 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="50"/>
                                     </Grid.ColumnDefinitions>
-                                    <Label x:Name="lbl" Grid.Column="0" Text="{Binding .}" VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Black}"
-                                       FontSize="Medium" ></Label>
+                                    <HorizontalStackLayout Grid.Column="0">
+                                        <Label x:Name="lbl"  VerticalOptions="Center" VerticalTextAlignment="Center" TextColor="{StaticResource Black}" FontSize="Medium" >
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Description}"/>
+                                                    <Span Text=" - "/>
+                                                    <Span Text="{Binding TimeInMins}"/>
+                                                    <Span Text=" Minutes "/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </HorizontalStackLayout>
+                                    
                                     <Image Grid.Column="1"  HorizontalOptions="End" Source="grey_tick.png" WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Source={Reference lbl}}">

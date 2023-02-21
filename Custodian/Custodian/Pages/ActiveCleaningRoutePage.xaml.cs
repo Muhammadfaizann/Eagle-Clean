@@ -10,10 +10,32 @@ namespace Custodian.Pages;
 public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
 {
     IDispatcherTimer timer;
+    TimeSpan dateTime;
+    double progressPerSec;
+    TimeSpan timer_date_time;
+    string LastCleaningPlan=string.Empty;
     public ActiveCleaningRoutePage()
 	{
 		InitializeComponent();
         WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnMessageReceived);
+
+        timer = Dispatcher.CreateTimer();
+        timer.Interval = TimeSpan.FromSeconds(1);
+        timer.Tick += (s, e) =>
+        {
+            lblTime.Text = timer_date_time.ToString("t");
+            timer_date_time = timer_date_time.Add(new TimeSpan(0, 0, 1));
+            timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
+        };
+
+
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        timer_date_time = new TimeSpan(0, 0, 0);
+        timerProgressBar.Progress = 0;
+        timer.Start();
     }
 
     private void OnMessageReceived(object recipient, EndRouteMessage message)
@@ -38,10 +60,14 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
         var obj = query["param"] as Route;
         routeTitle.Text = obj.rte;
         description.Text = obj.desc;
-        cleaningPlan.ItemsSource = obj.tasks;
+        cleaningPlan.ItemsSource = obj.steps;
+        LastCleaningPlan = obj.steps.Last().Description;
         lblPlannedTime.Text= obj.plannedTime;
-        StartTimerUpword();
+        dateTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
+        var seconds = dateTime.TotalSeconds;
+        progressPerSec = (1 / seconds) * 100;
     }
+
     private void TapGestureRecognizer_Tapped(object sender, EventArgs e)
     {
         
@@ -52,7 +78,7 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
         label.TextDecorations = TextDecorations.Strikethrough;
         label.Opacity = 0.5;
         btnEndRoute.IsVisible = true;
-        if (label.Text == "Clean Furniture - 20 Minutes")
+        if (label.FormattedText.Spans[0].Text == LastCleaningPlan)
             btnEndRoute.Text = "Complete Route";
     }
 
@@ -76,34 +102,9 @@ public partial class ActiveCleaningRoutePage : ContentPage, IQueryAttributable
         }
 
     }
-    private void StartTimerUpword()
-    {
-        try
-        {
-            TimeSpan dateTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
-            var seconds = dateTime.TotalSeconds;
-            var progressPerSec = (1 / seconds) * 100;
-            timer = Dispatcher.CreateTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
-            lblTime.IsVisible = true;
-            TimeSpan timer_date_time = new TimeSpan(0,0,0);
-            timer.Tick += (s, e) =>
-            {
-                lblTime.Dispatcher.Dispatch(() =>
-                {
+    
 
-                    lblTime.Text = timer_date_time.ToString("t");
-                    timer_date_time = timer_date_time.Add(new TimeSpan(0,0,1));
-                    timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
-                });
-
-            };
-            timer.Start();
-        }
-        catch(Exception ex)
-        {
-
-        }
-
-    }
 }
+
+   
+    
