@@ -17,16 +17,14 @@ namespace Custodian.ViewModels
     {
         
         private bool _IsButtonsVisible = true;
-        private IConfiguration conf;
         public bool IsButtonsVisible
         {
             get => _IsButtonsVisible;
             set => SetProperty(ref _IsButtonsVisible, value);
         }
         
-        public FacilityViewModel(IConfiguration configuration) 
+        public FacilityViewModel() 
         {           
-             IsButtonsVisible =  bool.Parse(configuration["IsButtonEnabled"]);
             WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, (sender, args) =>
             { 
                 try

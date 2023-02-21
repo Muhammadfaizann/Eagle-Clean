@@ -79,7 +79,6 @@
                                 <Label 
                                      x:Name="lblTime"
                                      Style="{StaticResource BlackHeadingLabel}" 
-                                     
                                      HorizontalTextAlignment="Center" 
                                      VerticalTextAlignment="Center">
                                 </Label>

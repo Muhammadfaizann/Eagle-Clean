@@ -42,12 +42,12 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<DailyScheduleViewModel>();
         builder.Services.AddSingleton<WorkOrderListViewModel>();
-        builder.Services.AddTransient<FacilityViewModel>();
+        builder.Services.AddSingleton<FacilityViewModel>();
         builder.Services.AddSingleton<LoginViewModel>();
 
         builder.Services.AddSingleton<DailySchedulePage>();
         builder.Services.AddSingleton<ActiveCleaningRoutePage>();
-        builder.Services.AddTransient<Facility>();
+        builder.Services.AddSingleton<Facility>();
         builder.Services.AddTransient<Login>();
 
         
