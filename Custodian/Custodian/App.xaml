@@ -9,6 +9,12 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary>
+                    <Style x:Key="lblLoggedInAs" TargetType="Label">
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                        <Setter Property="HorizontalOptions" Value="Start"/>
+                    </Style>
+
                     <Style x:Key="BlueHeadingLabel" TargetType="Label">
                         <Setter Property="TextColor" Value="{StaticResource CustodianHeadingBlue}" />
                         <Setter Property="FontSize" Value="22" />

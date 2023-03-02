@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="Custodian.Popups.TaskCompletedPopup"
+              Color="Transparent"  >
+    
+           
+          
+    <Frame BackgroundColor="White" Padding="25" HeightRequest="310" WidthRequest="300" CornerRadius="25">
+        <VerticalStackLayout>
+            <Label
+                x:Name="lbl"
+                Text="Task Completed?"
+                FontSize="20"
+                FontAttributes="Bold"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <VerticalStackLayout Margin="0,10" Spacing="8">
+               
+                <VerticalStackLayout Margin="0,15">
+                    <Label x:Name="lblEstimated"
+                        FontSize="14"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="Start" />
+                    <Label x:Name="lblActual"
+                        
+                        FontSize="14"
+                        VerticalOptions="Start" 
+                        HorizontalOptions="Start" />
+                    
+                </VerticalStackLayout>
+                <Label 
+                Text="Are you sure you want to complete the task?"
+                FontSize="14"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+                <Label 
+                Text="Note: Once complete the task will be deleted from the list."
+                FontSize="14"
+                TextColor="Red"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            </VerticalStackLayout>
+            <Grid HorizontalOptions="Center" ColumnSpacing="20" ColumnDefinitions="100,100">
+
+                <Button Grid.Column="0" Text="Cancel" BackgroundColor="White"  FontSize="14" Background="{x:StaticResource GreyGradient}" Clicked="cancel_Clicked" TextColor="{StaticResource White}">
+
+                </Button>
+                <Button Grid.Column="1" x:Name="lblButton" Text="Complete" BackgroundColor="White" Background="{x:StaticResource GreenGradient}" Clicked="complete_Clicked" FontSize="14" TextColor="{StaticResource White}">
+
+                </Button>
+            </Grid>
+
+
+
+
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

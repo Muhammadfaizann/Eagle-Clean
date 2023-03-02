@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Custodian.ActivityLog;
+using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.Pages;
 using Custodian.Screens;
@@ -10,8 +11,10 @@ public partial class App : Application
 { 
 	public App()
 	{
-        app_activity_logger.createConfigFile();
-        app_activity_logger.importConfigurations();
+        //app_activity_logger.createConfigFile();
+        Utils.ImportConfigurations();
+        //Utils.LoadCompletedRoutes();
+       // Utils.LoadPartialRoutes();
         InitializeComponent();
         MainPage = new AppShell();
         _ = InitializeApp(); 
@@ -32,7 +35,6 @@ public partial class App : Application
     protected override void OnStart()
     {
        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTExNjMwM0AzMjMwMmUzNDJlMzBVMkJaZDBDdHdVYnFBOFcrOFlrYStVVFRUZzByNjNqWXZjci9iaUNGVkZVPQ==");
-       
     }
    
     private async Task InitializeApp()
@@ -41,4 +43,7 @@ public partial class App : Application
             await Task.Delay(9000);
             MainPage = new NavigationPage(new UserAgreement());
     }
+
+   
+    
 }

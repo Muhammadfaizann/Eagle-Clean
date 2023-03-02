@@ -14,21 +14,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"  HorizontalOptions="Start">
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span  Text="Logged in as," TextColor="Black" FontSize="14" FontAttributes="Bold"></Span>
-                                <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" FontSize="14" FontAttributes="Bold"></Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-                </Grid>
+
+                <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
                 <Label Grid.Row="1" Text="Tap the training resources you need." FontSize="22" FontAttributes="Bold" HorizontalOptions="Start"></Label>
                 <VerticalStackLayout Grid.Row="2" Spacing="10" Margin="0,20">
                     <HorizontalStackLayout Spacing="10">

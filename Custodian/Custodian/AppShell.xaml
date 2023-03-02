@@ -41,8 +41,8 @@
                       ContentTemplate="{DataTemplate pages:TravelPage}"/>
         <ShellContent Title="Ad-hoc Work"
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
-        <ShellContent Title="View Route Library"
-                      ContentTemplate="{DataTemplate pages:ViewRouteLibrary}"/>
+        <ShellContent Title="Facility List"
+                      ContentTemplate="{DataTemplate pages:FacilityList}"/>
         <ShellContent Title="Training" 
                       ContentTemplate="{DataTemplate pages:Training}"/>
         <ShellContent Title="View SDS Sheet"

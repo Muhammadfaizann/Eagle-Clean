@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:progressBar="clr-namespace:Syncfusion.Maui.ProgressBar;assembly=Syncfusion.Maui.ProgressBar"
              xmlns:controls="clr-namespace:Custodian.Controls"
-             x:Class="Custodian.Pages.ActiveCleaningRoutePage"
+             xmlns:viewModel="clr-namespace:Custodian.ViewModels"
+             x:Class="Custodian.Pages.ProofOfWork"
              Title="Active Cleaning Route">
+    
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,*">
             <controls:CustomStatusBar Grid.Row="0"/>
@@ -60,7 +62,7 @@
                                 <Image HorizontalOptions="Start" Source="clock.png" VerticalOptions="Start" ></Image>
                                 <StackLayout  Orientation="Vertical" Margin="10,0,0,0" HorizontalOptions="Center" VerticalOptions="Start" >
                                     <Label Text="Actual Time"  Style="{StaticResource BlackHeadingLabel}" HorizontalOptions="Center" FontSize="10" HorizontalTextAlignment="Center"></Label>
-                                    <Label Text="--------" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
+                                    <Label Text="{Binding ActualTimeText}" HorizontalOptions="Center" Style="{StaticResource BlackHeadingLabel}" FontSize="18" HorizontalTextAlignment="Center"></Label>
                                 </StackLayout>
                             </HorizontalStackLayout>
                         </Grid>
@@ -78,6 +80,7 @@
                             
                                 <Label 
                                      x:Name="lblTime"
+                                     Text="{Binding TimerText, Mode=TwoWay}"
                                      Style="{StaticResource BlackHeadingLabel}" 
                                      HorizontalTextAlignment="Center" 
                                      VerticalTextAlignment="Center">
@@ -87,7 +90,7 @@
                         </progressBar:SfCircularProgressBar>
                     </Grid>
 
-                    <CollectionView x:Name="cleaningPlan" Grid.Row="2">
+                    <CollectionView x:Name="cleaningPlan" Grid.Row="2" ItemsSource="{Binding CleaningPlanList}">
                         <CollectionView.Header>
                             <StackLayout>
                                 <Label Text="Cleaning Plan"  Style="{StaticResource BlueHeadingLabel}" ></Label>
@@ -106,7 +109,7 @@
                                                 <FormattedString>
                                                     <Span Text="{Binding Description}"/>
                                                     <Span Text=" - "/>
-                                                    <Span Text="{Binding TimeInMins}"/>
+                                                    <Span Text="{Binding PlannedTimeInMint}"/>
                                                     <Span Text=" Minutes "/>
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -115,7 +118,8 @@
                                     
                                     <Image Grid.Column="1"  HorizontalOptions="End" Source="grey_tick.png" WidthRequest="25" HeightRequest="25" VerticalOptions="Center">
                                         <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding Source={Reference lbl}}">
+                                            <TapGestureRecognizer CommandParameter="{Binding .}"
+                                                                  Command="{Binding Path=BindingContext.TaskCompletedCommand,  Source={x:Reference Name=cleaningPlan}}" Tapped="TapGestureRecognizer_Tapped" >
                                             </TapGestureRecognizer>
                                         </Image.GestureRecognizers>
                                     </Image>
@@ -125,11 +129,11 @@
                         </CollectionView.ItemTemplate>
                         <CollectionView.EmptyView>
                             <StackLayout>
-                                <Label Text="No Assignment"></Label>
+                                <Label Text="All task completed."></Label>
                             </StackLayout>
                         </CollectionView.EmptyView>
                     </CollectionView>
-                    <Button x:Name="btnEndRoute" Grid.Row="3" Margin="0,10,0,10" Text="End Route" IsVisible="false" VerticalOptions="End" Clicked="btnEndRoute_Clicked"></Button>
+                    <Button x:Name="btnEndRoute" Grid.Row="3" Margin="0,10,0,10" Text="{Binding ButtonText, Mode=TwoWay}" VerticalOptions="End" Clicked="btnEndRoute_Clicked"></Button>
                 </Grid>
 
                 <Button Grid.Row="1" Background="#EAEAEA" TextColor="Black" VerticalOptions="End" CornerRadius="0" Text="Add Picture" Clicked="AddPictures_Clicked" ></Button>

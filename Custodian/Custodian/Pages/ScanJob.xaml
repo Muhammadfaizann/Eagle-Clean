@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:controls="clr-namespace:Custodian.Controls"
+             xmlns:viewmodel="clr-namespace:Custodian.ViewModels"
+             x:Class="Custodian.Pages.ScanJob"
+             Title="ScanJob">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="btnStartStyle" TargetType="Button">
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="WidthRequest" Value="75"/>
+                <Setter Property="HeightRequest" Value="30"/>
+            </Style>
+            <Style x:Key="btnContinueStyle" TargetType="Button">
+                <Setter Property="Background"  Value="{x:StaticResource YellowGradient}"/>
+                <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="HorizontalOptions" Value="End"/>
+                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="WidthRequest" Value="75"/>
+                <Setter Property="HeightRequest" Value="30"/>
+            </Style>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <controls:CustomStatusBar Grid.Row="0"/>
+            <controls:CustomNavBar x:Name="navBar" Grid.Row="1" Title="Job Scanning" Icon="Navigation"/>
+            <Grid Grid.Row="2" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <VerticalStackLayout Grid.Column="0" Spacing="5">
+                        <Label Style="{StaticResource lblLoggedInAs}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span  Text="Logged in as,"></Span>
+                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}"></Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label 
+                          Text="Scan To Start"
+                          Style="{x:StaticResource lblstyle}"
+                          FontSize="18"
+                          FontAttributes="Bold"
+                          TextColor="{StaticResource Black}"
+                          HorizontalOptions="Start" />
+                    </VerticalStackLayout>
+                    <Image Grid.Column="1" Source="qr_small_icon.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Start" HorizontalOptions="EndAndExpand" ></Image>
+                </Grid>
+                <Grid Grid.Row="0" x:Name="grid_QR" RowDefinitions="auto,auto" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Grid.Row="0" Source="qr_icon.png" ></Image>
+                    <Label Grid.Row="1" Text="Scan Route to Start or Stop Work" FontAttributes="Bold" FontSize="18" TextColor="Black"></Label>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

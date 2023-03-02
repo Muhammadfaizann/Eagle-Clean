@@ -37,7 +37,7 @@
                 </VerticalStackLayout>
                 <VerticalStackLayout Grid.Row="0" VerticalOptions="Center" Spacing="10" >
                     <Label  
-                        Text="Enter Bagde ID"
+                        Text="Enter Badge ID"
                         FontSize="18"
                         TextColor="Black"
                         FontAttributes="Bold"

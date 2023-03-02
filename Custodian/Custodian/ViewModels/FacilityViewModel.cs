@@ -25,35 +25,7 @@ namespace Custodian.ViewModels
         
         public FacilityViewModel() 
         {           
-            WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, (sender, args) =>
-            { 
-                try
-                {
-                    MainThread.BeginInvokeOnMainThread(() =>
-                    {
-                        int totalMin = 0;
-                        var jsonString = args.Value.ToString();
-                        DatabaseService.write(jsonString);
-                        var route = JsonSerializer.Deserialize<Route>(jsonString);
-                        route.steps = new List<Step>();
-                        foreach (var task in route.tasks)
-                        {
-                           var strings= task.Split('|');
-                           route.steps.Add(new Step { Description= strings[0], TimeInMins = strings[1] });
-                           totalMin = totalMin + int.Parse(strings[1]);
-                        }
-                        TimeSpan timeSpan = TimeSpan.FromMinutes(totalMin);
-                        route.plannedTime = timeSpan.ToString("t");
-                        Utils.ongoingRoutes.Add(route);
-                        _ = NavigateAssignment(route);
-                    });
-
-                }
-                catch (Exception ex)
-                {
-
-                }
-            });
+            
         }
         
         [RelayCommand]
@@ -64,7 +36,7 @@ namespace Custodian.ViewModels
             {
                 { "param", arg }
             };
-            await Shell.Current.GoToAsync(nameof(ActiveCleaningRoutePage), navigationParameter);
+            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
             
         } 
         [RelayCommand]

@@ -8,10 +8,12 @@ namespace Custodian.Models.ServerModels
 {
     public class RouteModel
     {
-        public string FacilityId { get; set; } 
-        public string RouteName { get; set; } 
-        public string Json { get; set; } 
-        public string Description { get; set; }
+        public int id { get; set; }
+        public string facilityId { get; set; } 
+        public string routeName { get; set; } 
+        public int totalMinutes { get; set; }
+        public string json { get; set; } 
+        public string routeDescription { get; set; }
 
     }
     public class RouteDetailModel

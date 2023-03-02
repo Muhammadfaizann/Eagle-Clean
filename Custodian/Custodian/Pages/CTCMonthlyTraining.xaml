@@ -9,34 +9,7 @@
         <controls:CustomNavBar Grid.Row="1" Title="CTC Monthly Training" Icon="Navigation"/>
 
         <Grid Grid.Row="2" Margin="20" RowDefinitions="auto,auto,*">
-            <Grid Grid.Row="0" >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <VerticalStackLayout Grid.Column="0">
-                    <Label 
-                             VerticalOptions="Center"
-                             HorizontalOptions="Start"
-                              >
-                        <Label.FormattedText>
-                            <FormattedString>
-                                <Span  
-                                        Text="Logged in as," 
-                                        TextColor="Black" 
-                                        FontSize="Medium"
-                                        FontAttributes="Bold"></Span>
-                                <Span Text=" John" 
-                                          TextColor="{StaticResource CustodianHeadingBlue}"
-                                          FontSize="Medium"
-                                          FontAttributes="Bold"></Span>
-                            </FormattedString>
-                        </Label.FormattedText>
-                    </Label>
-
-                </VerticalStackLayout>
-                <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-            </Grid>
+            <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
             <Frame  Grid.Row="1" CornerRadius="10" BackgroundColor="{StaticResource Gray100}" Padding="0,0,0,-5" Margin="0,15">
                 <SearchBar  Placeholder="Search" PlaceholderColor="{StaticResource Gray600}" >
 

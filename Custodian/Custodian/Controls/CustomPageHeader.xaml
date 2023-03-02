@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Custodian.Controls.CustomPageHeader">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <VerticalStackLayout Grid.Column="0">
+        <Label Style="{StaticResource lblLoggedInAs}">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span  Text="Logged in as,"></Span>
+                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}"></Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+    </VerticalStackLayout>
+    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
+</Grid>
+

@@ -28,6 +28,8 @@ namespace Custodian.Models
     public class Step
     {
         public string Description { get; set; }
-        public string TimeInMins { get; set; }
+        public string PlannedTimeInMint { get; set; }
+        public string ActualTimeInSec { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

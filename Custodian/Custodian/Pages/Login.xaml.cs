@@ -3,15 +3,19 @@ using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
 using Custodian.Messages;
 using Custodian.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace Custodian.Pages;
 
 public partial class Login : ContentPage
 {
     bool IsScanned = false;
-    string bagdeID = string.Empty;
+    string badgeID = string.Empty;
+
     public Login(LoginViewModel vm) 
-    {  
+    {
+
+
         InitializeComponent();
         BindingContext = vm;
         WeakReferenceMessenger.Default.Register<BarcodeScanMessage>(this, (sender, args) =>
@@ -21,7 +25,7 @@ public partial class Login : ContentPage
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     IsScanned = true;
-                    bagdeID = args.Value.ToString();
+                    badgeID = args.Value.ToString();
                     if (args.Value.Length == 14)
                     {
                         entryId1.Text = args.Value[0].ToString();
@@ -60,8 +64,8 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = string.Empty;
-            bagdeID = entryId1.Text;
+            badgeID = string.Empty;
+            badgeID = entryId1.Text;
             entryId2.Focus();
         }
     }
@@ -69,7 +73,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId2.Text;
+            badgeID = badgeID + entryId2.Text;
             entryId3.Focus();
         }
     }
@@ -77,7 +81,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId3.Text;
+            badgeID = badgeID + entryId3.Text;
             entryId4.Focus();
         }
     }
@@ -85,7 +89,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId4.Text;
+            badgeID = badgeID + entryId4.Text;
             entryId5.Focus();
         }
     }
@@ -93,7 +97,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId5.Text;
+            badgeID = badgeID + entryId5.Text;
             entryId6.Focus();
         }
     }
@@ -101,7 +105,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId6.Text;
+            badgeID = badgeID + entryId6.Text;
             entryId7.Focus();
         }
     }
@@ -109,7 +113,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId7.Text;
+            badgeID = badgeID + entryId7.Text;
             entryId8.Focus();
         }
     }
@@ -117,7 +121,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId8.Text;
+            badgeID = badgeID + entryId8.Text;
             entryId9.Focus();
         }
     }
@@ -125,7 +129,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId9.Text;
+            badgeID = badgeID + entryId9.Text;
             entryId10.Focus();
         }
     }
@@ -133,7 +137,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId10.Text;
+            badgeID = badgeID + entryId10.Text;
             entryId11.Focus();
         }
     }
@@ -141,7 +145,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId11.Text;
+            badgeID = badgeID + entryId11.Text;
             entryId12.Focus();
         }
     }
@@ -149,7 +153,7 @@ public partial class Login : ContentPage
     {
         if (!IsScanned)
         {
-            bagdeID = bagdeID + entryId12.Text;
+            badgeID = badgeID + entryId12.Text;
             Login_Clicked(null, null);
         }
         IsScanned = false;
@@ -157,9 +161,9 @@ public partial class Login : ContentPage
 
     private async void Login_Clicked(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(bagdeID))
+        if (!string.IsNullOrEmpty(badgeID))
         {
-            if (bagdeID.Length == 12)
+            if (badgeID.Length == 12)
             {
                 var vm = BindingContext as LoginViewModel;
                 vm.LoginCommand.Execute(null);

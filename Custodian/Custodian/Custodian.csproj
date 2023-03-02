@@ -50,6 +50,15 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <AndroidResource Remove="Views\HomeViews\**" />
+	  <Compile Remove="Views\HomeViews\**" />
+	  <EmbeddedResource Remove="Views\HomeViews\**" />
+	  <MauiCss Remove="Views\HomeViews\**" />
+	  <MauiXaml Remove="Views\HomeViews\**" />
+	  <None Remove="Views\HomeViews\**" />
+	</ItemGroup>
+	
+	<ItemGroup>
 	  <Compile Remove="Resources\Fonts\fontAwesomeIcons.cs" />
 	</ItemGroup>
 	<ItemGroup>
@@ -69,6 +78,7 @@
 	  <None Remove="Resources\Images\delete_button.svg" />
 	  <None Remove="Resources\Images\document_icon.svg" />
 	  <None Remove="Resources\Images\edit.svg" />
+	  <None Remove="Resources\Images\facility_icon.svg" />
 	  <None Remove="Resources\Images\frame1.png" />
 	  <None Remove="Resources\Images\frame10.png" />
 	  <None Remove="Resources\Images\frame11.png" />
@@ -164,12 +174,17 @@
 	  <None Remove="Resources\Images\hazard_icon.svg" />
 	  <None Remove="Resources\Images\help_icon.svg" />
 	  <None Remove="Resources\Images\job_aid.svg" />
+	  <None Remove="Resources\Images\job_scanning.svg" />
 	  <None Remove="Resources\Images\location.svg" />
+	  <None Remove="Resources\Images\logout.svg" />
 	  <None Remove="Resources\Images\Map.png" />
 	  <None Remove="Resources\Images\mapicon.svg" />
 	  <None Remove="Resources\Images\monthly_ctc.svg" />
 	  <None Remove="Resources\Images\navbar_gradient.xml" />
 	  <None Remove="Resources\Images\play_button_icon.svg" />
+	  <None Remove="Resources\Images\qr_icon.svg" />
+	  <None Remove="Resources\Images\qr_small_icon.svg" />
+	  <None Remove="Resources\Images\time_clock.svg" />
 	  <None Remove="Resources\Images\wifi.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
 	</ItemGroup>
@@ -179,10 +194,6 @@
 	
 	<ItemGroup>
 	  <MauiIcon Include="Resources\AppIcon\appicon.png" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Folder Include="Views\HomeViews\" />
 	</ItemGroup>
 	
 	<ItemGroup>
@@ -196,9 +207,9 @@
 	
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="MetroLog.Maui" Version="2.1.0" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
 	  <PackageReference Include="Microsoft.Maui.Controls.Maps" Version="7.0.52" />
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
 	  <PackageReference Include="PCLStorage" Version="1.0.2" />
 	  <PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.41" />
 	</ItemGroup>
@@ -206,6 +217,12 @@
 	<ItemGroup>
 	  <Compile Update="Controls\CustomImageButton.xaml.cs">
 	    <DependentUpon>CustomImageButton.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ProofOfWork.xaml.cs">
+	    <DependentUpon>ProofOfWork.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\FacilityList.xaml.cs">
+	    <DependentUpon>FacilityList.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 	
@@ -216,10 +233,13 @@
 	  <MauiXaml Update="Controls\CustomNavBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Controls\CustomPageHeader.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Controls\CustomStatusBar.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\ActiveCleaningRoutePage.xaml">
+	  <MauiXaml Update="Pages\ProofOfWork.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ActiveRoutePage.xaml">
@@ -261,6 +281,12 @@
 	  <MauiXaml Update="Pages\MapNavigationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\MyWork.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ScanJob.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\Training.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -270,7 +296,7 @@
 	  <MauiXaml Update="Pages\UserAgreement.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\ViewRouteLibrary.xaml">
+	  <MauiXaml Update="Pages\FacilityList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\ViewSDSSheetPage.xaml">
@@ -280,6 +306,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Popups\EndRoutePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Popups\TaskCompletedPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
@@ -300,6 +329,10 @@
 	  <PackageReference Include="CommunityToolkit.Maui">
 	    <Version>3.1.0</Version>
 	  </PackageReference>
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Folder Include="Views\" />
 	</ItemGroup>
 	
 	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadUnhandledDeviceExceptionCustodianHideInfoBar="True" /></VisualStudio></ProjectExtensions>

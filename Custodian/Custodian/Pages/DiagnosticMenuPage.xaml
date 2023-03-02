@@ -13,23 +13,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <VerticalStackLayout Grid.Column="0" Spacing="5">
-                        <Label HorizontalOptions="Start">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span  Text="Logged in as," TextColor="Black" FontSize="14" FontAttributes="Bold"></Span>
-                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" FontSize="14" FontAttributes="Bold"></Span>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </VerticalStackLayout>
-                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" />
-                </Grid>
+
+                <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
                 <VerticalStackLayout Margin="0,20,0,0" Grid.Row="1" Spacing="10">
                     <Button Text="Test Scanner"></Button>
                     <Button Text="Test Buzzer"></Button>

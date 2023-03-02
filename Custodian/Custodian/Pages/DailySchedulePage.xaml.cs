@@ -1,3 +1,4 @@
+using Custodian.Helpers;
 using Custodian.Models;
 using Custodian.ViewModels;
 
@@ -9,15 +10,7 @@ public partial class DailySchedulePage : ContentPage
 	{
 		InitializeComponent();
         BindingContext= vm;
-        collection.ItemsSource = new Models.Schedual[]
-        {
-            new Models.Schedual { Title = "Anytown PO", Subject = "6 Routes & 1 Work Order"},
-            new Models.Schedual { Title = "ALMA MI Post Office", Subject = "3 Routes"},
-            new Models.Schedual { Title = "ITHICA MI Post Office", Subject = "2 Routes & 2 Work Order"},
-            new Models.Schedual { Title = "ITHICA MI Post Office", Subject = "1 Work Order"},
-
-        };
-       
+        completedAssigments.ItemsSource = Utils.completedRoutes;
     }
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
@@ -28,6 +21,28 @@ public partial class DailySchedulePage : ContentPage
                 { "param", e.Parameter }
             };
         await Shell.Current.GoToAsync(nameof(Facility), navigationParameter);
+        loader.IsRunning = loader.IsVisible = false;
+    }
+    void btnOngoing_Clicked(System.Object sender, System.EventArgs e)
+    {
+        loader.IsRunning = loader.IsVisible = true;
+        grid_QR.IsVisible = true;
+        completedAssigments.IsVisible = false;
+        frmCompleted.BackgroundColor = Color.FromArgb("#00FFFFFF");
+        frmOngoing.BackgroundColor = Color.FromArgb("#FFFFFF");
+        lblCompleted.TextColor = Color.FromArgb("#000000");
+        lblOngoing.TextColor = Color.FromArgb("#005F9D");
+        loader.IsRunning = loader.IsVisible = false;
+    }
+    void btnCompleted_Clicked(System.Object sender, System.EventArgs e)
+    {
+        loader.IsRunning = loader.IsVisible = true;
+        grid_QR.IsVisible = false;
+        completedAssigments.IsVisible = true;
+        frmOngoing.BackgroundColor = Color.FromArgb("#00FFFFFF");
+        frmCompleted.BackgroundColor = Color.FromArgb("#FFFFFF");
+        lblCompleted.TextColor = Color.FromArgb("#005F9D");
+        lblOngoing.TextColor = Color.FromArgb("#000000");
         loader.IsRunning = loader.IsVisible = false;
     }
 }

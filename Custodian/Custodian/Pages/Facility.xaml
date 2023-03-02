@@ -11,20 +11,12 @@
             <Style x:Key="btnStartStyle" TargetType="Button">
                 <Setter Property="CornerRadius" Value="5"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
-                <Setter Property="VerticalOptions" Value="Start"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
                 <Setter Property="FontSize" Value="10"/>
                 <Setter Property="WidthRequest" Value="75"/>
                 <Setter Property="HeightRequest" Value="30"/>
             </Style>
-            <Style x:Key="btnContinueStyle" TargetType="Button">
-                <Setter Property="Background"  Value="{x:StaticResource YellowGradient}"/>
-                <Setter Property="CornerRadius" Value="5"/>
-                <Setter Property="HorizontalOptions" Value="End"/>
-                <Setter Property="VerticalOptions" Value="Start"/>
-                <Setter Property="FontSize" Value="10"/>
-                <Setter Property="WidthRequest" Value="75"/>
-                <Setter Property="HeightRequest" Value="30"/>
-            </Style>
+            
             <toolkit:InvertedBoolConverter x:Key="InvertedBoolConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -32,10 +24,8 @@
         <Grid RowDefinitions="auto,auto,*">
             <controls:CustomStatusBar Grid.Row="0"/>
             <controls:CustomNavBar x:Name="navBar" Grid.Row="1" Icon="Navigation"/>
-            <Grid Grid.Row="2" Margin="20">
+            <Grid Grid.Row="2" Margin="20" RowSpacing="25">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -45,46 +35,24 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <VerticalStackLayout Grid.Column="0" Spacing="5">
-                        <Label HorizontalOptions="Start">
+                        <Label Style="{StaticResource lblLoggedInAs}">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span  Text="Logged in as," TextColor="Black" FontSize="14" FontAttributes="Bold"></Span>
-                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}" FontSize="14" FontAttributes="Bold"></Span>
+                                    <Span  Text="Logged in as,"></Span>
+                                    <Span Text=" John" TextColor="{StaticResource CustodianHeadingBlue}"></Span>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                       
+                        <VerticalStackLayout Grid.Row="1">
+                            <Label x:Name="lblFacility" Style="{x:StaticResource labelStyle}" FontSize="18" HorizontalOptions="Start"></Label>
+                            <Label x:Name="lblAddress" Text="3131 94th St, East Elmhurst, NY, 11369" Opacity=".7" ></Label>
+                        </VerticalStackLayout>
                     </VerticalStackLayout>
                     <Image Grid.Column="1" Source="mapicon.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Start" HorizontalOptions="EndAndExpand" ></Image>
                 </Grid>
-                <VerticalStackLayout Grid.Row="1">
-                    <Label x:Name="lblFacility" Style="{x:StaticResource labelStyle}" HorizontalOptions="Start"></Label>
-                    <Label x:Name="lblAddress" Text="3131 94th St, East Elmhurst, NY, 11369" ></Label>
-                </VerticalStackLayout>
-
-                <Frame Grid.Row="2" BorderColor="LightGray" BackgroundColor="LightGray" HeightRequest="40" HasShadow="False" Padding="0" Margin="0,20,0,20">
-                    <Grid ColumnDefinitions="*,*" Margin="2" >
-                        <Frame x:Name="frmOngoing" Grid.Column="0" BackgroundColor="White">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="btnOngoing_Clicked"></TapGestureRecognizer>
-                            </Frame.GestureRecognizers>
-                            <Label x:Name="lblOngoing" Text="Ongoing" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" TextColor="{StaticResource CustodianHeadingBlue}" ></Label>
-                        </Frame>
-                        <Frame x:Name="frmCompleted" Grid.Column="1" BackgroundColor="Transparent"  >
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Tapped="btnCompleted_Clicked"></TapGestureRecognizer>
-                            </Frame.GestureRecognizers>
-                            <Label x:Name="lblCompleted" Text="Completed" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="Center" TextColor="Black" ></Label>
-                        </Frame>
-                    </Grid>
-                </Frame>
-                <ScrollView Grid.Row="3">
-                    <VerticalStackLayout>
-                        <CollectionView x:Name="ongoingAssigments" >
+                <CollectionView x:Name="routesCollection" Grid.Row="1" >
                     <CollectionView.Header>
-                        <StackLayout>
-                            <Label Text="Routine Tasks"  FontSize="14" FontAttributes="Bold" TextColor="{x:StaticResource CustodianHeadingBlue}" ></Label>
-                        </StackLayout>
+                        <Label Text="Route Description"  FontSize="14" FontAttributes="Bold" TextColor="{x:StaticResource CustodianHeadingBlue}"></Label>
                     </CollectionView.Header>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
@@ -95,210 +63,35 @@
                                 </Grid.ColumnDefinitions>
                                 <VerticalStackLayout Grid.Column="0" Spacing="0">
                                     <HorizontalStackLayout Spacing="5">
-                                        <Frame BackgroundColor="{x:StaticResource CustodianBlue}" CornerRadius="5">
-                                            <Label Text="4776-R" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                        </Frame>
                                         <Label 
                                             x:Name="lbl"
-                                            Text="{Binding rte}" 
+                                            Text="{Binding routeName}" 
                                             FontSize="Medium"
                                             VerticalOptions="Center" 
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" />
                                     </HorizontalStackLayout>
-                                            <Label Text="{Binding desc}" 
-                                       FontSize="Medium" ></Label>
-                                    <Label   FontSize="16">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span Text="Planned Time -  "></Span>
-                                                        <Span Text="{Binding plannedTime}"></Span>
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                    </Label>
+                                    <Label Text="Clean Offices and Workroom" FontAttributes="Bold"></Label>
+                                    <Label Text="Light Duty Specialist" Opacity=".7" ></Label>
                                 </VerticalStackLayout>
-                                        <Grid x:Name="btnGrid" Grid.Column="1" IsVisible="{Binding Path=BindingContext.IsButtonsVisible , Source={x:Reference Name=ongoingAssigments}}" >
-                                            <Button 
-                                                IsVisible="{Binding IsStarted,Converter={StaticResource InvertedBoolConverter}}"
-                                                Text="Start" 
-                                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
+                               
+                                    <Button 
+                                        Grid.Column="1"
+                                                Text="Start"  
                                                 CommandParameter="{Binding .}" 
                                                 Style="{x:StaticResource btnStartStyle}"/>
-                                            <Button 
-                                                IsVisible="{Binding IsStarted}"
-                                                Text="Continue" 
-                                                Command="{Binding Path=BindingContext.NavigateAssignmentCommand, Source={x:Reference Name=ongoingAssigments}}"  
-                                                CommandParameter="{Binding .}"
-                                                Style="{x:StaticResource btnContinueStyle}"/>   
-                                        </Grid>
-                                    </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label Text="No Assignment"></Label>
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-                        <CollectionView x:Name="completedAssigments"  IsVisible="false">
-                    <CollectionView.Header>
-                        <StackLayout>
-                            <Label Text="Routine Tasks"  FontSize="14" FontAttributes="Bold" TextColor="{x:StaticResource CustodianHeadingBlue}" ></Label>
-                        </StackLayout>
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,15,0,0" RowSpacing="15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <StackLayout Grid.Column="0" Spacing="0">
-                                    <HorizontalStackLayout Spacing="5">
-                                        <Frame BackgroundColor="{x:StaticResource CustodianBlue}" CornerRadius="5">
-                                            <Label Text="4776-R" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                        </Frame>
-                                        <Label 
-                                            x:Name="lbl"
-                                            Text="{Binding Title}" 
-                                            FontSize="Medium"
-                                            VerticalOptions="Center" 
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Start" />
-                                    </HorizontalStackLayout>
-                                    <Label Text="Clean Offices - Admin Hall" 
-                                       FontSize="Medium" ></Label>
-                                    <Label Text="Planned Time - 2:35 hrs"  FontSize="16"></Label>
-                                </StackLayout>
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" IsVisible="{Binding IsOverTime}" >
-                                    <Label  Text="Over Time" VerticalOptions="Start"  HorizontalTextAlignment="Center" TextColor="{StaticResource Black}" Opacity=".4"  FontAttributes="Bold" FontSize="12"></Label>
-                                    <Frame BackgroundColor="{x:StaticResource CustodianProgressRed}" CornerRadius="5">
-                                        <Label Text="03:15 hrs" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                    </Frame>
-                                </VerticalStackLayout>
-                                <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" IsVisible="{Binding IsOverTime,Converter={StaticResource InvertedBoolConverter}}" >
-                                    <Label  Text="Under Time" VerticalOptions="Start"  HorizontalTextAlignment="Center" TextColor="{StaticResource Black}" Opacity=".4"  FontAttributes="Bold" FontSize="12"></Label>
-                                    <Frame BackgroundColor="{x:StaticResource Green100Accent}" CornerRadius="5">
-                                        <Label Text="03:15 hrs" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                    </Frame>
-                                </VerticalStackLayout>
+                                
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                     <CollectionView.EmptyView>
                         <StackLayout>
-                            <Label Text="No Assignment"></Label>
+                            <Label Text="No Route"></Label>
                         </StackLayout>
                     </CollectionView.EmptyView>
                 </CollectionView>
-                        <CollectionView Margin="0,20,0,0" x:Name="ongoingWorkOrders">
-                    <CollectionView.Header>
-                        <StackLayout>
-                            <Label Text="Work Orders"  FontSize="14" FontAttributes="Bold" TextColor="{x:StaticResource CustodianHeadingBlue}" ></Label>
-                        </StackLayout>
-                    </CollectionView.Header>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,15,0,0" RowSpacing="15">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <VerticalStackLayout Grid.Column="0" Spacing="0">
-                                    <HorizontalStackLayout Spacing="5">
-                                        <Frame Background="{x:StaticResource YellowGradient}" CornerRadius="5">
-                                            <Label Text="4776-R" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                        </Frame>
-                                        <Label 
-                                            x:Name="lbl"
-                                            Text="{Binding Title}" 
-                                            FontSize="Medium"
-                                            VerticalOptions="Center" 
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Start" />
-                                    </HorizontalStackLayout>
-                                    
-                                    <Label Text="Mowing - 26 times / year"  FontSize="16"></Label>
-                                </VerticalStackLayout>
-                                <Button 
-                                Grid.Column="1" 
-                                IsVisible="{Binding IsStarted,Converter={StaticResource InvertedBoolConverter}}"
-                                Text="Start" 
-                                Command="{Binding Path=BindingContext.NavigateWorkorderCommand, Source={x:Reference Name=ongoingAssigments}}"  
-                                CommandParameter="{Binding .}" 
-                                Style="{x:StaticResource btnStartStyle}"/>
-                                <Button 
-                                Grid.Column="1" 
-                                IsVisible="{Binding IsStarted}"
-                                Text="Continue" 
-                                Command="{Binding Path=BindingContext.NavigateWorkorderCommand, Source={x:Reference Name=ongoingAssigments}}"  
-                                CommandParameter="{Binding .}"
-                                Style="{x:StaticResource btnContinueStyle}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                    <CollectionView.EmptyView>
-                        <StackLayout>
-                            <Label Text="No Assignment"></Label>
-                        </StackLayout>
-                    </CollectionView.EmptyView>
-                </CollectionView>
-                        <CollectionView Margin="0,20,0,0" x:Name="completedWorkorders"  IsVisible="false">
-                            <CollectionView.Header>
-                                <StackLayout>
-                                    <Label Text="Work Orders"  FontSize="14" FontAttributes="Bold" TextColor="{x:StaticResource CustodianHeadingBlue}" ></Label>
-                                </StackLayout>
-                            </CollectionView.Header>
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0,15,0,0" RowSpacing="15">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <StackLayout Grid.Column="0" Spacing="0">
-                                            <HorizontalStackLayout Spacing="5">
-                                                <Frame Background="{x:StaticResource YellowGradient}" CornerRadius="5">
-                                                    <Label Text="4776-R" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                                </Frame>
-                                                <Label 
-                                            x:Name="lbl"
-                                            Text="{Binding Title}" 
-                                            FontSize="Medium"
-                                            VerticalOptions="Center" 
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="Start" />
-                                            </HorizontalStackLayout>
-
-                                            <Label Text="Mowing - 26 times / year"  FontSize="16"></Label>
-                                        </StackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" IsVisible="{Binding IsOverTime}" >
-                                            <Label  Text="Over Time" VerticalOptions="Start"  HorizontalTextAlignment="Center" TextColor="{StaticResource Black}" Opacity=".4"  FontAttributes="Bold" FontSize="12"></Label>
-                                            <Frame BackgroundColor="{x:StaticResource CustodianProgressRed}" CornerRadius="5">
-                                                <Label Text="03:15 hrs" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                            </Frame>
-                                        </VerticalStackLayout>
-                                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="End" IsVisible="{Binding IsOverTime,Converter={StaticResource InvertedBoolConverter}}" >
-                                            <Label  Text="Under Time" VerticalOptions="Start"  HorizontalTextAlignment="Center" TextColor="{StaticResource Black}" Opacity=".4"  FontAttributes="Bold" FontSize="12"></Label>
-                                            <Frame BackgroundColor="{x:StaticResource Green100Accent}" CornerRadius="5">
-                                                <Label Text="03:15 hrs" FontSize="12" Margin="5" TextColor="White" HorizontalTextAlignment="Center" VerticalOptions="Center"></Label>
-                                            </Frame>
-                                        </VerticalStackLayout>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                            <CollectionView.EmptyView>
-                                <StackLayout>
-                                    <Label Text="No Assignment"></Label>
-                                </StackLayout>
-                            </CollectionView.EmptyView>
-                        </CollectionView>
-
-                    </VerticalStackLayout>
-
-                </ScrollView>
             </Grid>
-            <ActivityIndicator x:Name="loader" Grid.Row="2" IsRunning="{Binding NavigateAssignmentCommand.IsRunning}" IsVisible="{Binding NavigateAssignmentCommand.IsRunning}" Color="{x:StaticResource CustodianppProgressBlue}"
+            <ActivityIndicator x:Name="loader" Grid.Row="2" IsVisible="false" IsRunning="False"  Color="{x:StaticResource CustodianppProgressBlue}"
                            HorizontalOptions="Center"
                            VerticalOptions="Center"/>
         </Grid>

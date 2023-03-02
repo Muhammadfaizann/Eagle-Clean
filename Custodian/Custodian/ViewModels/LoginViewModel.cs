@@ -17,7 +17,7 @@ namespace Custodian.ViewModels
             {
                 await Task.Delay(2000);
                 WeakReferenceMessenger.Default.Send(new LoginMessage(""));
-                app_activity_logger.write("Logged in successful!");
+                app_activity_logger.write("Info","Logged in successful!");
             }
             catch(Exception ex)
             {

@@ -18,40 +18,7 @@
                 </Grid.RowDefinitions>
 
 
-                <Grid Grid.Row="0" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <VerticalStackLayout Grid.Column="0">
-                        <Label 
-                         VerticalOptions="Center"
-                         HorizontalOptions="Start"
-                          >
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span  
-                                    Text="Logged in as," 
-                                    TextColor="Black" 
-                                    FontSize="Medium"
-                                    FontAttributes="Bold"></Span>
-                                    <Span Text=" John" 
-                                      TextColor="{StaticResource CustodianHeadingBlue}"
-                                      FontSize="Medium"
-                                      FontAttributes="Bold"></Span>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label  
-                          Text="Anytown PO - Route 001"
-                          FontSize="20" 
-                          FontAttributes="Bold"
-                          TextColor="{StaticResource Black}"
-                          VerticalOptions="Start" 
-                          HorizontalOptions="Start" />
-                    </VerticalStackLayout>
-                    <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
-                </Grid>
+                <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
                 <HorizontalStackLayout Grid.Row="1" Margin="0,15" Spacing="15">
                     <VerticalStackLayout Spacing="10">
                         <Label Text="Estimate Time :" 

@@ -80,8 +80,10 @@ public class DataWedgeReceiver : BroadcastReceiver
                         scanDataReceived(this, Out);
                     }
                 }
-            } catch (Exception e) {
-                app_activity_logger.write(e.ToString());
+            } 
+            catch (Exception e) 
+            {
+            app_activity_logger.write("Exception",e.ToString());
             }
         
     }

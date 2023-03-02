@@ -1,39 +1,44 @@
-﻿
-
-using Android.Content.PM;
-using Android.Graphics.Pdf;
-using Android.OS;
-using Custodian.Helpers;
-using Custodian.Models;
-using Newtonsoft.Json;
+﻿using Custodian.Helpers;
 using PCLStorage;
 using System.Text;
-using static Android.Icu.Util.LocaleData;
-using static AndroidX.Navigation.Navigator;
 using FileSystem = PCLStorage.FileSystem;
 
 namespace Custodian.ActivityLog
 {
     public class app_activity_logger
     {
-        public static async void write(string activity)
+        public static async void write(string category, string activity)
         {
             DateTime now = DateTime.Now;
-            string date = now.ToString("d");
-            string time = now.ToString("T");
+            string timeStamp = now.ToString("HH:mm:ss:fff");
             try
             {
-                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
-                IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
-                IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
-                IFile file = await debugFolder.CreateFileAsync("activity-log.txt", CreationCollisionOption.OpenIfExists);
-                using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                var status = await Permissions.CheckStatusAsync<Permissions.StorageWrite>();
+                if (status != PermissionStatus.Granted)
                 {
-                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                    if (Permissions.ShouldShowRationale<Permissions.StorageWrite>())
                     {
-                        writer.WriteLine("["+date+"]"+","+"["+time+"] "+activity);
+                        // Prompt the user with additional information as to why the permission is needed
+                    }
+
+                    status = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                }
+
+                if (status == PermissionStatus.Granted)
+                {
+                    IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                    IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
+                    IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
+                    IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_mm_dd") + ".txt", CreationCollisionOption.OpenIfExists);
+                    using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                    {
+                        using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                        {
+                            writer.WriteLine("["+ timeStamp +"|"+ category + "] " + activity);
+                        }
                     }
                 }
+                
             }
             catch (Exception ex)
             {
@@ -100,26 +105,6 @@ namespace Custodian.ActivityLog
 
             }
         }
-        public static async void importConfigurations()
-        {
-            try
-            {
-                Utils.config = new Config();
-                IFile file = await FileSystem.Current.LocalStorage.GetFileAsync("/storage/emulated/0/Custodian/" + "config.txt");
-                using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
-                using (var reader = new StreamReader(stream))
-                {
-                    var FileText = await reader.ReadToEndAsync();
-                    if (FileText.Contains("true"))
-                        Utils.config.IsStartRouteButtonVisible = true;
-                    else if(FileText.Contains("false"))
-                        Utils.config.IsStartRouteButtonVisible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
+        
     }
 }
