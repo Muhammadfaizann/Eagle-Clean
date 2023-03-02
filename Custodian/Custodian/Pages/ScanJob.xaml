@@ -52,7 +52,6 @@
                         </Label>
                         <Label 
                           Text="Scan To Start"
-                          Style="{x:StaticResource lblstyle}"
                           FontSize="18"
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"

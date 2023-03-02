@@ -10,7 +10,6 @@ namespace Custodian.Pages;
 
 public partial class ScanJob : ContentPage
 {
-    ILocationService _locationService;
 	public ScanJob(ILocationService locationService)
 	{
 		InitializeComponent();
