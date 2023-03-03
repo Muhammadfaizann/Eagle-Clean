@@ -34,15 +34,7 @@ public static class MauiProgram
             });
 
 
-
-        var a = Assembly.GetExecutingAssembly();
-        using var stream = a.GetManifestResourceStream("Custodian.appsettings.json");
-        var config = new ConfigurationBuilder()
-             .AddJsonStream(stream)
-             .Build();
-
-
-        builder.Configuration.AddConfiguration(config);
+       
 
         builder.Logging.AddStreamingFileLogger(
                 options =>
@@ -50,7 +42,7 @@ public static class MauiProgram
                     options.RetainDays = 2;
                     options.FolderPath = Path.Combine(
                         "/storage/emulated/0/",
-                        "MetroLogs");
+                        "Custodian/debug");
                 });
 
         builder.Services.AddSingleton<IApiClientService, ApiClientService>();
@@ -75,6 +67,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ScanJob>();
         builder.Services.AddSingleton<MyWork>();
         builder.Services.AddTransient<Login>();
+        builder.Services.AddTransient<HomePage>();
 
         
         return builder.Build();

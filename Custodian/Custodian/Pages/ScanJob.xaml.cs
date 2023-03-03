@@ -10,17 +10,29 @@ namespace Custodian.Pages;
 
 public partial class ScanJob : ContentPage
 {
-	public ScanJob(ILocationService locationService)
+    ILocationService _locationService;
+
+    public ScanJob(ILocationService locationService)
 	{
 		InitializeComponent();
-        WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, (sender, args) =>
+       _locationService=locationService;
+    }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, OnStartRouteMessageReceived);
+      
+    }
+
+    private void OnStartRouteMessageReceived(object recipient, StartRouteMessage message)
+    {
         {
             try
             {
-                MainThread.BeginInvokeOnMainThread(async() =>
+                MainThread.BeginInvokeOnMainThread(async () =>
                 {
                     int totalMint = 0;
-                    var jsonString = args.Value.ToString();
+                    var jsonString = message.Value.ToString();
                     var route = JsonSerializer.Deserialize<Route>(jsonString);
                     route.steps = new List<Step>();
                     foreach (var task in route.tasks)
@@ -41,22 +53,22 @@ public partial class ScanJob : ContentPage
                     record.startTime = DateTime.Now.ToString("HH:mm:ss");
                     record.endDate = null;
                     record.endTime = null;
-                    Location currentLocation = await locationService.GetCurrentLocation();
+                    Location currentLocation = await _locationService.GetCurrentLocation();
                     record.startLatitude = currentLocation.Latitude.ToString();
                     record.startLongitude = currentLocation.Longitude.ToString();
                     record.endLatitude = null;
-                    record.endLongitude= null;
+                    record.endLongitude = null;
                     record.employee = "456654";
-                    record.startBarcode = args.Value.ToString();
+                    record.startBarcode = message.Value.ToString();
                     record.endBarcode = null;
                     record.estimatedTime = totalMint.ToString();
                     record.actualTime = null;
                     record.status = "Started";
                     record.tasksComplete = new List<string>();
                     record.tasksIncomplete = route.tasks;
-                    record.pics= default(List<string>);
+                    record.pics = default(List<string>);
                     string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
-                    Utils.activeRouteFileName= await DatabaseService.write(jsonRecord);
+                    Utils.activeRouteFileName = await DatabaseService.write(jsonRecord);
                     Utils.activeRouteRecord = record;
                     Navigate(route);
                 });
@@ -66,7 +78,7 @@ public partial class ScanJob : ContentPage
             {
                 app_activity_logger.write("Exception", ex.ToString());
             }
-        });
+        }
     }
 
     private async void Navigate(Route route)
@@ -84,5 +96,11 @@ public partial class ScanJob : ContentPage
         {
             app_activity_logger.write("Exception", ex.ToString());
         }
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        WeakReferenceMessenger.Default.Unregister<StartRouteMessage>(this);
     }
 }

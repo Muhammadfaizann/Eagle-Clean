@@ -62,7 +62,6 @@
 	  <Compile Remove="Resources\Fonts\fontAwesomeIcons.cs" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="appsettings.json" />
 	  <None Remove="Resources\Fonts\FontAwesome.otf" />
 	  <None Remove="Resources\Fonts\Helvetica-fonts.ttf" />
 	  <None Remove="Resources\Images\arrow.svg" />
@@ -187,9 +186,6 @@
 	  <None Remove="Resources\Images\time_clock.svg" />
 	  <None Remove="Resources\Images\wifi.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />
-	</ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="appsettings.json" />
 	</ItemGroup>
 	
 	<ItemGroup>

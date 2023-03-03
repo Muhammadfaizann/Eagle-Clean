@@ -6,7 +6,7 @@
     <ActiveDebugProfile>Zebra Technologies TC77 (Android 8.1 - API 27)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
     <DefaultDevice>galaxy_nexus_-_api_30</DefaultDevice>
-    <SelectedDevice>galaxy_nexus_-_api_30</SelectedDevice>
+    <SelectedDevice>Zebra Technologies TC77 (192.168.18.32:5555)</SelectedDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

@@ -20,7 +20,7 @@ public partial class TaskCompletedPopup : Popup
         prevTime = timeSpan;
 
         lblEstimated.Text = "Estimated Time : " + step.PlannedTimeInMint + "  Minutes";
-        lblActual.Text = "Actual Time: " + String.Format("%.2f", difference.TotalMinutes)  + " Minutes";
+        lblActual.Text = "Actual Time: " + Math.Round(difference.TotalMinutes, 2)  + " Minutes";
 
     }
     private void cancel_Clicked(object sender, EventArgs e)

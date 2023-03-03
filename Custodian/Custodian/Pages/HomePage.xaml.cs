@@ -1,14 +1,32 @@
 
 using Custodian.Helpers;
+using Java.Lang.Reflect;
+using Microsoft.Extensions.Logging;
 
 namespace Custodian.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage()
+	public HomePage(ILogger<HomePage> logger)
 	{
-		InitializeComponent();
+        try
+        {
+
+            logger.LogInformation($"Home page loaded!");
+            InitializeComponent();
+            ThrowAnException();
+        }
+        catch(Exception ex)
+        {
+            logger.LogError(ex.Message);
+        }
 	}
+
+    private void ThrowAnException()
+    {
+        throw new NotImplementedException();
+    }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();

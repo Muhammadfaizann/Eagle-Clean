@@ -46,8 +46,6 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             
-            <ControlTemplate x:Key="NavBarControlTemplate">
-            </ControlTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

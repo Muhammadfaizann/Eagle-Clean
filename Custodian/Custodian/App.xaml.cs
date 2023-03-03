@@ -4,14 +4,17 @@ using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.Pages;
 using Custodian.Screens;
+using Java.Security;
+using MetroLog;
+using MetroLog.Maui;
 
 namespace Custodian;
 
 public partial class App : Application
-{ 
-	public App()
+{
+    public App()
 	{
-        //app_activity_logger.createConfigFile();
+        
         Utils.ImportConfigurations();
         //Utils.LoadCompletedRoutes();
        // Utils.LoadPartialRoutes();
@@ -31,6 +34,8 @@ public partial class App : Application
             { 
             }
         });
+
+
     }
     protected override void OnStart()
     {
