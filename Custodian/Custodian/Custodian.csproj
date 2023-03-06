@@ -183,6 +183,8 @@
 	  <None Remove="Resources\Images\play_button_icon.svg" />
 	  <None Remove="Resources\Images\qr_icon.svg" />
 	  <None Remove="Resources\Images\qr_small_icon.svg" />
+	  <None Remove="Resources\Images\sync_green_icon.svg" />
+	  <None Remove="Resources\Images\sync_red_icon.svg" />
 	  <None Remove="Resources\Images\time_clock.svg" />
 	  <None Remove="Resources\Images\wifi.svg" />
 	  <None Remove="Resources\Splash\splashscreen.svg" />

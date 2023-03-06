@@ -4,6 +4,8 @@ using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Messages;
 using Custodian.Models;
+using Custodian.Models.ServerModels;
+using Custodian.Services.ProofOfWork;
 using System.Text.Json;
 
 namespace Custodian.Pages;
@@ -11,11 +13,13 @@ namespace Custodian.Pages;
 public partial class ScanJob : ContentPage
 {
     ILocationService _locationService;
-
-    public ScanJob(ILocationService locationService)
+    IProofOfWorkService _proofOfWorkService;
+    bool Isbusy=false;
+    public ScanJob(ILocationService locationService,IProofOfWorkService proofOfWorkService)
 	{
 		InitializeComponent();
        _locationService=locationService;
+       _proofOfWorkService= proofOfWorkService;
     }
     protected override void OnAppearing()
     {
@@ -26,11 +30,12 @@ public partial class ScanJob : ContentPage
 
     private void OnStartRouteMessageReceived(object recipient, StartRouteMessage message)
     {
-        {
-            try
+        try
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
+
+                    loader.IsRunning = loader.IsVisible = true;
                     int totalMint = 0;
                     var jsonString = message.Value.ToString();
                     var route = JsonSerializer.Deserialize<Route>(jsonString);
@@ -70,7 +75,13 @@ public partial class ScanJob : ContentPage
                     string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
                     Utils.activeRouteFileName = await DatabaseService.write(jsonRecord);
                     Utils.activeRouteRecord = record;
-                    Navigate(route);
+
+                    var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
+                    _proofOfWorkService.SendWorkRecord(workRecord);
+
+                    await Navigate(route);
+
+                    loader.IsRunning = loader.IsVisible = false;
                 });
 
             }
@@ -78,10 +89,9 @@ public partial class ScanJob : ContentPage
             {
                 app_activity_logger.write("Exception", ex.ToString());
             }
-        }
     }
 
-    private async void Navigate(Route route)
+    private async Task Navigate(Route route)
     {
         try
         {

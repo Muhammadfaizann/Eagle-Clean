@@ -63,6 +63,9 @@
                     <Image Grid.Row="0" Source="qr_icon.png" ></Image>
                     <Label Grid.Row="1" Text="Scan Route to Start or Stop Work" FontAttributes="Bold" FontSize="18" TextColor="Black"></Label>
                 </Grid>
+                <ActivityIndicator x:Name="loader" Grid.Row="0" IsRunning="False" IsVisible="False" Color="{x:StaticResource CustodianppProgressBlue}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
             </Grid>
 
         </Grid>

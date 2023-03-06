@@ -58,5 +58,34 @@ namespace Custodian.Helpers
             }
         }
 
+        internal static async void LoadRoutes()
+        {
+           IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Database/Routes");
+           var files  = await folder.GetFilesAsync(); 
+                foreach(var file in files)
+                {
+
+                using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
+                using (var reader = new StreamReader(stream))
+                {
+                    var jsonString = await reader.ReadLineAsync();
+                    MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(jsonString);
+                    if(record.seq=="3")
+                    {
+
+                        Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
+                        partialRoutes.Add(route);
+                    }
+                    else if (record.seq == "4")
+                    {
+
+                        Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
+                        completedRoutes.Add(new CompletedRoute() { Title = route.rte, IsOverTime=false }) ;
+                    }
+                }
+
+            }
+
+        }
     }
 }

@@ -12,6 +12,7 @@
                     <TapGestureRecognizer Tapped="Help_Icon_Tapped"></TapGestureRecognizer>
                 </Image.GestureRecognizers>
             </Image>
+            <Image Source="sync_green_icon.png" IsVisible="true" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
             <Image Source="location.png" IsVisible="false" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
             <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
             <Image x:Name="battery" Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />

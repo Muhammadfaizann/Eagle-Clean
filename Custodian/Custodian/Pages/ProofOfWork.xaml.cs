@@ -6,6 +6,7 @@ using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Messages;
 using Custodian.Models;
+using Custodian.Models.ServerModels;
 using Custodian.Popups;
 using Custodian.Services.ProofOfWork;
 using Custodian.ViewModels;
@@ -22,6 +23,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     TimeSpan timer_date_time;
     ILocationService _locationService;
     IProofOfWorkService _proofOfWorkService;
+    bool IsBackgroundThreadRunning = true;
     public ProofOfWork(ProofOfWorkViewModel viewModel, ILocationService locationService, IProofOfWorkService proofOfWorkService)
 	{
 		InitializeComponent();
@@ -45,6 +47,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     private void OnStopTimerMessageReceived(object recipient, StopTimerMessage message)
     {
        timer.Stop();
+       IsBackgroundThreadRunning = false;
     }
 
     protected override void OnAppearing()
@@ -53,7 +56,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         timer_date_time = new TimeSpan(0, 0, 0);
         timerProgressBar.Progress = 0;
         timer.Start();
-        RuntheBackGroundThread();
+        //RuntheBackGroundThread();
     }
     private async void RuntheBackGroundThread()
     {
@@ -61,7 +64,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         {
             var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
 
-            while (await timer.WaitForNextTickAsync())
+            while (IsBackgroundThreadRunning)
             {
                 Utils.activeRouteRecord.seq = "2";
                 Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
@@ -73,12 +76,13 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
                 await DatabaseService.write(jsonRecord);
+
+                
             }
         });
     }
     private void OnEndRouteMessageReceived(object recipient, EndRouteMessage message)
     {
-
         try
         {
             MainThread.BeginInvokeOnMainThread(() =>

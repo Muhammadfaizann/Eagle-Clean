@@ -32,7 +32,7 @@ namespace Custodian.Helpers
                 {
                     using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
-                        writer.WriteLine(record);
+                        await writer.WriteLineAsync(record);
                     }
                 }
                 return fileName;
@@ -53,7 +53,7 @@ namespace Custodian.Helpers
                 using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
                 using (var reader = new StreamReader(stream))
                 {
-                    var FileText = await reader.ReadToEndAsync();
+                    var FileText = await reader.ReadLineAsync();
                     return FileText;
                 }
             }
