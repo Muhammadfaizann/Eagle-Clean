@@ -27,11 +27,10 @@ namespace Custodian.ViewModels
         {           
             
         }
-        
+        /*
         [RelayCommand]
         async Task NavigateAssignment(object arg)
         {
-            Utils.activeAssigment = (Models.Route)arg;
             var navigationParameter = new Dictionary<string, object>
             {
                 { "param", arg }
@@ -48,7 +47,7 @@ namespace Custodian.ViewModels
             };
             await Shell.Current.GoToAsync(nameof(WorkOrderPage), navigationParameter);
         }
-
+        */
 
       
     }

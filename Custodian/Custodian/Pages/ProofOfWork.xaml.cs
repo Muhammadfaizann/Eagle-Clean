@@ -60,7 +60,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     }
     private async void RuntheBackGroundThread()
     {
-        await Task.Run(async() =>
+        await System.Threading.Tasks.Task.Run(async() =>
         {
             var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
 
@@ -72,7 +72,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
                 Location currentLocation = await _locationService.GetCurrentLocation();
                 Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
                 Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
-                Utils.activeRouteRecord.status = "In-Progress";
+                Utils.activeRouteRecord.status = "InProgress";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
                 await DatabaseService.write(jsonRecord);
@@ -101,10 +101,11 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         var obj = query["param"] as Route;
+        Utils.activeAssigment = obj;
         routeTitle.Text = obj.rte;
         description.Text = obj.desc;
         var viewmodel = this.BindingContext as ProofOfWorkViewModel;
-        viewmodel.CleaningPlanList = obj.steps.ToObservableCollection();
+        viewmodel.CleaningPlanList = obj.taskList.ToObservableCollection();
         lblPlannedTime.Text= obj.plannedTime;
         dateTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
         var seconds = dateTime.TotalSeconds;
@@ -142,7 +143,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        Step step = e.Parameter as Step;
+        Models.Task step = e.Parameter as Models.Task;
 
 
         TimeSpan currentTimer = TimeSpan.Parse(lblTime.Text);

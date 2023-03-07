@@ -74,12 +74,12 @@
                                     <Label Text="Clean Offices and Workroom" FontAttributes="Bold"></Label>
                                     <Label Text="Light Duty Specialist" Opacity=".7" ></Label>
                                 </VerticalStackLayout>
-                               
-                                    <Button 
-                                        Grid.Column="1"
-                                                Text="Start"  
-                                                CommandParameter="{Binding .}" 
-                                                Style="{x:StaticResource btnStartStyle}"/>
+                                  <Button 
+                                    Grid.Column="1"
+                                    Text="Start"
+                                    Clicked="Button_Clicked"
+                                    CommandParameter="{Binding .}" 
+                                    Style="{x:StaticResource btnStartStyle}"/>
                                 
                             </Grid>
                         </DataTemplate>

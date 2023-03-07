@@ -36,48 +36,14 @@ public partial class ScanJob : ContentPage
                 {
 
                     loader.IsRunning = loader.IsVisible = true;
-                    int totalMint = 0;
+                    
                     var jsonString = message.Value.ToString();
-                    var route = JsonSerializer.Deserialize<Route>(jsonString);
-                    route.steps = new List<Step>();
-                    foreach (var task in route.tasks)
-                    {
-                        var strings = task.Split('|');
-                        route.steps.Add(new Step { Description = strings[0], PlannedTimeInMint = strings[1] });
-                        totalMint = totalMint + int.Parse(strings[1]);
-                    }
-                    TimeSpan timeSpan = TimeSpan.FromMinutes(totalMint);
-                    route.plannedTime = timeSpan.ToString("t");
-                    Utils.partialRoutes.Add(route);
-                    MergeRecord record = new MergeRecord();
-                    record.ver = "1";
-                    record.seq = "1";
-                    record.facilityid = "123321";
-                    record.route = route.rte;
-                    record.startDate = DateTime.Now.ToString("MM/dd/yyyy");
-                    record.startTime = DateTime.Now.ToString("HH:mm:ss");
-                    record.endDate = null;
-                    record.endTime = null;
-                    Location currentLocation = await _locationService.GetCurrentLocation();
-                    record.startLatitude = currentLocation.Latitude.ToString();
-                    record.startLongitude = currentLocation.Longitude.ToString();
-                    record.endLatitude = null;
-                    record.endLongitude = null;
-                    record.employee = "456654";
-                    record.startBarcode = message.Value.ToString();
-                    record.endBarcode = null;
-                    record.estimatedTime = totalMint.ToString();
-                    record.actualTime = null;
-                    record.status = "Started";
-                    record.tasksComplete = new List<string>();
-                    record.tasksIncomplete = route.tasks;
-                    record.pics = default(List<string>);
-                    string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
-                    Utils.activeRouteFileName = await DatabaseService.write(jsonRecord);
-                    Utils.activeRouteRecord = record;
 
-                    var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                    _proofOfWorkService.SendWorkRecord(workRecord);
+                    Location currentLocation = await _locationService.GetCurrentLocation();
+                    var route = await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude); 
+
+                   // var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
+                   // _proofOfWorkService.SendWorkRecord(workRecord);
 
                     await Navigate(route);
 
@@ -91,11 +57,10 @@ public partial class ScanJob : ContentPage
             }
     }
 
-    private async Task Navigate(Route route)
+    private async System.Threading.Tasks.Task Navigate(Route route)
     {
         try
         {
-            Utils.activeAssigment = route;
             var navigationParameter = new Dictionary<string, object>
             {
                 { "param", route }

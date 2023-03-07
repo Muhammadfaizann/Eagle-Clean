@@ -87,5 +87,48 @@ namespace Custodian.Helpers
             }
 
         }
+        public static async Task<Route> StartRoute(string startJson, double Latitude, double Longitude)
+        {
+            int totalMint = 0;
+            Route route = JsonSerializer.Deserialize<Route>(startJson);
+            route.taskList = new List<Models.Task>();
+            foreach (var task in route.tasks)
+            {
+                var strings = task.Split('|');
+                route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = strings[1] });
+                totalMint = totalMint + int.Parse(strings[1]);
+            }
+            TimeSpan timeSpan = TimeSpan.FromMinutes(totalMint);
+            route.plannedTime = timeSpan.ToString("t");
+            Utils.partialRoutes.Add(route);
+
+            MergeRecord record = new MergeRecord();
+            record.ver = "1";
+            record.seq = "1";
+            record.facilityid = route.fid;
+            record.route = route.rte;
+            record.startDate = DateTime.Now.ToString("MM/dd/yyyy");
+            record.startTime = DateTime.Now.ToString("HH:mm:ss");
+            record.endDate = null;
+            record.endTime = null;
+            record.startLatitude = Latitude.ToString();
+            record.startLongitude = Longitude.ToString();
+            record.endLatitude = null;
+            record.endLongitude = null;
+            record.employee = "456654";
+            record.startBarcode = startJson;
+            record.endBarcode = null;
+            record.estimatedTime = totalMint.ToString();
+            record.actualTime = null;
+            record.status = "Started";
+            record.tasksComplete = new List<string>();
+            record.tasksIncomplete = route.tasks;
+            record.pics = default(List<string>);
+            string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
+            Utils.activeRouteFileName = await DatabaseService.write(jsonRecord);
+            Utils.activeRouteRecord = record;
+            return route;
+        }
+
     }
 }

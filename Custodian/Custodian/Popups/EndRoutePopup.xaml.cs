@@ -48,8 +48,8 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
                 Utils.activeRouteRecord.endTime = DateTime.Now.ToString("HH:mm:ss");
                 Location currentLocation = await _locationService.GetCurrentLocation();
-                Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
-                Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
+                Utils.activeRouteRecord.endLatitude = currentLocation.Latitude.ToString();
+                Utils.activeRouteRecord.endLongitude = currentLocation.Longitude.ToString();
                 Utils.activeRouteRecord.status = "Complete";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);

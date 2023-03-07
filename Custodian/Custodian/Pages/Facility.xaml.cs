@@ -1,25 +1,25 @@
-using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.Messaging;
 using Custodian.Helpers;
-using Custodian.Messages;
+using Custodian.Helpers.LocationService;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Custodian.Services.Server;
 using Custodian.ViewModels;
 using Microsoft.Extensions.Configuration;
+using System.Text.Json;
 
 namespace Custodian.Pages;
 
 public partial class Facility : ContentPage, IQueryAttributable
 {
     IApiClientService _client;
+    ILocationService _locationService;
     Models.Facility facility;
-	public Facility(FacilityViewModel vm, IApiClientService client)
+	public Facility(FacilityViewModel vm, IApiClientService client, ILocationService locationService)
 	{
 		InitializeComponent();
         BindingContext = vm;
         _client = client;
+        _locationService=locationService;
         routesCollection.ItemsSource= new List<string>() {"Route 001", "Route 002", "Route 003" };
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
@@ -39,11 +39,27 @@ public partial class Facility : ContentPage, IQueryAttributable
     private async void LoadAllRoutes()
     {
         loader.IsRunning = loader.IsVisible = true;
-        List<RouteModel> response = await _client.GetAsync<List<RouteModel>>("route/"+ facility.FacilityId + "/routes");
+        List<RouteModel> response = await _client.GetAsync<List<RouteModel>>("routes/" + facility.FacilityId);
         if (response != null)
         {
             routesCollection.ItemsSource = response;
         }
         loader.IsRunning = loader.IsVisible = false;
     }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        Button btn = sender as Button;
+        RouteModel routeDetails = btn.CommandParameter as RouteModel;
+
+        Location currentLocation = await _locationService.GetCurrentLocation();
+        var route = await Utils.StartRoute(routeDetails.json, currentLocation.Latitude,currentLocation.Longitude);
+        var navigationParameter = new Dictionary<string, object>
+        {
+                { "param", route }
+            };
+        await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+    }
+
+    
 }

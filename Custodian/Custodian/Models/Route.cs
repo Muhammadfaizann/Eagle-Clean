@@ -12,12 +12,14 @@ namespace Custodian.Models
     public class Route : ObservableObject
     {
         public string type { get; set; }
+        public string fid { get; set; }
+        public string fn { get; set; }
         public string fac { get; set; }
         public string rte { get; set; }
         public string action { get; set; }
         public string desc { get; set; }
         public List<string> tasks { get; set; }
-        public List<Step> steps { get; set; }
+        public List<Task> taskList { get; set; }
         public string plannedTime { get; set; }
     }
     public class CompletedRoute
@@ -25,7 +27,7 @@ namespace Custodian.Models
         public string Title { get; set; }
         public bool IsOverTime { get; set; }
     }
-    public class Step
+    public class Task
     {
         public string Description { get; set; }
         public string PlannedTimeInMint { get; set; }

@@ -24,9 +24,9 @@ namespace Custodian.ViewModels
         private IProofOfWorkService _proofOfWorkService;
         ILocationService _locationService;
         private TimeSpan prevTime;
-        private Step currentStep;
-        private ObservableCollection<Step> _CleaningPlanList = new ObservableCollection<Step>();
-        public ObservableCollection<Step> CleaningPlanList
+        private Models.Task currentStep;
+        private ObservableCollection<Models.Task> _CleaningPlanList = new ObservableCollection<Models.Task>();
+        public ObservableCollection<Models.Task> CleaningPlanList
         {
             get => _CleaningPlanList;
             set => SetProperty(ref _CleaningPlanList, value);
@@ -110,11 +110,11 @@ namespace Custodian.ViewModels
 
         #region Commands
         [RelayCommand]
-        Task TaskCompleted(object arg)
+        System.Threading.Tasks.Task TaskCompleted(object arg)
         {
 
-            currentStep = arg as Step;
-            return Task.CompletedTask;
+            currentStep = arg as Models.Task;
+            return System.Threading.Tasks.Task.CompletedTask;
 
         }
         #endregion

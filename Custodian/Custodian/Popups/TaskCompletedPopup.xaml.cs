@@ -11,7 +11,7 @@ public partial class TaskCompletedPopup : Popup
 {
     static TimeSpan secondPrevTime = TimeSpan.Zero;
     static TimeSpan prevTime=TimeSpan.Zero;
-	public TaskCompletedPopup(Step step, TimeSpan timeSpan)
+	public TaskCompletedPopup(Models.Task step, TimeSpan timeSpan)
 	{
         InitializeComponent();
 
