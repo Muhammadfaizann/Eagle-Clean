@@ -18,7 +18,6 @@ namespace Custodian.Services.Server
 
         private string _baseUrl = "https://eagleclean-be.azurewebsites.net";
 
-
         public async Task<T> GetAsync<T>(string endPoint)
         {
             try
@@ -42,7 +41,7 @@ namespace Custodian.Services.Server
             }
             catch (Exception ex)
             {
-                app_activity_logger.write("HTTP", ex.Message);
+                Logger.Log("HTTP", ex.Message);
 
             }
             return default(T);

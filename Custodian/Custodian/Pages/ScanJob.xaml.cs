@@ -40,7 +40,7 @@ public partial class ScanJob : ContentPage
                     var jsonString = message.Value.ToString();
 
                     Location currentLocation = await _locationService.GetCurrentLocation();
-                    var route = await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude); 
+                    var route = await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude, true); 
 
                    // var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
                    // _proofOfWorkService.SendWorkRecord(workRecord);
@@ -53,7 +53,7 @@ public partial class ScanJob : ContentPage
             }
             catch (Exception ex)
             {
-                app_activity_logger.write("Exception", ex.ToString());
+                Logger.Log("Exception", ex.ToString());
             }
     }
 
@@ -69,7 +69,7 @@ public partial class ScanJob : ContentPage
         }
         catch (Exception ex)
         {
-            app_activity_logger.write("Exception", ex.ToString());
+            Logger.Log("Exception", ex.ToString());
         }
     }
 

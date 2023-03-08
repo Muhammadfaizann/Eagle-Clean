@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -165,6 +166,7 @@ public partial class Login : ContentPage
         {
             if (badgeID.Length == 12)
             {
+                Utils.BadgeID=badgeID;
                 var vm = BindingContext as LoginViewModel;
                 vm.LoginCommand.Execute(null);
             }

@@ -29,6 +29,7 @@ namespace Custodian.Models
         public List<string> tasksComplete { get; set; }
         public List<string> tasksIncomplete { get; set; }
         public List<string> pics { get; set; }
+        public bool IsUploaded { get; set; }
 
     }
 }

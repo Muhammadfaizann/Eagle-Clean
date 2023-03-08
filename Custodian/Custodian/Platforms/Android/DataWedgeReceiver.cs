@@ -83,7 +83,7 @@ public class DataWedgeReceiver : BroadcastReceiver
             } 
             catch (Exception e) 
             {
-            app_activity_logger.write("Exception",e.ToString());
+            Logger.Log("Exception",e.ToString());
             }
         
     }

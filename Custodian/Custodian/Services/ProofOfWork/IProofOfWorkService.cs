@@ -9,6 +9,6 @@ namespace Custodian.Services.ProofOfWork
 {
     public interface IProofOfWorkService
     {
-        void SendWorkRecord(WorkRecord record);
+        Task<bool> SendWorkRecord(WorkRecord record);
     }
 }

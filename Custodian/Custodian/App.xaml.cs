@@ -15,10 +15,10 @@ public partial class App : Application
     public App()
 	{
         
-        Utils.ImportConfigurations(); 
+        Utils.ImportConfigurations();
+        Utils.LoadRoutes();
         //Utils.LoadCompletedRoutes();
         //Utils.LoadPartialRoutes();
-        Utils.LoadRoutes();
         InitializeComponent();
         MainPage = new AppShell();
         _ = InitializeApp(); 

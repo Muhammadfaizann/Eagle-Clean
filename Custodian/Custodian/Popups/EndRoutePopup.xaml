@@ -19,49 +19,35 @@
                 <Label 
                 Text="You have reached the end of a route."
                 FontSize="14"
-                
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             <VerticalStackLayout Margin="0,15">
             <Label 
-                Text="Route 006 - Anytown PO"
+                x:Name="lblRoute"
                 FontSize="14"
-                
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             <Label 
-                Text="Estimated Time : 60 Minute"
+                x:Name="estimatedTime"
                 FontSize="14"
-               
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             <Label 
-                Text="Actual Time : 49 Minutes"
+                x:Name="actualTime"
                 FontSize="14"
-               
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             </VerticalStackLayout>
             <Label 
                 Text=" Select the Partial or Complete button to end the route."
                 FontSize="14"
-                
                 VerticalOptions="Start" 
                 HorizontalOptions="Start" />
             </VerticalStackLayout>
             <Grid HorizontalOptions="Center" ColumnSpacing="20" ColumnDefinitions="100,100">
-
-                <Button Grid.Column="0" Text="Cancel" BackgroundColor="White"  FontSize="14" Background="{x:StaticResource GreyGradient}" Clicked="cancel_Clicked" TextColor="{StaticResource White}">
-                 
-                </Button>
-                <Button Grid.Column="1" x:Name="lblButton" Text="Partial" BackgroundColor="White" Background="{x:StaticResource YellowGradient}" Clicked="partial_Clicked" FontSize="14" TextColor="{StaticResource White}">
-                    
-                </Button>
+                <Button Grid.Column="0" Text="Cancel" BackgroundColor="White"  FontSize="14" Background="{x:StaticResource GreyGradient}" Clicked="cancel_Clicked" TextColor="{StaticResource White}"/>
+                <Button Grid.Column="1" x:Name="lblButton" Text="Partial" BackgroundColor="White" Background="{x:StaticResource YellowGradient}" Clicked="partial_Clicked" FontSize="14" TextColor="{StaticResource White}"/>
             </Grid>
-
-
-
-
         </VerticalStackLayout>
     </Frame>
 </toolkit:Popup>

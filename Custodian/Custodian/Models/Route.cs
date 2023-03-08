@@ -31,6 +31,7 @@ namespace Custodian.Models
     {
         public string Description { get; set; }
         public string PlannedTimeInMint { get; set; }
+        public string PlannedTimeInSec { get; set; }
         public string ActualTimeInSec { get; set; }
         public bool IsCompleted { get; set; }
     }

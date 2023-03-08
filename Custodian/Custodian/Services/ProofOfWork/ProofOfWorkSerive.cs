@@ -16,9 +16,10 @@ namespace Custodian.Services.ProofOfWork
         {
             _apiService = apiService;
         }
-        public async void SendWorkRecord(WorkRecord record)
+        public async Task<bool> SendWorkRecord(WorkRecord record)
         {
             bool response = await _apiService.PostAsync<WorkRecord>("workrecord/merge",record);
+            return response;
         }
     }
 }

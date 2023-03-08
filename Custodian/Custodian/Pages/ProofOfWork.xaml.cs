@@ -10,6 +10,7 @@ using Custodian.Models.ServerModels;
 using Custodian.Popups;
 using Custodian.Services.ProofOfWork;
 using Custodian.ViewModels;
+using Microsoft.Maui.Controls;
 using System.Text.Json;
 
 namespace Custodian.Pages;
@@ -17,7 +18,7 @@ namespace Custodian.Pages;
 public partial class ProofOfWork : ContentPage, IQueryAttributable
 {
     IDispatcherTimer timer;
-    TimeSpan dateTime;
+    TimeSpan plannedTime;
     private TimeSpan prevTime;
     double progressPerSec;
     TimeSpan timer_date_time;
@@ -36,13 +37,28 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         timer.Interval = TimeSpan.FromSeconds(1);
         timer.Tick += (s, e) =>
         {
+            if(timer_date_time.Equals(plannedTime))
+            {
+                Color blueColor = Color.FromArgb("#224BA9");
+                Brush blueBrush = new SolidColorBrush(blueColor);
+                timerProgressBar.TrackFill = blueBrush;
+
+                Color redColor = Color.FromArgb("#F44336");
+                Brush redBrush = new SolidColorBrush(redColor);
+                timerProgressBar.ProgressFill = redBrush;
+
+                timerProgressBar.Progress = 0;
+
+
+            }
             lblTime.Text = timer_date_time.ToString("t");
             timer_date_time = timer_date_time.Add(new TimeSpan(0, 0, 1));
             timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
+
         };
         prevTime = TimeSpan.Zero;
 
-    }
+    } 
 
     private void OnStopTimerMessageReceived(object recipient, StopTimerMessage message)
     {
@@ -75,7 +91,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
                 Utils.activeRouteRecord.status = "InProgress";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.write(jsonRecord);
+                await DatabaseService.Write(jsonRecord);
 
                 
             }
@@ -107,8 +123,8 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         var viewmodel = this.BindingContext as ProofOfWorkViewModel;
         viewmodel.CleaningPlanList = obj.taskList.ToObservableCollection();
         lblPlannedTime.Text= obj.plannedTime;
-        dateTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
-        var seconds = dateTime.TotalSeconds;
+        plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
+        var seconds = plannedTime.TotalSeconds;
         progressPerSec = (1 / seconds) * 100;
     }
 
@@ -144,12 +160,8 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
         Models.Task step = e.Parameter as Models.Task;
-
-
         TimeSpan currentTimer = TimeSpan.Parse(lblTime.Text);
-        
-        
-        var popup = new TaskCompletedPopup(step, currentTimer);
+        var popup = new TaskCompletedPopup();
         this.ShowPopup(popup);
     }
 }

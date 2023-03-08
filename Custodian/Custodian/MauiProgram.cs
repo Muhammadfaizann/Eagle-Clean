@@ -51,6 +51,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IProofOfWorkService, ProofOfWorkSerive>();
         builder.Services.AddSingleton<IFacilityService, FacilityService>();
+        builder.Services.AddSingleton<UploadThread>();
 
 
         builder.Services.AddSingleton<DailyScheduleViewModel>();

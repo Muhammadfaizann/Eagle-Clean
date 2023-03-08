@@ -1,15 +1,12 @@
 using CommunityToolkit.Maui.Views;
-using CommunityToolkit.Mvvm.Messaging;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
-using Custodian.Messages;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
-using Custodian.Pages;
 using Custodian.Services.ProofOfWork;
-using System.Reflection;           
-using System.Runtime.CompilerServices;
 using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
+using Application = Microsoft.Maui.Controls.Application;
 
 namespace Custodian.Popups;
 
@@ -24,9 +21,15 @@ public partial class EndRoutePopup : Popup
         _proofOfWorkService= proofOfWorkService;
         if (IsComplete)
         {
-            lblButton.Text = lbl.Text = "Complete";
+            lblButton.Text = "Complete";
+            lbl.Text = "Complete Route?";
             lblButton.Background = (Brush) Application.Current.Resources["GreenGradient"];
         }
+
+        lblRoute.Text = Utils.activeRouteRecord.route;
+        estimatedTime.Text = "Estimated Time : " + TimeSpan.FromSeconds(int.Parse(Utils.activeRouteRecord.estimatedTime)) ;
+        if (IsComplete)
+            actualTime.Text = "Actual Time : " + TimeSpan.FromSeconds(int.Parse(Utils.activeRouteRecord.actualTime));
     }
 
     private void cancel_Clicked(object sender, EventArgs e)
@@ -53,9 +56,9 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.status = "Complete";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.write(jsonRecord);
-                var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                _proofOfWorkService.SendWorkRecord(workRecord);
+                await DatabaseService.Write(jsonRecord);
+                //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
+                //_proofOfWorkService.SendWorkRecord(workRecord);
 
                 Utils.activeRouteFileName = string.Empty;
                 
@@ -71,9 +74,9 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.status = "Partial";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.write(jsonRecord);
-                var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                _proofOfWorkService.SendWorkRecord(workRecord);
+                await DatabaseService.Write(jsonRecord);
+                //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
+               // _proofOfWorkService.SendWorkRecord(workRecord);
             }
 
             await Shell.Current.GoToAsync("..");

@@ -82,8 +82,8 @@ namespace Custodian.ViewModels
             {
                 Utils.activeRouteRecord.actualTime = difference.Seconds.ToString();
             }
-
-            Utils.activeRouteRecord.tasksComplete.Add(task + "|" + difference.Seconds);
+             
+            Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + currentStep.PlannedTimeInSec + "|" + difference.Seconds);
             _CleaningPlanList.Remove(currentStep);
             if (_CleaningPlanList.Count == 0)
             {
@@ -99,10 +99,10 @@ namespace Custodian.ViewModels
             Location currentLocation = await _locationService.GetCurrentLocation();
             Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
             Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
-            Utils.activeRouteRecord.status = "In-Progress";
+            Utils.activeRouteRecord.status = "InProgress";
 
             string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-            await DatabaseService.write(jsonRecord);
+            await DatabaseService.Write(jsonRecord);
 
         }
 

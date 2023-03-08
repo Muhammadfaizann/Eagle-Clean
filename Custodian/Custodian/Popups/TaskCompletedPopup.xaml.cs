@@ -9,29 +9,17 @@ namespace Custodian.Popups;
 
 public partial class TaskCompletedPopup : Popup
 {
-    static TimeSpan secondPrevTime = TimeSpan.Zero;
-    static TimeSpan prevTime=TimeSpan.Zero;
-	public TaskCompletedPopup(Models.Task step, TimeSpan timeSpan)
+	public TaskCompletedPopup()
 	{
         InitializeComponent();
-
-        TimeSpan difference = timeSpan.Subtract(prevTime);
-        secondPrevTime = prevTime;
-        prevTime = timeSpan;
-
-        lblEstimated.Text = "Estimated Time : " + step.PlannedTimeInMint + "  Minutes";
-        lblActual.Text = "Actual Time: " + Math.Round(difference.TotalMinutes, 2)  + " Minutes";
-
     }
     private void cancel_Clicked(object sender, EventArgs e)
     {
-        prevTime = secondPrevTime;
         Close();
     } 
     private void complete_Clicked(object sender, EventArgs e)
     {
         WeakReferenceMessenger.Default.Send(new TaskCompletedMessage("Task Completed"));
-        Close();
-       
+        Close();  
     }
 }

@@ -7,11 +7,11 @@ namespace Custodian.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(ILogger<HomePage> logger)
+	public HomePage(ILogger<HomePage> logger, UploadThread uploadThread)
 	{
         try
         {
-
+            
             logger.LogInformation($"Home page loaded!");
             InitializeComponent();
             ThrowAnException();

@@ -8,7 +8,7 @@ namespace Custodian.Helpers
 {
     internal class DatabaseService
     {
-        public static async Task<string> write(string record)
+        public static async Task<string> Write(string record)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-                app_activity_logger.write("Exception", ex.ToString());
+                Logger.Log("Exception", ex.ToString());
             }
             return string.Empty;
         }
@@ -59,7 +59,7 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-                app_activity_logger.write("Exception", ex.ToString());
+                Logger.Log("Exception", ex.ToString());
                 return string.Empty;
             }
         }
