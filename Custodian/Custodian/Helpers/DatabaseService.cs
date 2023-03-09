@@ -39,11 +39,11 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-                Logger.Log("Exception", ex.ToString());
+                Logger.Log("1", "Exception", ex.Message);
             }
             return string.Empty;
         }
-        public static async Task<string> read(string fileName)
+        public static async Task<string> Read(string fileName)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-                Logger.Log("Exception", ex.ToString());
+                Logger.Log("1","Exception", ex.Message);
                 return string.Empty;
             }
         }

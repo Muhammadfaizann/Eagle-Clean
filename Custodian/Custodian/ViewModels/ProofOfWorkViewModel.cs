@@ -66,43 +66,51 @@ namespace Custodian.ViewModels
         #region Events
         private async void TaskCompletedMessageReceived(object recipient, TaskCompletedMessage message)
         {
-            string task = currentStep.Description + "|" + currentStep.PlannedTimeInMint;
-            Utils.activeRouteRecord.tasksIncomplete.Remove(task);
-
-            TimeSpan currentTime = TimeSpan.Parse(_TimerText);
-            TimeSpan difference = currentTime.Subtract(prevTime);
-            prevTime = currentTime;
-
-            if (Utils.activeRouteRecord.actualTime != null)
+            try
             {
-                int actualTime = int.Parse(Utils.activeRouteRecord.actualTime) + difference.Seconds;
-                Utils.activeRouteRecord.actualTime = actualTime.ToString();
-            }
-            else
-            {
-                Utils.activeRouteRecord.actualTime = difference.Seconds.ToString();
-            }
-             
-            Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + currentStep.PlannedTimeInSec + "|" + difference.Seconds);
-            _CleaningPlanList.Remove(currentStep);
-            if (_CleaningPlanList.Count == 0)
-            {
-                WeakReferenceMessenger.Default.Send(new StopTimerMessage("Stop Timer"));
-                ButtonText = "Complete Route";
-                ActualTimeText = _TimerText;
-            }
-            CleaningPlanList = _CleaningPlanList;
+                string task = currentStep.Description + "|" + currentStep.PlannedTimeInSec;
+                Utils.activeRouteRecord.tasksIncomplete.Remove(task);
 
-            Utils.activeRouteRecord.seq = "2";
-            Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
-            Utils.activeRouteRecord.endTime = DateTime.Now.ToString("HH:mm:ss");
-            Location currentLocation = await _locationService.GetCurrentLocation();
-            Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
-            Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
-            Utils.activeRouteRecord.status = "InProgress";
+                TimeSpan currentTime = TimeSpan.Parse(_TimerText);
+                TimeSpan difference = currentTime.Subtract(prevTime);
+                prevTime = currentTime;
 
-            string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-            await DatabaseService.Write(jsonRecord);
+                if (Utils.activeRouteRecord.actualTime != null)
+                {
+                    int actualTime = int.Parse(Utils.activeRouteRecord.actualTime) + difference.Seconds;
+                    Utils.activeRouteRecord.actualTime = actualTime.ToString();
+                }
+                else
+                {
+                    Utils.activeRouteRecord.actualTime = difference.Seconds.ToString();
+                }
+
+                Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + currentStep.PlannedTimeInSec + "|" + difference.Seconds);
+                _CleaningPlanList.Remove(currentStep);
+                if (_CleaningPlanList.Count == 0)
+                {
+                    WeakReferenceMessenger.Default.Send(new StopTimerMessage("Stop Timer"));
+                    ButtonText = "Complete Route";
+                    ActualTimeText = _TimerText;
+                }
+                CleaningPlanList = _CleaningPlanList;
+
+                Utils.activeRouteRecord.seq = "2";
+                Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
+                Utils.activeRouteRecord.endTime = DateTime.Now.ToString("HH:mm:ss");
+                Location currentLocation = await _locationService.GetCurrentLocation();
+                Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
+                Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
+                Utils.activeRouteRecord.status = "InProgress";
+
+                string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
+                await DatabaseService.Write(jsonRecord);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+            }
+            
 
         }
 

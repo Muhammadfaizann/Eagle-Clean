@@ -1,3 +1,4 @@
+using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Services.Facility;
@@ -25,22 +26,36 @@ public partial class FacilityList : ContentPage
 
     private async void LoadUpAllFacilities()
     {
-        loader.IsRunning = loader.IsVisible = true;
-        if (!facilities.Any())
+        try
         {
-            Location location = await _locationService.GetCurrentLocation();
-            facilities = await _facilityService.GetAllFacilities(location.Latitude,location.Longitude,Utils.config.Radius);
-            collection.ItemsSource = facilities;
+            loader.IsRunning = loader.IsVisible = true;
+            if (!facilities.Any())
+            {
+                Location location = await _locationService.GetCurrentLocation();
+                facilities = await _facilityService.GetAllFacilities(location.Latitude, location.Longitude, Utils.config.Radius);
+                collection.ItemsSource = facilities;
+            }
+            loader.IsRunning = loader.IsVisible = false;
         }
-        loader.IsRunning = loader.IsVisible = false;
+        catch (Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     private async void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
     {
-        var navigationParameter = new Dictionary<string, object>
+        try
+        {
+            var navigationParameter = new Dictionary<string, object>
             {
                 { "param", e.Parameter }
             };
-        await Shell.Current.GoToAsync(nameof(Facility), navigationParameter);
+            await Shell.Current.GoToAsync(nameof(Facility), navigationParameter);
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 }

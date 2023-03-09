@@ -1,3 +1,4 @@
+using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Models;
@@ -14,21 +15,35 @@ public partial class Facility : ContentPage, IQueryAttributable
     IApiClientService _client;
     ILocationService _locationService;
     Models.Facility facility;
-	public Facility(FacilityViewModel vm, IApiClientService client, ILocationService locationService)
-	{
-		InitializeComponent();
-        BindingContext = vm;
-        _client = client;
-        _locationService=locationService;
-        routesCollection.ItemsSource= new List<string>() {"Route 001", "Route 002", "Route 003" };
+    public Facility(FacilityViewModel vm, IApiClientService client, ILocationService locationService)
+    {
+        try 
+        {
+            InitializeComponent();
+            BindingContext = vm;
+            _client = client;
+            _locationService = locationService;
+            routesCollection.ItemsSource = new List<string>() { "Route 001", "Route 002", "Route 003" };
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        facility = query["param"] as Models.Facility;
+        try
+        {
+            facility = query["param"] as Models.Facility;
 
-        navBar.Title = "Facility - "+ facility.LocaleName;
-        lblFacility.Text = facility.LocaleName;
-        lblAddress.Text = facility.Address +" "+ facility.City +" "+ facility.DistrictName;
+            navBar.Title = "Facility - " + facility.LocaleName;
+            lblFacility.Text = facility.LocaleName;
+            lblAddress.Text = facility.Address + " " + facility.City + " " + facility.DistrictName;
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
     protected override void OnAppearing()
     {
@@ -38,27 +53,41 @@ public partial class Facility : ContentPage, IQueryAttributable
 
     private async void LoadAllRoutes()
     {
-        loader.IsRunning = loader.IsVisible = true;
-        List<RouteModel> response = await _client.GetAsync<List<RouteModel>>("routes/" + facility.FacilityId);
-        if (response != null)
+        try
         {
-            routesCollection.ItemsSource = response;
+            loader.IsRunning = loader.IsVisible = true;
+            List<RouteModel> response = await _client.GetAsync<List<RouteModel>>("routes/" + facility.FacilityId);
+            if (response != null)
+            {
+                routesCollection.ItemsSource = response;
+            }
+            loader.IsRunning = loader.IsVisible = false;
         }
-        loader.IsRunning = loader.IsVisible = false;
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        Button btn = sender as Button;
-        RouteModel routeDetails = btn.CommandParameter as RouteModel;
-
-        Location currentLocation = await _locationService.GetCurrentLocation();
-        var route = await Utils.StartRoute(routeDetails.json, currentLocation.Latitude,currentLocation.Longitude, false);
-        var navigationParameter = new Dictionary<string, object>
+        try
         {
-                { "param", route }
+            Button btn = sender as Button;
+            RouteModel routeDetails = btn.CommandParameter as RouteModel;
+
+            Location currentLocation = await _locationService.GetCurrentLocation();
+            var route = await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
+            var navigationParameter = new Dictionary<string, object>
+            {
+               { "param", route }
             };
-        await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     

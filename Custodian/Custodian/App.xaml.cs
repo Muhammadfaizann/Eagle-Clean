@@ -14,11 +14,6 @@ public partial class App : Application
 {
     public App()
 	{
-        
-        Utils.ImportConfigurations();
-        Utils.LoadRoutes();
-        //Utils.LoadCompletedRoutes();
-        //Utils.LoadPartialRoutes();
         InitializeComponent();
         MainPage = new AppShell();
         _ = InitializeApp(); 
@@ -36,6 +31,8 @@ public partial class App : Application
             }
         });
 
+
+        
 
     }
     protected override void OnStart()

@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Messages;
@@ -27,37 +28,43 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     bool IsBackgroundThreadRunning = true;
     public ProofOfWork(ProofOfWorkViewModel viewModel, ILocationService locationService, IProofOfWorkService proofOfWorkService)
 	{
-		InitializeComponent();
-        _locationService = locationService;
-        _proofOfWorkService = proofOfWorkService;
-        this.BindingContext=viewModel;
-        WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnEndRouteMessageReceived);
-        WeakReferenceMessenger.Default.Register<StopTimerMessage>(this, OnStopTimerMessageReceived);
-        timer = Dispatcher.CreateTimer();
-        timer.Interval = TimeSpan.FromSeconds(1);
-        timer.Tick += (s, e) =>
+        try
         {
-            if(timer_date_time.Equals(plannedTime))
+            InitializeComponent();
+            _locationService = locationService;
+            _proofOfWorkService = proofOfWorkService;
+            this.BindingContext = viewModel;
+            WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnEndRouteMessageReceived);
+            WeakReferenceMessenger.Default.Register<StopTimerMessage>(this, OnStopTimerMessageReceived);
+            timer = Dispatcher.CreateTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (s, e) =>
             {
-                Color blueColor = Color.FromArgb("#224BA9");
-                Brush blueBrush = new SolidColorBrush(blueColor);
-                timerProgressBar.TrackFill = blueBrush;
+                if (timer_date_time.Equals(plannedTime))
+                {
+                    Color blueColor = Color.FromArgb("#224BA9");
+                    Brush blueBrush = new SolidColorBrush(blueColor);
+                    timerProgressBar.TrackFill = blueBrush;
 
-                Color redColor = Color.FromArgb("#F44336");
-                Brush redBrush = new SolidColorBrush(redColor);
-                timerProgressBar.ProgressFill = redBrush;
+                    Color redColor = Color.FromArgb("#F44336");
+                    Brush redBrush = new SolidColorBrush(redColor);
+                    timerProgressBar.ProgressFill = redBrush;
 
-                timerProgressBar.Progress = 0;
+                    timerProgressBar.Progress = 0;
 
 
-            }
-            lblTime.Text = timer_date_time.ToString("t");
-            timer_date_time = timer_date_time.Add(new TimeSpan(0, 0, 1));
-            timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
+                }
+                lblTime.Text = timer_date_time.ToString("t");
+                timer_date_time = timer_date_time.Add(new TimeSpan(0, 0, 1));
+                timerProgressBar.Progress = timerProgressBar.Progress + progressPerSec;
 
-        };
-        prevTime = TimeSpan.Zero;
-
+            };
+            prevTime = TimeSpan.Zero;
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     } 
 
     private void OnStopTimerMessageReceived(object recipient, StopTimerMessage message)
@@ -116,16 +123,23 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
-        var obj = query["param"] as Route;
-        Utils.activeAssigment = obj;
-        routeTitle.Text = obj.rte;
-        description.Text = obj.desc;
-        var viewmodel = this.BindingContext as ProofOfWorkViewModel;
-        viewmodel.CleaningPlanList = obj.taskList.ToObservableCollection();
-        lblPlannedTime.Text= obj.plannedTime;
-        plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
-        var seconds = plannedTime.TotalSeconds;
-        progressPerSec = (1 / seconds) * 100;
+        try
+        {
+            var obj = query["param"] as Route;
+            Utils.activeAssigment = obj;
+            routeTitle.Text = obj.rte;
+            description.Text = obj.desc;
+            var viewmodel = this.BindingContext as ProofOfWorkViewModel;
+            viewmodel.CleaningPlanList = obj.taskList.ToObservableCollection();
+            lblPlannedTime.Text = obj.plannedTime;
+            plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
+            var seconds = plannedTime.TotalSeconds;
+            progressPerSec = (1 / seconds) * 100;
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     private void AddPictures_Clicked(object sender, EventArgs e)

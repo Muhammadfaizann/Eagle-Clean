@@ -19,7 +19,14 @@ public partial class TaskCompletedPopup : Popup
     } 
     private void complete_Clicked(object sender, EventArgs e)
     {
-        WeakReferenceMessenger.Default.Send(new TaskCompletedMessage("Task Completed"));
-        Close();  
+        try
+        {
+            WeakReferenceMessenger.Default.Send(new TaskCompletedMessage("Task Completed"));
+            Close();
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 }

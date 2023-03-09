@@ -11,13 +11,19 @@ namespace Custodian.ViewModels
         [RelayCommand]
         async Task Navigate(object arg)
         {
-            var navigationParameter = new Dictionary<string, object>
+            try 
             {
-                { "param", arg }
-            };
-            await Shell.Current.GoToAsync(nameof(WorkOrderPage),navigationParameter);
-        }
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "param", arg }
+                };
+                await Shell.Current.GoToAsync(nameof(WorkOrderPage), navigationParameter);
+            }
+            catch(Exception ex)
+            {
 
+            }
+        }
 
 
     }

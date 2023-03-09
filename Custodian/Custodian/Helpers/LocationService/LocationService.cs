@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
+using Custodian.ActivityLog;
 
 namespace Custodian.Helpers.LocationService
 {
@@ -23,7 +24,7 @@ namespace Custodian.Helpers.LocationService
             }
             catch (Exception ex)
             {
-                // Unable to get location
+                Logger.Log("1", "Exception", ex.Message);
             }
 
             return "None";
@@ -36,7 +37,7 @@ namespace Custodian.Helpers.LocationService
             {
                 _isCheckingLocation = true;
 
-                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+                GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(1));
 
                 _cancelTokenSource = new CancellationTokenSource();
 
@@ -46,7 +47,7 @@ namespace Custodian.Helpers.LocationService
             }
             catch (Exception ex)
             {
-                // Unable to get location
+                Logger.Log("1", "Exception", ex.Message);
             }
             finally
             {

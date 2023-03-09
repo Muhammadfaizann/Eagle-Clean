@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.ViewModels;
@@ -56,7 +57,7 @@ public partial class Login : ContentPage
             }
             catch (Exception ex)
             {
-                
+                Logger.Log("1", "Exception", ex.Message);
             }
         });
     }
@@ -162,32 +163,41 @@ public partial class Login : ContentPage
 
     private async void Login_Clicked(object sender, EventArgs e)
     {
-        if (!string.IsNullOrEmpty(badgeID))
+        try
         {
-            if (badgeID.Length == 12)
+            if (!string.IsNullOrEmpty(badgeID))
             {
-                Utils.BadgeID=badgeID;
-                var vm = BindingContext as LoginViewModel;
-                vm.LoginCommand.Execute(null);
+                if (badgeID.Length == 12)
+                {
+                    Utils.BadgeID = badgeID;
+                    Utils.ImportConfigurations();
+                    Utils.LoadRoutes();
+                    var vm = BindingContext as LoginViewModel;
+                    vm.LoginCommand.Execute(null);
+                }
+                else
+                {
+                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                    string text = "Invalid badge ID";
+                    ToastDuration duration = ToastDuration.Short;
+                    double fontSize = 12;
+                    var toast = Toast.Make(text, duration, fontSize);
+                    await toast.Show(cancellationTokenSource.Token);
+                }
             }
             else
             {
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                string text = "Kindly Provide your whole 12 digits badge ID";
+                string text = "Provide your badge ID";
                 ToastDuration duration = ToastDuration.Short;
                 double fontSize = 12;
                 var toast = Toast.Make(text, duration, fontSize);
                 await toast.Show(cancellationTokenSource.Token);
             }
         }
-        else
+        catch(Exception ex)
         {
-            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-            string text = "Provide your badge ID";
-            ToastDuration duration = ToastDuration.Short;
-            double fontSize = 12;
-            var toast = Toast.Make(text, duration, fontSize);
-            await toast.Show(cancellationTokenSource.Token);
+            Logger.Log("1", "Exception", ex.Message);
         }
     }
 }

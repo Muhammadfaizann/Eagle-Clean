@@ -1,5 +1,4 @@
-using MetroLog;
-using Microsoft.Extensions.Logging;
+
 
 namespace Custodian.Pages;
 
@@ -14,6 +13,7 @@ public partial class UserAgreement : ContentPage
 		lbl2.Text = "Company 1 and Company 2 are individually referred to herein as, the “Party”, and collectively as, the “Parties”.";
 		lbl3.Text = "RECITALS";
         lbl4.Text = "WHEREAS, the Parties desire to explore and engage in discussions regarding a potential business opportunity of mutual interest (“Business Discussion”);";
+        
        
     }
 

@@ -7,7 +7,7 @@ namespace Custodian.ActivityLog
 {
     public class Logger
     {
-        public static async void Log(string category, string message)
+        public static async void Log(string level,string category, string message)
         {
             DateTime now = DateTime.Now;
             string timeStamp = now.ToString("HH:mm:ss:fff");
@@ -20,7 +20,6 @@ namespace Custodian.ActivityLog
                     {
                         // Prompt the user with additional information as to why the permission is needed
                     }
-
                     status = await Permissions.RequestAsync<Permissions.StorageWrite>();
                 }
 
@@ -29,12 +28,12 @@ namespace Custodian.ActivityLog
                     IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
                     IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
                     IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
-                    IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_mm_dd") + ".txt", CreationCollisionOption.OpenIfExists);
+                    IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_MM_dd") + ".txt", CreationCollisionOption.OpenIfExists);
                     using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
                     {
                         using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                         {
-                            writer.WriteLine("["+ timeStamp +"|"+ category + "] " + message);
+                            writer.WriteLine("["+ timeStamp +"|"+ category + "|"+ level + "] " + message);
                         }
                     }
                 }
@@ -42,9 +41,10 @@ namespace Custodian.ActivityLog
             }
             catch (Exception ex)
             {
-
+               
             }
         }
+
         /*
         public static async void createConfigFileTXT()
         {

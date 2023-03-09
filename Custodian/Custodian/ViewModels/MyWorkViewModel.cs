@@ -19,11 +19,19 @@ namespace Custodian.ViewModels
         [RelayCommand]
         async Task NavigateAssignment(object arg)
         {
-            var navigationParameter = new Dictionary<string, object>
+            try
             {
-                { "param", arg }
-            };
-            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+               
+               var navigationParameter = new Dictionary<string, object>
+                {
+                    { "param", arg }
+                };
+                await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+            }
+            catch(Exception ex)
+            {
+
+            }
 
         }
     }

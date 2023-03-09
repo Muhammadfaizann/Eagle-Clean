@@ -83,7 +83,7 @@ public partial class EndRoutePopup : Popup
         }
         catch(Exception ex)
         {
-
+            Logger.Log("1", "Exception", ex.Message);
         }
     } 
     

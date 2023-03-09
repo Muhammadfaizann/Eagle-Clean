@@ -41,7 +41,7 @@ namespace Custodian.Services.Server
             }
             catch (Exception ex)
             {
-                Logger.Log("HTTP", ex.Message);
+                Logger.Log("1", "Exception", ex.Message);
 
             }
             return default(T);

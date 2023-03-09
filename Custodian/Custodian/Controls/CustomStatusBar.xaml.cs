@@ -1,6 +1,7 @@
 namespace Custodian.Controls;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using Custodian.ActivityLog;
 
 public partial class CustomStatusBar : Frame
 {
@@ -14,31 +15,46 @@ public partial class CustomStatusBar : Frame
 
     private void Battery_BatteryInfoChanged(object sender, BatteryInfoChangedEventArgs e)
     {
-        var level = e.ChargeLevel;
-        if (level < 0.25)
-            battery.Source = "battery1cell.png";
-        else if (level < 0.5)
-            battery.Source = "battery2cell.png";
-        else if (level < 0.75)
-            battery.Source = "battery3cell.png";
-        
-        flash.IsVisible = e.State switch
+        try
         {
-            BatteryState.Charging => true,
-            _ => false
-        };
+            var level = e.ChargeLevel;
+            if (level < 0.25)
+                battery.Source = "battery1cell.png";
+            else if (level < 0.5)
+                battery.Source = "battery2cell.png";
+            else if (level < 0.75)
+                battery.Source = "battery3cell.png";
+
+            flash.IsVisible = e.State switch
+            {
+                BatteryState.Charging => true,
+                _ => false
+            };
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
+       
     }
 
     private async void Help_Icon_Tapped(object sender, TappedEventArgs e)
     {
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        try
+        {
+            CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-        string text = "App version: " + AppInfo.Current.VersionString;
-        ToastDuration duration = ToastDuration.Short;
-        double fontSize = 12;
+            string text = "App version: " + AppInfo.Current.VersionString;
+            ToastDuration duration = ToastDuration.Short;
+            double fontSize = 12;
 
-        var toast = Toast.Make(text, duration, fontSize);
+            var toast = Toast.Make(text, duration, fontSize);
 
-        await toast.Show(cancellationTokenSource.Token);
+            await toast.Show(cancellationTokenSource.Token);
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 }

@@ -30,7 +30,7 @@ public partial class ScanJob : ContentPage
 
     private void OnStartRouteMessageReceived(object recipient, StartRouteMessage message)
     {
-        try
+            try
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
@@ -53,7 +53,7 @@ public partial class ScanJob : ContentPage
             }
             catch (Exception ex)
             {
-                Logger.Log("Exception", ex.ToString());
+                Logger.Log("1","Exception", ex.Message);
             }
     }
 
@@ -69,7 +69,7 @@ public partial class ScanJob : ContentPage
         }
         catch (Exception ex)
         {
-            Logger.Log("Exception", ex.ToString());
+            Logger.Log("1","Exception", ex.Message);
         }
     }
 

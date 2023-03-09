@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core.Extensions;
+using Custodian.ActivityLog;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Custodian.Services.ProofOfWork;
@@ -44,83 +45,126 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-
+                Logger.Log("1", "Exception", ex.Message);
             }
         }
         internal static async void LoadRoutes()
         {
-           IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Database/Routes");
-           var files  = await folder.GetFilesAsync(); 
-
-                foreach(var file in files)
+            try
+            {
+                var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
+                if (status != PermissionStatus.Granted)
                 {
-                    using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
-                    using (var reader = new StreamReader(stream))
+                    if (Permissions.ShouldShowRationale<Permissions.StorageRead>())
                     {
-                        var jsonString = await reader.ReadLineAsync();
-                        MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(jsonString);
-                        
-                        if(record.seq=="3")
-                        {
+                        // Prompt the user with additional information as to why the permission is needed
+                    }
 
-                            Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
-                            partialRoutes.Add(route);
-                        }
-                        else if (record.seq == "4")
-                        {
+                    status = await Permissions.RequestAsync<Permissions.StorageRead>();
+                }
 
-                            Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
-                            completedRoutes.Add(new CompletedRoute() { Title = route.rte, IsOverTime=false }) ;
+                if (status == PermissionStatus.Granted)
+                {
+                    IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Database/Routes");
+                    var files = await folder.GetFilesAsync();
+
+                    foreach (var file in files)
+                    {
+                        using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
+                        using (var reader = new StreamReader(stream))
+                        {
+                            var jsonString = await reader.ReadLineAsync();
+                            MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(jsonString);
+
+                            if (record.seq == "3")
+                            {
+
+                                Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
+
+                                int totalSec = 0;
+                                route.taskList = new List<Models.Task>();
+                                foreach (var task in route.tasks)
+                                {
+                                    var strings = task.Split('|');
+                                    route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = strings[1], PlannedTimeInSec = (int.Parse(strings[1]) * 60).ToString() });
+                                    totalSec = totalSec + (int.Parse(strings[1]) * 60);
+                                }
+                                TimeSpan estimatedTimeSpan = TimeSpan.FromSeconds(totalSec);
+                                route.plannedTime = estimatedTimeSpan.ToString("t");
+                                Utils.partialRoutes.Add(route);
+                            }
+                            else if (record.seq == "4")
+                            {
+
+                                Route route = JsonSerializer.Deserialize<Route>(record.startBarcode);
+                                completedRoutes.Add(new CompletedRoute() { Title = route.rte, IsOverTime = false });
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+            }
 
         }
         public static async Task<Route> StartRoute(string startJson, double Latitude, double Longitude, bool IsScanned)
         {
-            int totalSec = 0;
-            Route route = JsonSerializer.Deserialize<Route>(startJson);
-            route.taskList = new List<Models.Task>();
-            foreach (var task in route.tasks)
+            try
             {
-                var strings = task.Split('|');
-                route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = strings[1], PlannedTimeInSec= (int.Parse(strings[1]) * 60).ToString() });
-                totalSec = totalSec + (int.Parse(strings[1])*60);
-            }
-            TimeSpan estimatedTimeSpan = TimeSpan.FromSeconds(totalSec);
-            route.plannedTime = estimatedTimeSpan.ToString("t");
-            Utils.partialRoutes.Add(route);
+                int totalSec = 0;
+                Route route = JsonSerializer.Deserialize<Route>(startJson);
+                route.taskList = new List<Models.Task>();
+                List<string> tasksWithEstimatedTimeInSec = new List<string>();
+                foreach (var task in route.tasks)
+                {
+                    var strings = task.Split('|');
+                    var estimatedTimeInSec = (int.Parse(strings[1]) * 60);
+                    route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = strings[1], PlannedTimeInSec = estimatedTimeInSec.ToString() });
+                    tasksWithEstimatedTimeInSec.Add(strings[0] + "|" + estimatedTimeInSec);
+                    totalSec = totalSec + estimatedTimeInSec;
+                }
+                TimeSpan estimatedTimeSpan = TimeSpan.FromSeconds(totalSec);
+                route.plannedTime = estimatedTimeSpan.ToString("t");
+                Utils.partialRoutes.Add(route);
 
-            MergeRecord record = new MergeRecord();
-            record.ver = "1";
-            record.seq = "1";
-            record.facilityid = route.fid;
-            record.route = route.rte;
-            record.startDate = DateTime.Now.ToString("MM/dd/yyyy");
-            record.startTime = DateTime.Now.ToString("HH:mm:ss");
-            record.endDate = null;
-            record.endTime = null;
-            record.startLatitude = Latitude.ToString();
-            record.startLongitude = Longitude.ToString();
-            record.endLatitude = null;
-            record.endLongitude = null;
-            record.employee = BadgeID;
-            if(IsScanned)
-            record.startBarcode = startJson;
-            else
-            record.startBarcode = null;
-            record.endBarcode = null;
-            record.estimatedTime = estimatedTimeSpan.TotalSeconds.ToString();
-            record.actualTime = null;
-            record.status = "Started";
-            record.tasksComplete = new List<string>();
-            record.tasksIncomplete = route.tasks;
-            record.pics = default(List<string>);
-            record.IsUploaded = false;
-            string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
-            Utils.activeRouteFileName = await DatabaseService.Write(jsonRecord);
-            Utils.activeRouteRecord = record;
-            return route;
+                MergeRecord record = new MergeRecord();
+                record.ver = "1";
+                record.seq = "1";
+                record.facilityid = route.fid;
+                record.route = route.rte;
+                record.startDate = DateTime.Now.ToString("MM/dd/yyyy");
+                record.startTime = DateTime.Now.ToString("HH:mm:ss");
+                record.endDate = null;
+                record.endTime = null;
+                record.startLatitude = Latitude.ToString();
+                record.startLongitude = Longitude.ToString();
+                record.endLatitude = null;
+                record.endLongitude = null;
+                record.employee = BadgeID;
+                //if(IsScanned)
+                record.startBarcode = startJson;
+                //else
+                //record.startBarcode = null;
+                record.endBarcode = null;
+                record.estimatedTime = estimatedTimeSpan.TotalSeconds.ToString();
+                record.actualTime = null;
+                record.status = "Started";
+                record.tasksComplete = new List<string>();
+                record.tasksIncomplete = tasksWithEstimatedTimeInSec;
+                record.pics = default(List<string>);
+                record.IsUploaded = false;
+                string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
+                Utils.activeRouteFileName = await DatabaseService.Write(jsonRecord);
+                Utils.activeRouteRecord = record;
+                return route;
+            }
+            catch(Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+            }
+            return null;
         }
 
         

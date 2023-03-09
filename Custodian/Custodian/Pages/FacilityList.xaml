@@ -56,6 +56,9 @@
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="No Facility available."></Label>
+                    </CollectionView.EmptyView>
                 </CollectionView>
                 <ActivityIndicator x:Name="loader" Grid.Row="2" IsVisible="false" IsRunning="False"  Color="{x:StaticResource CustodianppProgressBlue}"
                            HorizontalOptions="Center"
