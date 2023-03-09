@@ -77,6 +77,7 @@ public partial class Facility : ContentPage, IQueryAttributable
             RouteModel routeDetails = btn.CommandParameter as RouteModel;
 
             Location currentLocation = await _locationService.GetCurrentLocation();
+            
             var route = await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
             var navigationParameter = new Dictionary<string, object>
             {

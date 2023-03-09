@@ -5,7 +5,9 @@ using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.ViewModels;
+using Kotlin.Text;
 using Microsoft.Extensions.Logging;
+using System.Text.RegularExpressions;
 
 namespace Custodian.Pages;
 
@@ -25,6 +27,7 @@ public partial class Login : ContentPage
             try
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
+                
                 {
                     IsScanned = true;
                     badgeID = args.Value.ToString();
@@ -165,9 +168,10 @@ public partial class Login : ContentPage
     {
         try
         {
-            if (!string.IsNullOrEmpty(badgeID))
-            {
-                if (badgeID.Length == 12)
+            Logger.Log("2", "Info", $"Barcode scanned with Badge ID: {badgeID} , Length: {badgeID.Length}.");
+            
+
+                if (Utils.IsBadgeValid(badgeID))
                 {
                     Utils.BadgeID = badgeID;
                     Utils.ImportConfigurations();
@@ -184,20 +188,109 @@ public partial class Login : ContentPage
                     var toast = Toast.Make(text, duration, fontSize);
                     await toast.Show(cancellationTokenSource.Token);
                 }
-            }
-            else
-            {
-                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                string text = "Provide your badge ID";
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 12;
-                var toast = Toast.Make(text, duration, fontSize);
-                await toast.Show(cancellationTokenSource.Token);
-            }
+            
         }
         catch(Exception ex)
         {
             Logger.Log("1", "Exception", ex.Message);
         }
     }
+
+    
+
+    /*
+    private int GetCheckDigit(string barcode)
+    {
+        List<int> serialNumberArray = new List<int>();
+        var modCheck = barcode.Length % 2;
+        var loopCounter = 0;
+        while (loopCounter < barcode.Length)
+        {
+            var digit = Convert.ToInt32(barcode.Substring(loopCounter, 1));
+            serialNumberArray.Add(digit);
+            loopCounter++;
+        }
+
+        for (var i = 0; i < serialNumberArray.Count; i++)
+        {
+            var check = i + 1;
+            if ((check % 2) == modCheck)
+            {
+                serialNumberArray[i] = serialNumberArray[i] * 2;
+            }
+        }
+
+        loopCounter = 0;
+        var additiveResult = 0;
+        var arrayItemValue = 0;
+        var checkSum = 0;
+
+        while (loopCounter < barcode.Length)
+        {
+            arrayItemValue = serialNumberArray[loopCounter];
+            if (arrayItemValue > 9)
+            {
+                additiveResult = 1 + (arrayItemValue % 10);
+            }
+            else
+            {
+                additiveResult = arrayItemValue;
+            }
+            checkSum = checkSum + additiveResult;
+            loopCounter++;
+        }
+
+        var checkDigit = 0;
+        if ((checkSum % 10) > 0)
+        {
+            checkDigit = 10 - (checkSum % 10);
+        }
+
+        return checkDigit;
+    }
+    private int Mod10Check(string creditCardNumber)
+    {
+        //// 1.	Starting with the check digit double the value of every other digit 
+        //// 2.	If doubling of a number results in a two digits number, add up
+        ///   the digits to get a single digit number. This will results in eight single digit numbers                    
+        //// 3. Get the sum of the digits
+        int sumOfDigits = creditCardNumber.Where((e) => e >= '0' && e <= '9')
+                        .Reverse()
+                        .Select((e, i) => ((int)e - 48) * (i % 2 == 0 ? 1 : 2))
+                        .Sum((e) => e / 10 + e % 10);
+
+
+        //// If the final sum is divisible by 10, then the credit card number
+        //   is valid. If it is not divisible by 10, the number is invalid.            
+        return sumOfDigits % 10;
+    }*/
+    public int CalculateMod10CheckDigit(string number)
+    {
+        int sum = 0;
+        bool isEvenPosition = false;
+
+        // Iterate over the digits of the number from right to left
+        for (int i = number.Length - 1; i >= 0; i--)
+        {
+            int digit = int.Parse(number[i].ToString());
+
+            // Double the value of every other digit starting from the second-to-last
+            if (isEvenPosition)
+            {
+                digit *= 2;
+                if (digit > 9)
+                {
+                    digit = digit % 10 + digit / 10;
+                }
+            }
+
+            sum += digit;
+            isEvenPosition = !isEvenPosition;
+        }
+
+        // Calculate the check digit as the number that must be added to the sum to make it a multiple of 10
+        int checkDigit = (sum % 10 == 0) ? 0 : 10 - (sum % 10);
+        return checkDigit;
+    }
+    
 }

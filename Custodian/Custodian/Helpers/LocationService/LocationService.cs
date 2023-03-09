@@ -13,24 +13,25 @@ namespace Custodian.Helpers.LocationService
     {
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
-        public async Task<string> GetCachedLocation()
+
+        //it gets Last known location 
+        public async Task<Location> GetLastKnownLocation()
         {
             try
             {
                 Location location = await Geolocation.Default.GetLastKnownLocationAsync();
 
-                if (location != null)
-                    return $"Latitude: {location.Latitude}, Longitude: {location.Longitude}, Altitude: {location.Altitude}";
+                return location;
             }
             catch (Exception ex)
             {
                 Logger.Log("1", "Exception", ex.Message);
             }
 
-            return "None";
+            return default(Location);
         }
 
-
+        //it gets current location from GPS!
         public async Task<Location> GetCurrentLocation()
         {
             try

@@ -29,9 +29,14 @@ public partial class FacilityList : ContentPage
         try
         {
             loader.IsRunning = loader.IsVisible = true;
+            
             if (!facilities.Any())
             {
                 Location location = await _locationService.GetCurrentLocation();
+                if (location == null)
+                {
+                    location = await _locationService.GetLastKnownLocation();
+                }
                 facilities = await _facilityService.GetAllFacilities(location.Latitude, location.Longitude, Utils.config.Radius);
                 collection.ItemsSource = facilities;
             }

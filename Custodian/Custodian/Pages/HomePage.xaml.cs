@@ -12,7 +12,6 @@ public partial class HomePage : ContentPage
 	{
         try
         {
-
             logger.LogInformation($"Home page loaded!");
             InitializeComponent();
             ThrowAnException();

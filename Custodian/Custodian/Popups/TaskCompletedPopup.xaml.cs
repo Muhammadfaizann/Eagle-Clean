@@ -1,9 +1,7 @@
-using Bumptech.Glide.Util;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ActivityLog;
 using Custodian.Messages;
-using Custodian.Models;
-using static Android.Renderscripts.ScriptGroup;
 
 namespace Custodian.Popups;
 

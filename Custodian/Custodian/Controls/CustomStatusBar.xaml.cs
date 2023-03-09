@@ -1,7 +1,9 @@
 namespace Custodian.Controls;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.Messaging;
 using Custodian.ActivityLog;
+using Custodian.Messages;
 
 public partial class CustomStatusBar : Frame
 {
@@ -11,8 +13,29 @@ public partial class CustomStatusBar : Frame
         DateTime now = DateTime.Now;
         time.Text=now.ToString("t");
         Battery.Default.BatteryInfoChanged += Battery_BatteryInfoChanged;
+
+        WeakReferenceMessenger.Default.Register<ShowSyncIconMessage>(this, ShowSyncIcon);
+
+        WeakReferenceMessenger.Default.Register<HideSyncIconMessage>(this, HideSyncIcon);
     }
 
+    private void HideSyncIcon(object recipient, HideSyncIconMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            syncIcon.IsVisible = false;
+        });
+    }
+
+    private void ShowSyncIcon(object recipient, ShowSyncIconMessage message)
+    {
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            syncIcon.IsVisible = true;
+        });
+       
+    }
+    
     private void Battery_BatteryInfoChanged(object sender, BatteryInfoChangedEventArgs e)
     {
         try

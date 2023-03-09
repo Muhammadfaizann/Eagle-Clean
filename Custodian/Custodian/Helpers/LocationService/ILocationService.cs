@@ -8,7 +8,7 @@ namespace Custodian.Helpers.LocationService
 {
     public interface ILocationService
     {
-        Task<string> GetCachedLocation();
+        Task<Location> GetLastKnownLocation();
 
         Task<Location> GetCurrentLocation();
 

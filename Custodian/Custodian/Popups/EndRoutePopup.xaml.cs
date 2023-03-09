@@ -5,6 +5,7 @@ using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Custodian.Services.ProofOfWork;
 using System.Text.Json;
+using Custodian.ActivityLog;
 using static System.Net.Mime.MediaTypeNames;
 using Application = Microsoft.Maui.Controls.Application;
 

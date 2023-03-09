@@ -29,13 +29,13 @@ namespace Custodian.ActivityLog
                     IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
                     IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
                     IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_MM_dd") + ".txt", CreationCollisionOption.OpenIfExists);
-                    using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-                    {
-                        using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                    
+                        using (StreamWriter writer = new StreamWriter(file.Path,true))
                         {
                             writer.WriteLine("["+ timeStamp +"|"+ category + "|"+ level + "] " + message);
+                            writer.Close();
                         }
-                    }
+                    
                 }
                 
             }

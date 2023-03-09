@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core.Extensions;
+﻿using Android.Content.PM;
+using CommunityToolkit.Maui.Core.Extensions;
 using Custodian.ActivityLog;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
@@ -11,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FileSystem = PCLStorage.FileSystem;
 
@@ -155,8 +157,8 @@ namespace Custodian.Helpers
                 record.tasksIncomplete = tasksWithEstimatedTimeInSec;
                 record.pics = default(List<string>);
                 record.IsUploaded = false;
-                string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
-                Utils.activeRouteFileName = await DatabaseService.Write(jsonRecord);
+                //string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
+                //Utils.activeRouteFileName = await DatabaseService.Write(jsonRecord);  // We are not storing the record on route started!
                 Utils.activeRouteRecord = record;
                 return route;
             }
@@ -167,6 +169,35 @@ namespace Custodian.Helpers
             return null;
         }
 
-        
+        public static bool IsBadgeValid(string badgeID)
+        {
+            bool result = false;
+            try
+            {
+                var match12 = Regex.Match(badgeID, "^\\d{12}\\z", RegexOptions.IgnoreCase);
+                var match7 = Regex.Match(badgeID, "^\\d{7}\\z", RegexOptions.IgnoreCase);
+
+                Logger.Log("2", "Info", $"Checking Mod10 of Badge ID: {badgeID} , Length: {badgeID.Length}.");
+
+                if (match12.Success || match7.Success)
+                {
+                    CheckSum cs = new CheckSum();
+                    cs.CalculateMod10CheckDigit(badgeID.Substring(0, badgeID.Length - 1), "");
+                    Logger.Log("2", "Info", $"Mod10 Check Digit: {cs.CheckDigit[0]},  Badge ID: {badgeID}.");
+                    if (badgeID[badgeID.Length - 1] == cs.CheckDigit[0])
+                    {
+                        result = true;
+                        Logger.Log("2", "Info", $"Badge ID: {badgeID} validated successfully, Length: {badgeID.Length}.");
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                Logger.Log("1", "Exception", ex.Message);
+                result = false;
+            }
+            return result;
+        }
+
     }
 }

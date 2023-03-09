@@ -1,4 +1,7 @@
-﻿using Custodian.ActivityLog;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using Custodian.ActivityLog;
+using Custodian.Controls;
+using Custodian.Messages;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Custodian.Services.ProofOfWork;
@@ -13,7 +16,7 @@ namespace Custodian.Helpers
         static IProofOfWorkService _proofOfWorkSerive;
         public UploadThread(IProofOfWorkService proofOfWorkSerive)
         {
-            Init();
+            Init();  //lock it
             _proofOfWorkSerive =proofOfWorkSerive;
             Thread thread1 = new Thread(RunUploadBackendThread);
             thread1.Start();
@@ -54,15 +57,23 @@ namespace Custodian.Helpers
             {
                 try
                 {
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        WeakReferenceMessenger.Default.Send(new ShowSyncIconMessage("Show Sync Icon"));
+                    });
                     foreach (var record in Utils.OfflineRecords.ToList())
                     {
+                        
+
                         try
                         {
                             // send the record to the server
+                            
+                            Logger.Log("3", "UploadThread"," WorkRecord with GUID : " + record.id + " Uploading!");
                             var result = await _proofOfWorkSerive.SendWorkRecord(record);
                             if (result) // if record is successfully uploaded change the IsUploaded to true, update the local record and remove it from offlineRecords
                             {
-
+                                Logger.Log("3", "UploadThread", " WorkRecord with GUID : " + record.id + " Uploaded Successfully!");
                                 Utils.OfflineRecords.Remove(record);
                                 MergeRecord mergeRecord = JsonSerializer.Deserialize<MergeRecord>(record.json);
                                 mergeRecord.IsUploaded = true;
@@ -75,7 +86,13 @@ namespace Custodian.Helpers
                         {
                             Logger.Log("3", "UploadThread", record.id +" could not upload." + ex.Message);
                         }
+
                     }
+                    MainThread.BeginInvokeOnMainThread(() =>
+                    {
+                        WeakReferenceMessenger.Default.Send(new HideSyncIconMessage("Hide Sync Icon"));
+                    });
+
 
                     if (Utils.OfflineRecords.Count > 0) Thread.Sleep(120000);
 
