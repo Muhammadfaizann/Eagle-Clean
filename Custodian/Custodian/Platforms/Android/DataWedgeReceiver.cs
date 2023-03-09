@@ -71,7 +71,7 @@ public class DataWedgeReceiver : BroadcastReceiver
                             }
 
                             // let's construct the beginning of our output string
-                            Out = data.ToString() + "\r\n";
+                            Out = data.ToString();
                         }
                     }
 

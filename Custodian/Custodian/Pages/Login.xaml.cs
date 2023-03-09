@@ -28,7 +28,7 @@ public partial class Login : ContentPage
                 {
                     IsScanned = true;
                     badgeID = args.Value.ToString();
-                    if (args.Value.Length == 14)
+                    if (args.Value.Length == 12)
                     {
                         entryId1.Text = args.Value[0].ToString();
                         entryId2.Text = args.Value[1].ToString();
