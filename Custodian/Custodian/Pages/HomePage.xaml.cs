@@ -8,26 +8,18 @@ namespace Custodian.Pages;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage(ILogger<HomePage> logger, UploadThread uploadThread)
+	public HomePage(UploadThread uploadThread)
 	{
         try
         {
-            logger.LogInformation($"Home page loaded!");
             InitializeComponent();
-            ThrowAnException();
 
         }
         catch (Exception ex)
         {
-            logger.LogError(ex.Message);
             Logger.Log("1", "Exception", ex.Message);
         }
 	}
-
-    private void ThrowAnException()
-    {
-        throw new NotImplementedException();
-    }
 
     protected override void OnAppearing()
     {

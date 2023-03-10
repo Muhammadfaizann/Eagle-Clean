@@ -9,6 +9,7 @@ namespace Custodian.Models.ServerModels
     public class WorkRecord
     {
         public Guid id { get; set; }
+        public string filename { get; set; }
         public string json { get; set; }
     }
 }

@@ -16,17 +16,23 @@ namespace Custodian.Helpers
         static IProofOfWorkService _proofOfWorkSerive;
         public UploadThread(IProofOfWorkService proofOfWorkSerive)
         {
-            Init();  //lock it
+             Initialize();  
             _proofOfWorkSerive =proofOfWorkSerive;
+           
+        }
+        private async void Initialize()
+        {
+
+            await Init();
             Thread thread1 = new Thread(RunUploadBackendThread);
             thread1.Start();
         }
-        private async void Init()
+        private async System.Threading.Tasks.Task Init()
         {
             try { 
             // Loading all the records from local storage
 
-            IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Database/Routes");
+            IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Data/ToUpload");
             var files = await folder.GetFilesAsync();
 
                 foreach (var file in files)
@@ -39,11 +45,13 @@ namespace Custodian.Helpers
                         if (!record.IsUploaded)
                         {
                             string guid = file.Name.Split("_")[0];
-                            Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), json = jsonString });
+
+                            Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid),filename= file.Name, json = jsonString });
                         }
                         
                     }
                 }
+                Utils.AllRecords = Utils.OfflineRecords;
                
             }
             catch(Exception ex)
@@ -61,14 +69,13 @@ namespace Custodian.Helpers
                     {
                         WeakReferenceMessenger.Default.Send(new ShowSyncIconMessage("Show Sync Icon"));
                     });
+
+                    Logger.Log("3", "UploadThread", $"{Utils.OfflineRecords.Count} records found to be uploaded!");
                     foreach (var record in Utils.OfflineRecords.ToList())
                     {
-                        
-
-                        try
+                        try 
                         {
                             // send the record to the server
-                            
                             Logger.Log("3", "UploadThread"," WorkRecord with GUID : " + record.id + " Uploading!");
                             var result = await _proofOfWorkSerive.SendWorkRecord(record);
                             if (result) // if record is successfully uploaded change the IsUploaded to true, update the local record and remove it from offlineRecords
@@ -77,10 +84,12 @@ namespace Custodian.Helpers
                                 Utils.OfflineRecords.Remove(record);
                                 MergeRecord mergeRecord = JsonSerializer.Deserialize<MergeRecord>(record.json);
                                 mergeRecord.IsUploaded = true;
-                                //await DatabaseService.Write(record.json);   
+
+                                string updatedJson = JsonSerializer.Serialize(mergeRecord);
+                                record.json = updatedJson;
+                                await FileSystemService.Update(record);
+                                await FileSystemService.MoveToUploaded(record);
                             }
-                           
-                            
                         }
                         catch(Exception ex)
                         {

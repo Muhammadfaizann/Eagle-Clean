@@ -179,8 +179,8 @@ public partial class Login : ContentPage
             if (Utils.IsBadgeValid(badgeID))
             {
                 Utils.BadgeID = badgeID;
-                Utils.ImportConfigurations();
-                Utils.LoadRoutes();
+                await Utils.ImportConfigurations();
+                await Utils.LoadRoutes();
                 var vm = BindingContext as LoginViewModel;
                 vm.LoginCommand.Execute(null);
             }

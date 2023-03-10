@@ -98,7 +98,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
                 Utils.activeRouteRecord.status = "InProgress";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.Write(jsonRecord);
+                await FileSystemService.Write(jsonRecord);
 
                 
             }
@@ -127,6 +127,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         {
             var obj = query["param"] as Route;
             Utils.activeAssigment = obj;
+            
             routeTitle.Text = obj.rte;
             description.Text = obj.desc;
             var viewmodel = this.BindingContext as ProofOfWorkViewModel;
@@ -149,16 +150,22 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
     private void btnEndRoute_Clicked(object sender, EventArgs e)
     {
-
-        if (btnEndRoute.Text == "Complete Route")
+        try
         {
-            var popup = new EndRoutePopup(true, _locationService, _proofOfWorkService);
-            this.ShowPopup(popup);
+            if (btnEndRoute.Text == "Complete Route")
+            {
+                var popup = new EndRoutePopup(true, _locationService, _proofOfWorkService);
+                this.ShowPopup(popup);
+            }
+            else
+            {
+                var popup = new EndRoutePopup(false, _locationService, _proofOfWorkService);
+                this.ShowPopup(popup);
+            }
         }
-        else
+        catch(Exception ex)
         {
-            var popup = new EndRoutePopup(false, _locationService, _proofOfWorkService);
-            this.ShowPopup(popup);
+            Logger.Log("1", "Exception", ex.Message);
         }
 
     }

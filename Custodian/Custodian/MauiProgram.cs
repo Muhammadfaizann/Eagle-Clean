@@ -6,7 +6,6 @@ using Custodian.Services.Facility;
 using Custodian.Services.ProofOfWork;
 using Custodian.Services.Server;
 using Custodian.ViewModels;
-using MetroLog.MicrosoftExtensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Maui.Controls.Compatibility.Hosting;
 using Syncfusion.Maui.Core.Hosting;
@@ -34,16 +33,7 @@ public static class MauiProgram
             });
 
 
-       
 
-        builder.Logging.AddStreamingFileLogger(
-                options =>
-                {
-                    options.RetainDays = 2;
-                    options.FolderPath = Path.Combine(
-                        "/storage/emulated/0/",
-                        "Custodian/debug");
-                });
 
         builder.Services.AddSingleton<IApiClientService, ApiClientService>();
         builder.Services.AddSingleton<ILocationService, LocationService>();

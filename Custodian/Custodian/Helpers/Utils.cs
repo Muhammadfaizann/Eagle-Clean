@@ -1,4 +1,5 @@
 ﻿using Android.Content.PM;
+using Android.Hardware.Camera2;
 using CommunityToolkit.Maui.Core.Extensions;
 using Custodian.ActivityLog;
 using Custodian.Models;
@@ -15,6 +16,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FileSystem = PCLStorage.FileSystem;
+using Task = System.Threading.Tasks.Task;
 
 namespace Custodian.Helpers
 {
@@ -27,22 +29,45 @@ namespace Custodian.Helpers
         public static string activeRouteFileName { get; set; }= string.Empty;
         public static Guid currentGuid { get; set; }
         public static MergeRecord activeRouteRecord { get; set; }
+        
         public static ObservableCollection<Route> partialRoutes = new ObservableCollection<Route>();
         public static ObservableCollection<CompletedRoute> completedRoutes = new ObservableCollection<CompletedRoute>();
-
+        public static List<WorkRecord> AllRecords = new List<WorkRecord>();
         public static List<WorkRecord> OfflineRecords = new List<WorkRecord>();
         public static Config config { get; set; }
-        public static async void ImportConfigurations()
+        public static async Task ImportConfigurations()
         {
             try
             {
                 Utils.config = new Config();
-                IFile file = await FileSystem.Current.LocalStorage.GetFileAsync("/storage/emulated/0/Custodian/" + "config_settings.json");
+                IFile file = await FileSystem.Current.LocalStorage.GetFileAsync("/storage/emulated/0/Custodian/" + "config.json");
                 using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
                 using (var reader = new StreamReader(stream))
                 {
                     var jsonString = await reader.ReadToEndAsync();
-                    config = JsonSerializer.Deserialize<Config>(jsonString);
+                    Utils.config = JsonSerializer.Deserialize<Config>(jsonString);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+            }
+            return ;
+        }
+        public static async void createConfigFile()
+        {
+            try
+            {
+                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                IFolder folder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
+                IFile file = await folder.CreateFileAsync("config.json", CreationCollisionOption.OpenIfExists);
+                using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                {
+                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
+                    {
+                        string json = JsonSerializer.Serialize(new Config { Radius=10, APIBaseURL= "https://eagleclean-be.azurewebsites.net" });
+                        await writer.WriteLineAsync(json);
+                    }
                 }
             }
             catch (Exception ex)
@@ -50,14 +75,14 @@ namespace Custodian.Helpers
                 Logger.Log("1", "Exception", ex.Message);
             }
         }
-        internal static async void LoadRoutes()
+        internal static async Task LoadRoutes()
         {
             try
             {
                 var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
                 if (status != PermissionStatus.Granted)
                 {
-                    if (Permissions.ShouldShowRationale<Permissions.StorageRead>())
+                    if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) 
                     {
                         // Prompt the user with additional information as to why the permission is needed
                     }
@@ -67,7 +92,7 @@ namespace Custodian.Helpers
 
                 if (status == PermissionStatus.Granted)
                 {
-                    IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Database/Routes");
+                    IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Data/ToUpload");
                     var files = await folder.GetFilesAsync();
 
                     foreach (var file in files)
@@ -109,7 +134,7 @@ namespace Custodian.Helpers
             {
                 Logger.Log("1", "Exception", ex.Message);
             }
-
+            return ;
         }
         public static async Task<Route> StartRoute(string startJson, double Latitude, double Longitude, bool IsScanned)
         {
@@ -158,7 +183,7 @@ namespace Custodian.Helpers
                 record.pics = default(List<string>);
                 record.IsUploaded = false;
                 //string jsonRecord = JsonSerializer.Serialize<MergeRecord>(record);
-                //Utils.activeRouteFileName = await DatabaseService.Write(jsonRecord);  // We are not storing the record on route started!
+                //Utils.activeRouteFileName = await DataService.Write(jsonRecord);  // We are not storing the record on route started!
                 Utils.activeRouteRecord = record;
                 return route;
             }

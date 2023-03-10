@@ -8,7 +8,6 @@ namespace Custodian.Models
 {
     public class Config
     {
-       public bool IsStartRouteButtonVisible { get; set; }
        public int Radius { get; set; }
        public string APIBaseURL { get; set; }
     }

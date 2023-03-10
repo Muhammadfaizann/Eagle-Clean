@@ -3,8 +3,8 @@
   <PropertyGroup>
     <IsFirstTimeProjectOpen>False</IsFirstTimeProjectOpen>
     <ActiveDebugFramework>net7.0-android</ActiveDebugFramework>
-    <ActiveDebugProfile>Zebra Technologies TC77 (Android 8.1 - API 27)</ActiveDebugProfile>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
+    <ActiveDebugProfile>Android Emulator</ActiveDebugProfile>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
     <DefaultDevice>galaxy_nexus_-_api_30</DefaultDevice>
     <SelectedDevice>Zebra Technologies TC77 (192.168.18.32:5555)</SelectedDevice>
   </PropertyGroup>

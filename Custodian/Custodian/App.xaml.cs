@@ -4,9 +4,6 @@ using Custodian.Helpers;
 using Custodian.Messages;
 using Custodian.Pages;
 using Custodian.Screens;
-using Java.Security;
-using MetroLog;
-using MetroLog.Maui;
 
 namespace Custodian;
 
@@ -27,7 +24,8 @@ public partial class App : Application
                 });
             }
             catch(Exception ex) 
-            { 
+            {
+                Logger.Log("1", "Exception", ex.Message);
             }
         });
 
@@ -38,13 +36,16 @@ public partial class App : Application
     protected override void OnStart()
     {
        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTExNjMwM0AzMjMwMmUzNDJlMzBVMkJaZDBDdHdVYnFBOFcrOFlrYStVVFRUZzByNjNqWXZjci9iaUNGVkZVPQ==");
+       Utils.createConfigFile();
+
+        Logger.Log("2", "Info", "App launched.");
     }
    
     private async Task InitializeApp()
 	{
-            MainPage = new SplashScreen();
+        MainPage = new SplashScreen();
             await Task.Delay(9000);
-            MainPage = new NavigationPage(new UserAgreement());
+        MainPage = new NavigationPage(new UserAgreement());
     }
 
    

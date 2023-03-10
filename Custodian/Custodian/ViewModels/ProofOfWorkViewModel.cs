@@ -105,7 +105,7 @@ namespace Custodian.ViewModels
                 Utils.activeRouteRecord.status = "InProgress";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.Write(jsonRecord);
+                await FileSystemService.Write(jsonRecord);
             }
             catch (Exception ex)
             {

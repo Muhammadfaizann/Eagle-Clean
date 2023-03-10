@@ -32,7 +32,7 @@ namespace Custodian.ActivityLog
                     
                         using (StreamWriter writer = new StreamWriter(file.Path,true))
                         {
-                            writer.WriteLine("["+ timeStamp +"|"+ category + "|"+ level + "] " + message);
+                            await writer.WriteLineAsync("["+ timeStamp +"|"+ category + "|"+ level + "] " + message);
                             writer.Close();
                         }
                     
@@ -45,48 +45,9 @@ namespace Custodian.ActivityLog
             }
         }
 
+       
+        
         /*
-        public static async void createConfigFileTXT()
-        {
-            try
-            {
-                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
-                IFolder folder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
-                IFile file = await folder.CreateFileAsync("config.txt", CreationCollisionOption.OpenIfExists);
-                using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-                {
-                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
-                    {
-                        writer.WriteLine("IsStartRouteButtonsVisible=false");
-                    }
-                }
-                 
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-        public static async void createConfigFile()
-        {
-            try
-            {
-                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
-                IFolder folder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
-                IFile file = await folder.CreateFileAsync("config.json", CreationCollisionOption.OpenIfExists);
-                using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-                {
-                    using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
-                    {
-                       // string jsonContents = JsonConvert.SerializeObject(new Config { IsStartRouteButtonVisible = false });
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
         public static async void readConfigFile()
         {
             try

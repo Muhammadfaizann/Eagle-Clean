@@ -57,7 +57,7 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.status = "Complete";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.Write(jsonRecord);
+                await FileSystemService.Write(jsonRecord);
                 //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
                 //_proofOfWorkService.SendWorkRecord(workRecord);
 
@@ -75,7 +75,7 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.status = "Partial";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await DatabaseService.Write(jsonRecord);
+                await FileSystemService.Write(jsonRecord);
                 //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
                // _proofOfWorkService.SendWorkRecord(workRecord);
             }
