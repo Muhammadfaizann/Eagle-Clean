@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using Custodian.Helpers;
+using Custodian.Models;
 using Custodian.Pages;
 using System;
 using System.Collections.Generic;
@@ -17,22 +18,22 @@ namespace Custodian.ViewModels
         }
 
         [RelayCommand]
-        async Task NavigateAssignment(object arg)
+        async System.Threading.Tasks.Task NavigateAssignment(object arg)
         {
             try
             {
-               
-               var navigationParameter = new Dictionary<string, object>
-                {
+                Utils.activeRouteFileName = (arg as MergeRecord).filename;
+                var navigationParameter = new Dictionary<string, object>
+               {
                     { "param", arg }
-                };
-                await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+               };
+               await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
             }
             catch(Exception ex)
             {
 
             }
-
+           
         }
     }
 }

@@ -52,6 +52,7 @@ public partial class CustomNavBar : Grid
     public CustomNavBar()
 	{
 		InitializeComponent();
+       
 	}
     private async void NavigateBack(object sender, TappedEventArgs e)
     {

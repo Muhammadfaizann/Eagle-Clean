@@ -27,28 +27,7 @@ namespace Custodian.ViewModels
         {           
             
         }
-        /*
-        [RelayCommand]
-        async Task NavigateAssignment(object arg)
-        {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { "param", arg }
-            };
-            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
-            
-        } 
-        [RelayCommand]
-        async Task NavigateWorkorder(object arg)
-        {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { "param", arg }
-            };
-            await Shell.Current.GoToAsync(nameof(WorkOrderPage), navigationParameter);
-        }
-        */
-
+       
       
     }
 }

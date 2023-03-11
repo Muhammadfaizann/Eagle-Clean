@@ -8,6 +8,7 @@ using System.Text.Json;
 using Custodian.ActivityLog;
 using static System.Net.Mime.MediaTypeNames;
 using Application = Microsoft.Maui.Controls.Application;
+using GoogleGson;
 
 namespace Custodian.Popups;
 
@@ -44,9 +45,10 @@ public partial class EndRoutePopup : Popup
             Close();
             if (lblButton.Text == "Complete")
             {
-                var itemToRemove = Utils.partialRoutes.First(r => r.rte == Utils.activeAssigment.rte);
-                Utils.partialRoutes.Remove(itemToRemove);
-                Utils.completedRoutes.Add(new Models.CompletedRoute() { Title = Utils.activeAssigment.rte, IsOverTime = false });
+                var completedRoute = Utils.partialRoutes.First(r => r.filename == Utils.activeRouteFileName);
+                Utils.partialRoutes.Remove(completedRoute);
+                var completedMergeRecord = JsonSerializer.Deserialize<MergeRecord>(completedRoute.json);
+                Utils.completedRoutes.Add(completedMergeRecord);
 
                 Utils.activeRouteRecord.seq = "4";
                 Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
@@ -56,8 +58,14 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.endLongitude = currentLocation.Longitude.ToString();
                 Utils.activeRouteRecord.status = "Complete";
 
-                string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await FileSystemService.Write(jsonRecord);
+                
+
+                string jsonRecord = JsonSerializer.Serialize(Utils.activeRouteRecord);
+                Utils.activeRouteFileName = await FileSystemService.Write(jsonRecord);
+
+                string guid = Utils.activeRouteFileName.Split("_")[0];
+                Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
+
                 //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
                 //_proofOfWorkService.SendWorkRecord(workRecord);
 
@@ -75,9 +83,13 @@ public partial class EndRoutePopup : Popup
                 Utils.activeRouteRecord.status = "Partial";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await FileSystemService.Write(jsonRecord);
+                Utils.activeRouteFileName = await FileSystemService.Write(jsonRecord);
+
+                string guid = Utils.activeRouteFileName.Split("_")[0];
+                Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
+
                 //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-               // _proofOfWorkService.SendWorkRecord(workRecord);
+                // _proofOfWorkService.SendWorkRecord(workRecord);
             }
 
             await Shell.Current.GoToAsync("..");

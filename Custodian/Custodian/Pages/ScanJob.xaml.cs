@@ -14,7 +14,7 @@ public partial class ScanJob : ContentPage
 {
     ILocationService _locationService;
     IProofOfWorkService _proofOfWorkService;
-    bool Isbusy=false;
+   
     public ScanJob(ILocationService locationService,IProofOfWorkService proofOfWorkService)
 	{
 		InitializeComponent();
@@ -40,12 +40,10 @@ public partial class ScanJob : ContentPage
                     var jsonString = message.Value.ToString();
 
                     Location currentLocation = await _locationService.GetCurrentLocation();
-                    var route = await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude, true); 
+                     await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude, true); 
 
-                   // var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                   // _proofOfWorkService.SendWorkRecord(workRecord);
 
-                    await Navigate(route);
+                    await Navigate();
 
                     loader.IsRunning = loader.IsVisible = false;
                 });
@@ -57,15 +55,11 @@ public partial class ScanJob : ContentPage
             }
     }
 
-    private async System.Threading.Tasks.Task Navigate(Route route)
+    private async System.Threading.Tasks.Task Navigate()
     {
         try
         {
-            var navigationParameter = new Dictionary<string, object>
-            {
-                { "param", route }
-            };
-            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+            await Shell.Current.GoToAsync(nameof(ProofOfWork));
         }
         catch (Exception ex)
         {

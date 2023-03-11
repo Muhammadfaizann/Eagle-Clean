@@ -44,40 +44,40 @@
                         HorizontalOptions="Start"/>
                     <HorizontalStackLayout VerticalOptions="Start"  HorizontalOptions="Start" Spacing="7">
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId1" MaxLength="1" Keyboard="Numeric"  HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId1_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId1" MaxLength="1" Keyboard="Numeric"  HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId1_TextChanged" IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId2" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId2_TextChanged"  IsPassword="true" ></Entry>
+                            <Entry x:Name="entryId2" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId2_TextChanged"  IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId3" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId3_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId3" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId3_TextChanged" IsPassword="true" IsReadOnly="True"  ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId4" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId4_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId4" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId4_TextChanged" IsPassword="true" IsReadOnly="True"  ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId5" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId5_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId5" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId5_TextChanged" IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId6" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId6_TextChanged"  IsPassword="true" ></Entry>
+                            <Entry x:Name="entryId6" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId6_TextChanged"  IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId7" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId7_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId7" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId7_TextChanged" IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId8" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId8_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId8" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId8_TextChanged" IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame  Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId9" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId9_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId9" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId9_TextChanged" IsPassword="true" IsReadOnly="True"  ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId10" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId10_TextChanged"  IsPassword="true" ></Entry>
+                            <Entry x:Name="entryId10" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId10_TextChanged"  IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId11" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId11_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId11" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId11_TextChanged" IsPassword="true" IsReadOnly="True"  ></Entry>
                         </Frame>
                         <Frame Padding="0,-5,0,-10" BackgroundColor="{x:StaticResource Gray000}" CornerRadius="3" HeightRequest="30">
-                            <Entry x:Name="entryId12" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId12_TextChanged" IsPassword="true"  ></Entry>
+                            <Entry x:Name="entryId12" MaxLength="1" Keyboard="Numeric" HorizontalOptions="Center" HorizontalTextAlignment="Center" TextChanged="entryId12_TextChanged" IsPassword="true" IsReadOnly="True" ></Entry>
                         </Frame>
 
 

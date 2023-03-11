@@ -1,5 +1,8 @@
+using CommunityToolkit.Maui.Core.Extensions;
 using Custodian.Helpers;
+using Custodian.Models;
 using Custodian.ViewModels;
+using System.Text.Json;
 
 namespace Custodian.Pages;
 
@@ -9,17 +12,31 @@ public partial class MyWork : ContentPage
 	{
 		InitializeComponent();
         BindingContext = viewModel;
-        ongoingAssigments.ItemsSource = Utils.partialRoutes;
+        
         completedAssigments.ItemsSource = Utils.completedRoutes;
         
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        List<MergeRecord> mergeRecords = new List<MergeRecord>();
+        foreach(var route in Utils.partialRoutes)
+        {
+
+            MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(route.json);
+            record.filename = route.filename;
+            mergeRecords.Add(record);
+        }
+        ongoingAssigments.ItemsSource = mergeRecords.ToObservableCollection();
+    }
+
     void btnOngoing_Clicked(System.Object sender, System.EventArgs e)
     {
         loader.IsRunning = loader.IsVisible = true;
         ongoingAssigments.IsVisible = true;
         completedAssigments.IsVisible = false;
-        ongoingWorkOrders.IsVisible = true;
-        completedWorkorders.IsVisible = false;
+       
         frmCompleted.BackgroundColor = Color.FromArgb("#00FFFFFF");
         frmOngoing.BackgroundColor = Color.FromArgb("#FFFFFF");
         lblCompleted.TextColor = Color.FromArgb("#000000");
@@ -31,12 +48,13 @@ public partial class MyWork : ContentPage
         loader.IsRunning = loader.IsVisible = true;
         ongoingAssigments.IsVisible = false;
         completedAssigments.IsVisible = true;
-        ongoingWorkOrders.IsVisible = false;
-        completedWorkorders.IsVisible = true;
+       
         frmOngoing.BackgroundColor = Color.FromArgb("#00FFFFFF");
         frmCompleted.BackgroundColor = Color.FromArgb("#FFFFFF");
         lblCompleted.TextColor = Color.FromArgb("#005F9D");
         lblOngoing.TextColor = Color.FromArgb("#000000");
         loader.IsRunning = loader.IsVisible = false;
     }
+
+    
 }

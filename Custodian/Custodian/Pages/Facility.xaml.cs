@@ -78,12 +78,9 @@ public partial class Facility : ContentPage, IQueryAttributable
 
             Location currentLocation = await _locationService.GetCurrentLocation();
             
-            var route = await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
-            var navigationParameter = new Dictionary<string, object>
-            {
-               { "param", route }
-            };
-            await Shell.Current.GoToAsync(nameof(ProofOfWork), navigationParameter);
+            await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
+            
+            await Shell.Current.GoToAsync(nameof(ProofOfWork));
         }
         catch(Exception ex)
         {

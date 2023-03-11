@@ -26,6 +26,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     ILocationService _locationService;
     IProofOfWorkService _proofOfWorkService;
     bool IsBackgroundThreadRunning = true;
+    ProofOfWorkViewModel _viewmodel;
     public ProofOfWork(ProofOfWorkViewModel viewModel, ILocationService locationService, IProofOfWorkService proofOfWorkService)
 	{
         try
@@ -33,7 +34,8 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             InitializeComponent();
             _locationService = locationService;
             _proofOfWorkService = proofOfWorkService;
-            this.BindingContext = viewModel;
+             this.BindingContext = _viewmodel  = viewModel;
+            
             WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnEndRouteMessageReceived);
             WeakReferenceMessenger.Default.Register<StopTimerMessage>(this, OnStopTimerMessageReceived);
             timer = Dispatcher.CreateTimer();
@@ -79,6 +81,10 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         timer_date_time = new TimeSpan(0, 0, 0);
         timerProgressBar.Progress = 0;
         timer.Start();
+
+        if (_viewmodel.CleaningPlanList.Count == 0)
+            btnEndRoute.Text = "Complete Route";
+
         //RuntheBackGroundThread();
     }
     private async void RuntheBackGroundThread()
@@ -98,9 +104,12 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
                 Utils.activeRouteRecord.status = "InProgress";
 
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await FileSystemService.Write(jsonRecord);
-
+                Utils.activeRouteFileName = await FileSystemService.Write(jsonRecord);
                 
+                string guid = Utils.activeRouteFileName.Split("_")[0];
+                Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
+
+
             }
         });
     }
@@ -125,17 +134,38 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     {
         try
         {
-            var obj = query["param"] as Route;
-            Utils.activeAssigment = obj;
-            
-            routeTitle.Text = obj.rte;
-            description.Text = obj.desc;
-            var viewmodel = this.BindingContext as ProofOfWorkViewModel;
-            viewmodel.CleaningPlanList = obj.taskList.ToObservableCollection();
-            lblPlannedTime.Text = obj.plannedTime;
+            MergeRecord record;
+            Route route;
+            if (query.Count == 0)
+            {
+                record = Utils.activeRouteRecord;
+                route = Utils.activeAssigment;
+            }
+            else   // Continue as partial route
+            {
+                record = query["param"] as MergeRecord;
+                Utils.activeRouteRecord = record;
+                route = JsonSerializer.Deserialize<Route>(record.startBarcode);
+            }
+            route.taskList = new List<Models.Task>();
+            foreach (var task in record.tasksIncomplete)
+            {
+                var strings = task.Split('|');
+                route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = (int.Parse(strings[1])/60).ToString() });
+                
+            }
+
+            TimeSpan estimatedTimeSpan = TimeSpan.FromSeconds(double.Parse(record.estimatedTime));
+            route.plannedTime = estimatedTimeSpan.ToString("t");
+
+            routeTitle.Text = route.rte;
+            description.Text = route.desc;
+            _viewmodel.CleaningPlanList = route.taskList.ToObservableCollection();
+            lblPlannedTime.Text = route.plannedTime;
             plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
             var seconds = plannedTime.TotalSeconds;
             progressPerSec = (1 / seconds) * 100;
+            
         }
         catch(Exception ex)
         {

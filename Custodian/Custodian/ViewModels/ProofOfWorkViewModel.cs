@@ -6,6 +6,7 @@ using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
 using Custodian.Messages;
 using Custodian.Models;
+using Custodian.Models.ServerModels;
 using Custodian.Pages;
 using Custodian.Popups;
 using Custodian.Services.ProofOfWork;
@@ -61,15 +62,13 @@ namespace Custodian.ViewModels
             WeakReferenceMessenger.Default.Register<TaskCompletedMessage>(this, TaskCompletedMessageReceived);
         }
 
-       
-
-
         #region Events
         private async void TaskCompletedMessageReceived(object recipient, TaskCompletedMessage message)
         {
             try
             {
-                string task = currentStep.Description + "|" + currentStep.PlannedTimeInSec;
+                currentStep.PlannedTimeInSec = (int.Parse(currentStep.PlannedTimeInMint) * 60).ToString();
+                string task = $"{currentStep.Description }|{currentStep.PlannedTimeInSec}";
                 Utils.activeRouteRecord.tasksIncomplete.Remove(task);
 
                 TimeSpan currentTime = TimeSpan.Parse(_TimerText);
@@ -86,7 +85,7 @@ namespace Custodian.ViewModels
                     Utils.activeRouteRecord.actualTime = difference.Seconds.ToString();
                 }
 
-                Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + currentStep.PlannedTimeInSec + "|" + difference.Seconds);
+                Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + int.Parse(currentStep.PlannedTimeInMint)*60 + "|" + difference.Seconds);
                 _CleaningPlanList.Remove(currentStep);
                 if (_CleaningPlanList.Count == 0)
                 {
@@ -104,8 +103,12 @@ namespace Custodian.ViewModels
                 Utils.activeRouteRecord.startLongitude = currentLocation.Longitude.ToString();
                 Utils.activeRouteRecord.status = "InProgress";
 
+               
                 string jsonRecord = JsonSerializer.Serialize<MergeRecord>(Utils.activeRouteRecord);
-                await FileSystemService.Write(jsonRecord);
+                Utils.activeRouteFileName = await FileSystemService.Write(jsonRecord);
+
+                string guid = Utils.activeRouteFileName.Split("_")[0];
+                Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
             }
             catch (Exception ex)
             {

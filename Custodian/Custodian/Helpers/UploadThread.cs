@@ -6,6 +6,7 @@ using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Custodian.Services.ProofOfWork;
 using PCLStorage;
+using System.Data;
 using System.Text.Json;
 using FileSystem = PCLStorage.FileSystem;
 
@@ -42,10 +43,12 @@ namespace Custodian.Helpers
                     {
                         var jsonString = await reader.ReadLineAsync();
                         MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(jsonString);
-                        if (!record.IsUploaded)
+                        if (record.employee==Utils.BadgeID)
                         {
                             string guid = file.Name.Split("_")[0];
-
+                            string date = file.Name.Split("_")[1].Split(".")[0]; ;
+                            DateTime now = DateTime.Now;
+                            if(date==now.ToString("yyyyMMdd")) // only today's records
                             Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid),filename= file.Name, json = jsonString });
                         }
                         
@@ -78,17 +81,20 @@ namespace Custodian.Helpers
                             // send the record to the server
                             Logger.Log("3", "UploadThread"," WorkRecord with GUID : " + record.id + " Uploading!");
                             var result = await _proofOfWorkSerive.SendWorkRecord(record);
-                            if (result) // if record is successfully uploaded change the IsUploaded to true, update the local record and remove it from offlineRecords
+                            if (result) 
                             {
                                 Logger.Log("3", "UploadThread", " WorkRecord with GUID : " + record.id + " Uploaded Successfully!");
                                 Utils.OfflineRecords.Remove(record);
                                 MergeRecord mergeRecord = JsonSerializer.Deserialize<MergeRecord>(record.json);
-                                mergeRecord.IsUploaded = true;
 
                                 string updatedJson = JsonSerializer.Serialize(mergeRecord);
                                 record.json = updatedJson;
-                                await FileSystemService.Update(record);
                                 await FileSystemService.MoveToUploaded(record);
+                                await FileSystemService.Delete(record.filename);
+                            }
+                            else
+                            {
+                                Logger.Log("3", "UploadThread", " WorkRecord with GUID : " + record.id + " Upload failed!");
                             }
                         }
                         catch(Exception ex)

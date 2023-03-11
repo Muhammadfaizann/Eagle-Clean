@@ -9,14 +9,15 @@ namespace Custodian.Helpers
 {
     internal class FileSystemService
     {
-        public static async Task<string> Write(string record)
+        internal static async Task<string> Write(string record)
         {
             try
             {
                 DateTime now = DateTime.Now;
 
+
                 IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
-                IFolder routeFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
+                IFolder toUploadFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
                 string fileName;
                 if (!string.IsNullOrEmpty(Utils.activeRouteFileName))
                 {
@@ -26,16 +27,17 @@ namespace Custodian.Helpers
                 {
                      Guid guidID = Guid.NewGuid();
                      Utils.currentGuid = guidID;
-                     fileName = guidID.ToString() + "_" + now.ToString("yyyymmdd") + ".json";
+                     fileName = guidID.ToString() + "_" + now.ToString("yyyyMMdd") + ".json";
                 }
-                IFile file = await routeFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
-                using (var fs = await file.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
-                {
+                IFile toUploadedfile = await toUploadFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                using (var fs = await toUploadedfile.OpenAsync(PCLStorage.FileAccess.ReadAndWrite))
+                { 
                     using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
                         await writer.WriteLineAsync(record);
                     }
                 }
+                
                 return fileName;
             }
             catch (Exception ex)
@@ -44,7 +46,7 @@ namespace Custodian.Helpers
             }
             return string.Empty;
         }
-        public static async Task<string> Read(string fileName)
+        internal static async Task<string> Read(string fileName)
         {
             try
             {
@@ -65,6 +67,20 @@ namespace Custodian.Helpers
             }
         }
 
+        internal static async Task Delete(string fileName)
+        {
+            try
+            {
+                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                IFolder routeFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
+                IFile file = await routeFolder.CreateFileAsync(fileName, CreationCollisionOption.OpenIfExists);
+                await file.DeleteAsync();
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+            }
+        }
         internal static async Task Update(WorkRecord record)
         {
             try
