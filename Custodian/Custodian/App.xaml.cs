@@ -11,9 +11,10 @@ public partial class App : Application
 {
     public App()
 	{
+        AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
         InitializeComponent();
         MainPage = new AppShell();
-        _ = InitializeApp(); 
+        _ = InitializeApp();
         WeakReferenceMessenger.Default.Register<LoginMessage>(this, (sender, args) => 
         {
             try
@@ -28,9 +29,11 @@ public partial class App : Application
                 Logger.Log("1", "Exception", ex.Message);
             }
         });
-
-
-        
+    }
+    private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
+    {
+        Logger.Log("1", "CRASH", "====================Application Crashing===================");
+        Logger.Log("1", "Exception", e.Exception.Message);
 
     }
     protected override void OnStart()
