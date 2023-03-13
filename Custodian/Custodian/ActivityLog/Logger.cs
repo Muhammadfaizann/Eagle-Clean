@@ -25,14 +25,17 @@ namespace Custodian.ActivityLog
 
                 if (status == PermissionStatus.Granted)
                 {
+                    //Following make sure if the folders do not exist create them or use the existing ones 
+
                     IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
-                    IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
-                    IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
-                    IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_MM_dd") + ".txt", CreationCollisionOption.OpenIfExists);
-                    
-                        using (StreamWriter writer = new StreamWriter(file.Path,true))
+                        IFolder custodianFolder = await rootFolder.CreateFolderAsync("Custodian", CreationCollisionOption.OpenIfExists);
+                        IFolder debugFolder = await custodianFolder.CreateFolderAsync("debug", CreationCollisionOption.OpenIfExists);
+                        IFile file = await debugFolder.CreateFileAsync("debug_log_"+ now.ToString("yyyy_MM_dd") + ".txt", CreationCollisionOption.OpenIfExists);
+                        //var fileName = Path.Combine(Utils.ROOT_PATH, "Custodian/debug/" + "debug_log_" + now.ToString("yyyy_MM_dd") + ".txt");  -->> this wouldnt work if the folders or file is not there
+                        using (StreamWriter writer = new StreamWriter(file.Path, true))
                         {
                             await writer.WriteLineAsync("["+ timeStamp +"|"+ category + "|"+ level + "] " + message);
+                            writer.Flush();
                             writer.Close();
                         }
                     
@@ -44,29 +47,6 @@ namespace Custodian.ActivityLog
                
             }
         }
-
-       
-        
-        /*
-        public static async void readConfigFile()
-        {
-            try
-            {
-                IFile file = await FileSystem.Current.LocalStorage.GetFileAsync("/storage/emulated/0/Custodian/" + "config.json");
-
-
-                using (var stream = await file.OpenAsync(PCLStorage.FileAccess.Read))
-                using (var reader = new StreamReader(stream))
-                {
-                    var FileText = await reader.ReadToEndAsync();
-                   // Config config = JsonConvert.DeserializeObject<Config>(FileText);
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }*/
         
     }
 }

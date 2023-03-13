@@ -16,7 +16,7 @@
             <Image Source="location.png" IsVisible="false" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
             <Image Source="wifi.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
             <Image x:Name="battery" Source="battery.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
-            <Image x:Name="flash" Source="charging_icon.png" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
+            <Image x:Name="flash" Source="charging_icon.png" IsVisible="false" WidthRequest="20" HeightRequest="20" HorizontalOptions="EndAndExpand" />
         </HorizontalStackLayout>
     </Grid>
 </Frame>

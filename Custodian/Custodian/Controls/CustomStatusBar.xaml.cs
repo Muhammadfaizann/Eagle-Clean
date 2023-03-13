@@ -10,8 +10,15 @@ public partial class CustomStatusBar : Frame
 	public CustomStatusBar()
 	{
 		InitializeComponent();
-        DateTime now = DateTime.Now;
-        time.Text=now.ToString("t");
+        Task.Run(() => {
+            var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
+
+            DateTime now = DateTime.Now;
+            time.Text = now.ToString("t");
+            return Task.CompletedTask;
+        });
+        
+
         Battery.Default.BatteryInfoChanged += Battery_BatteryInfoChanged;
 
         WeakReferenceMessenger.Default.Register<ShowSyncIconMessage>(this, ShowSyncIcon);
@@ -53,6 +60,7 @@ public partial class CustomStatusBar : Frame
                 BatteryState.Charging => true,
                 _ => false
             };
+
         }
         catch (Exception ex)
         {

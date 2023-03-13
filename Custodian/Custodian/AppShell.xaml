@@ -5,7 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:pages="clr-namespace:Custodian.Pages"
     Shell.NavBarIsVisible="false"
-    Shell.TabBarIsVisible="False">
+    Shell.TabBarIsVisible="False"
+    FlyoutVerticalScrollMode="Disabled">
 
     <Shell.FlyoutHeader>
         <VerticalStackLayout HeightRequest="200" Background="{StaticResource GradientStyle}">
@@ -41,16 +42,20 @@
                       ContentTemplate="{DataTemplate pages:TravelPage}"/>
         <ShellContent Title="Ad-hoc Work"
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
-        <ShellContent Title="Facility List"
+        <ShellContent Title="Nearby Facilities"
                       ContentTemplate="{DataTemplate pages:FacilityList}"/>
-        <ShellContent Title="Training" 
+        <ShellContent Title="Training" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:Training}"/>
-        <ShellContent Title="View SDS Sheet"
+        <ShellContent Title="View SDS Sheet" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:ViewSDSSheetPage}"/>
-        <ShellContent Title="Diagnostic Menu"
+        <ShellContent Title="Diagnostic Menu" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:DiagnosticMenuPage}"/>
         <ShellContent Title="Logout" 
                       ContentTemplate="{DataTemplate pages:Logout}"
                        />
     </FlyoutItem>
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout HeightRequest="110" Background="{StaticResource GradientStyle}">
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
 </Shell>

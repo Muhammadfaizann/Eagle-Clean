@@ -12,8 +12,9 @@ public partial class HomePage : ContentPage
 	{
         try
         {
+            InitLocalData();
             InitializeComponent();
-
+            
         }
         catch (Exception ex)
         {
@@ -26,22 +27,37 @@ public partial class HomePage : ContentPage
         try
         {
             base.OnAppearing();
-            if (Utils.completedRoutes.Count == 1 || Utils.completedRoutes.Count == 0)
-                lblCompletedRoutes.Text = Utils.completedRoutes.Count.ToString() + " Route";
-            else
-                lblCompletedRoutes.Text = Utils.completedRoutes.Count.ToString() + " Routes";
-
-            if (Utils.partialRoutes.Count == 1 || Utils.partialRoutes.Count == 0)
-                lblPartialRoutes.Text = Utils.partialRoutes.Count.ToString() + " Route";
-            else
-                lblPartialRoutes.Text = Utils.partialRoutes.Count.ToString() + " Routes";
+            InitMyWorkValues();
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Logger.Log("1", "Exception", ex.Message);
         }
     }
 
+    private void InitMyWorkValues()
+    {
+        if (Utils.completedRoutes.Count == 1 || Utils.completedRoutes.Count == 0)
+            lblCompletedRoutes.Text = Utils.completedRoutes.Count.ToString() + " Route";
+        else
+            lblCompletedRoutes.Text = Utils.completedRoutes.Count.ToString() + " Routes";
+
+        if (Utils.partialRoutes.Count == 1 || Utils.partialRoutes.Count == 0)
+            lblPartialRoutes.Text = Utils.partialRoutes.Count.ToString() + " Route";
+        else
+            lblPartialRoutes.Text = Utils.partialRoutes.Count.ToString() + " Routes";
+    }
+    private async void InitLocalData()
+    {
+        await LoadUpLocalDataAysnc();
+        InitMyWorkValues();
+    }
+
+    private async Task LoadUpLocalDataAysnc()
+    {
+        await Utils.ImportConfigurations();
+        await Utils.LoadRoutes();
+    }
 
     private async void btnJobScanningClicked(object sender, TappedEventArgs e)
     {

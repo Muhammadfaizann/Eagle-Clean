@@ -164,9 +164,9 @@ public partial class Login : ContentPage
         IsScanned = false;
     }
 
-    private async void Login_Clicked(object sender, EventArgs e)
+    private void Login_Clicked(object sender, EventArgs e)
     {
-        VerifyLogin(badgeID);
+         VerifyLogin(badgeID);
     }
 
     private async void VerifyLogin(string badgeId)
@@ -179,8 +179,6 @@ public partial class Login : ContentPage
             if (Utils.IsBadgeValid(badgeID))
             {
                 Utils.BadgeID = badgeID;
-                await Utils.ImportConfigurations();
-                await Utils.LoadRoutes();
                 var vm = BindingContext as LoginViewModel;
                 vm.LoginCommand.Execute(null);
             }
@@ -200,4 +198,6 @@ public partial class Login : ContentPage
             Logger.Log("1", "Exception", ex.Message);
         }
     }
+    
+   
 }

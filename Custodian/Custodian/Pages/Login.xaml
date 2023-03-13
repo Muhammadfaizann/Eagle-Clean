@@ -8,7 +8,7 @@
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,*">
             <controls:CustomStatusBar Grid.Row="0"/>
-            <controls:CustomNavBar Grid.Row="1" Title="Login" Icon="Navigation"/>
+            <controls:CustomNavBar Grid.Row="1" Title="Login" />
             <Grid Grid.Row="2" Margin="20">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

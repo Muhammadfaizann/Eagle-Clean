@@ -30,11 +30,12 @@ namespace Custodian.Helpers
         }
         private async System.Threading.Tasks.Task Init()
         {
-            try { 
-            // Loading all the records from local storage
+            try {
+                // Loading all the records from local storage
 
-            IFolder folder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Data/ToUpload");
-            var files = await folder.GetFilesAsync();
+                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                IFolder toUploadFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
+                var files = await toUploadFolder.GetFilesAsync();
 
                 foreach (var file in files)
                 {

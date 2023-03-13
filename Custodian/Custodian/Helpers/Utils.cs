@@ -46,6 +46,8 @@ namespace Custodian.Helpers
                 {
                     var jsonString = await reader.ReadToEndAsync();
                     config = JsonSerializer.Deserialize<Config>(jsonString);
+                    reader.Close();
+                    stream.Close();
                 }
             }
             catch (Exception ex)
@@ -67,6 +69,8 @@ namespace Custodian.Helpers
                     {
                         string json = JsonSerializer.Serialize(new Config { Radius=10, APIBaseURL= "https://eagleclean-be.azurewebsites.net" });
                         await writer.WriteLineAsync(json);
+                        writer.Close();
+                        fs.Close();
                     }
                 }
             }
@@ -92,11 +96,15 @@ namespace Custodian.Helpers
 
                 if (status == PermissionStatus.Granted)
                 {
-                    IFolder toUploadfolder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Data/ToUpload");
-                    var toUploadFiles = await toUploadfolder.GetFilesAsync();
+                    IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                    IFolder toUploadFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
+                    var toUploadFiles = await toUploadFolder.GetFilesAsync();
 
-                    IFolder uploadedFolder = await FileSystem.Current.LocalStorage.GetFolderAsync("/storage/emulated/0/Custodian/Data/Uploaded");
+                    
+                    IFolder uploadedFolder = await rootFolder.CreateFolderAsync("Custodian/Data/Uploaded", CreationCollisionOption.OpenIfExists);
                     var uploadedFiles = await uploadedFolder.GetFilesAsync();
+                   
+
                     List<MergeRecord> toUploadedRecords = new List<MergeRecord>();
                     foreach(var file in toUploadFiles.ToList() )
                     {
@@ -151,9 +159,9 @@ namespace Custodian.Helpers
                                 {
                                         completedRoutes.Add(file);
                                 }
-                            }
                         }
                     }
+                }
                 
             }
             catch(Exception ex)

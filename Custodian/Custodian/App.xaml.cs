@@ -11,9 +11,10 @@ public partial class App : Application
 {
     public App()
 	{
-        AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+        //AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnHandledException;
         InitializeComponent();
-        MainPage = new AppShell();
+        //MainPage = new AppShell();
         _ = InitializeApp();
         WeakReferenceMessenger.Default.Register<LoginMessage>(this, (sender, args) => 
         {
@@ -30,12 +31,19 @@ public partial class App : Application
             }
         });
     }
+
+    private void CurrentDomain_UnHandledException(object sender, UnhandledExceptionEventArgs e)
+    {
+        Logger.Log("1", "CRASH", "====================Application Crashing===================");
+        Logger.Log("1", "Exception", e.ExceptionObject.ToString());
+    }
+    /*
     private void CurrentDomain_FirstChanceException(object sender, System.Runtime.ExceptionServices.FirstChanceExceptionEventArgs e)
     {
         Logger.Log("1", "CRASH", "====================Application Crashing===================");
-        Logger.Log("1", "Exception", e.Exception.Message);
+        Logger.Log("1", "Exception", e.Exception.StackTrace);
 
-    }
+    }*/
     protected override void OnStart()
     {
        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTExNjMwM0AzMjMwMmUzNDJlMzBVMkJaZDBDdHdVYnFBOFcrOFlrYStVVFRUZzByNjNqWXZjci9iaUNGVkZVPQ==");
@@ -47,7 +55,7 @@ public partial class App : Application
     private async Task InitializeApp()
 	{
         MainPage = new SplashScreen();
-            await Task.Delay(9000);
+        await Task.Delay(10000);
         MainPage = new NavigationPage(new UserAgreement());
     }
 
