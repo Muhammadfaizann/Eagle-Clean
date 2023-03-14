@@ -64,7 +64,7 @@ namespace Custodian.Services.Server
             }
             catch (Exception ex)
             {
-
+                Logger.Log("1", "Exception", ex.Message);
             }
             return status;
         }

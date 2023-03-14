@@ -15,7 +15,7 @@ public partial class TaskCompletedPopup : Popup
     {
         Close();
     } 
-    private async void complete_Clicked(object sender, EventArgs e)
+    private void complete_Clicked(object sender, EventArgs e)
     {
         try
         {

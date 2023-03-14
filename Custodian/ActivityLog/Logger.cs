@@ -6,6 +6,7 @@ using FileSystem = PCLStorage.FileSystem;
 
 namespace Custodian.ActivityLog
 {
+
     public class Logger
     {
         static string root = Utils.ROOT_PATH;
@@ -13,8 +14,26 @@ namespace Custodian.ActivityLog
         static string logFolder = "debug";
         static object Monitor = new object();
 
-        protected static void init()
+        public static void init()
         {
+            try
+            {
+               
+                string dirCustodian = Path.Combine(root, mainFolder);
+                if(!Directory.Exists(dirCustodian))
+                 Directory.CreateDirectory(dirCustodian);
+                string dirDebug =Path.Combine(dirCustodian, logFolder);
+                if (!Directory.Exists(dirDebug))
+                    Directory.CreateDirectory(dirDebug);
+
+               
+                string filePath = Path.Combine(root, mainFolder, logFolder, DateTime.Now.ToString("yyyyMMdd") + ".txt");
+                if (!File.Exists(filePath)) { File.Create(filePath); }
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         protected static string GetFilename()
@@ -36,7 +55,9 @@ namespace Custodian.ActivityLog
                         sw.WriteLine(DateTime.Now.ToString("HH:mm:ss.fff") + "|" + level + "|" + category + "|" + message);
                     }
                 }
-                catch (Exception ex) {; }
+                catch (Exception ex) {
+                
+                }
             }
         }
 

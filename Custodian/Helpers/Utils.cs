@@ -84,20 +84,11 @@ namespace Custodian.Helpers
         {
             try
             {
-                var status = await Permissions.CheckStatusAsync<Permissions.StorageRead>();
-                if (status != PermissionStatus.Granted)
-                {
-                    if (Permissions.ShouldShowRationale<Permissions.StorageRead>()) 
-                    {
-                        // Prompt the user with additional information as to why the permission is needed
-                    }
 
-                    status = await Permissions.RequestAsync<Permissions.StorageRead>();
-                }
+                partialRoutes = new ObservableCollection<WorkRecord>();
+                completedRoutes = new ObservableCollection<MergeRecord>();
 
-                if (status == PermissionStatus.Granted)
-                {
-                    IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
+                IFolder rootFolder = await FileSystem.Current.GetFolderFromPathAsync(Utils.ROOT_PATH);
                     IFolder toUploadFolder = await rootFolder.CreateFolderAsync("Custodian/Data/ToUpload", CreationCollisionOption.OpenIfExists);
                     var toUploadFiles = await toUploadFolder.GetFilesAsync();
 
@@ -162,8 +153,8 @@ namespace Custodian.Helpers
                                 }
                         }
                     }
-                }
                 
+               
             }
             catch(Exception ex)
             {
@@ -233,7 +224,7 @@ namespace Custodian.Helpers
             return null;
         }
 
-        public async static Task<bool> IsBadgeValid(string badgeID)
+        public static bool IsBadgeValid(string badgeID)
         {
             bool result = false;
             try

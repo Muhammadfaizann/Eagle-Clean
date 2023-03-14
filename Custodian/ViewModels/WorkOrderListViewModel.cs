@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Custodian.ActivityLog;
 using Custodian.Pages;
 
 
@@ -21,7 +22,7 @@ namespace Custodian.ViewModels
             }
             catch(Exception ex)
             {
-
+                Logger.Log("1", "Exception", ex.Message);
             }
         }
 

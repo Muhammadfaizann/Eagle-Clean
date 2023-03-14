@@ -168,9 +168,11 @@ public partial class Login : ContentPage
 
     private void Login_Clicked(object sender, EventArgs e)
     {
-       
-        Button btn = sender as Button;
-        btn.IsEnabled = false;
+        if (sender != null)
+        {
+            Button btn = sender as Button;
+            btn.IsEnabled = false;
+        }
         VerifyLogin(badgeID);
     }
 
@@ -180,7 +182,7 @@ public partial class Login : ContentPage
         {
             Logger.Log("2", "Info", $"Barcode scanned with Badge ID: {badgeID} , Length: {badgeID.Length}.");
            
-            if (await Utils.IsBadgeValid(badgeID))
+            if (Utils.IsBadgeValid(badgeID))
             {
                 Utils.BadgeID = badgeID;
                 var vm = BindingContext as LoginViewModel;

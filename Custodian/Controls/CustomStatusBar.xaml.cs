@@ -43,7 +43,7 @@ public partial class CustomStatusBar : Frame
        
     }
     
-    private async void Battery_BatteryInfoChanged(object sender, BatteryInfoChangedEventArgs e)
+    private  void Battery_BatteryInfoChanged(object sender, BatteryInfoChangedEventArgs e)
     {
         try
         {

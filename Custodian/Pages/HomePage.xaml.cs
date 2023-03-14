@@ -15,7 +15,7 @@ public partial class HomePage : ContentPage
         {
 
             InitializeComponent();
-            InitLocalData();
+            
             
         }
         catch (Exception ex)
@@ -29,7 +29,7 @@ public partial class HomePage : ContentPage
         try
         {
             base.OnAppearing();
-            InitMyWorkValues();
+            InitLocalData();
         }
         catch (Exception ex)
         {

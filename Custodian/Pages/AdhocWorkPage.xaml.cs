@@ -10,7 +10,7 @@ public partial class AdhocWorkPage : ContentPage
 		InitializeComponent();
 	}
 
-    private async void btnStartTimer_Clicked(object sender, EventArgs e)
+    private void btnStartTimer_Clicked(object sender, EventArgs e)
     {
         try
         {
@@ -33,7 +33,7 @@ public partial class AdhocWorkPage : ContentPage
             Logger.Log("1", "Exception", ex.Message);
         }
     }
-    private async void StartTimerCountDown()
+    private void StartTimerCountDown()
     {
         try
         {

@@ -11,6 +11,7 @@ public partial class App : Application
 {
     public App()
 	{
+        
         //AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnHandledException;
         InitializeComponent();
@@ -31,6 +32,7 @@ public partial class App : Application
                 Logger.Log("1", "Exception", ex.Message);
             }
         });
+       
     }
 
     private void CurrentDomain_UnHandledException(object sender, UnhandledExceptionEventArgs e)
@@ -48,9 +50,7 @@ public partial class App : Application
     protected override void OnStart()
     {
        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTExNjMwM0AzMjMwMmUzNDJlMzBVMkJaZDBDdHdVYnFBOFcrOFlrYStVVFRUZzByNjNqWXZjci9iaUNGVkZVPQ==");
-       Utils.createConfigFile();
-
-        Logger.Log("2", "Info", "App launched.");
+     
     }
     
     private async Task InitializeApp()
@@ -58,8 +58,7 @@ public partial class App : Application
         MainPage = new SplashScreen();
         await Task.Delay(10000);
         MainPage = new NavigationPage(new UserAgreement());
+       
     }
 
-   
-    
 }
