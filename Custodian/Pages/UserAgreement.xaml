@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Custodian.Pages.UserAgreement"
+              xmlns:controls="clr-namespace:Custodian.Controls"
+             NavigationPage.HasNavigationBar="False"
+             Title="UserAgreement">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <controls:CustomStatusBar Grid.Row="0"/>
+            <controls:CustomNavBar Grid.Row="1" Title="User Agreement"/>
+            <Grid Grid.Row="2" Margin="20" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                        Text="User Agreement"     
+                        Style="{StaticResource labelStyle}"
+                        HorizontalOptions="Start"
+                        TextColor="{x:StaticResource CustodianHeadingBlue}"/>
+                <Label Grid.Row="1" 
+                        Margin="0,20,0,0"
+                        x:Name="lbl1"
+                        FontSize="18"
+                        TextColor="Black"
+                        HorizontalOptions="Start"/>
+                <Label Grid.Row="2"
+                        Margin="0,15,0,0"
+                        x:Name="lbl2"    
+                        FontSize="18"
+                        TextColor="Black"
+                        HorizontalOptions="Start"/>
+                <Label Grid.Row="3"
+                        x:Name="lbl3" 
+                         Margin="0,20"
+                        HorizontalOptions="Start"
+                        Style="{StaticResource labelStyle}"
+                        />
+                <Label Grid.Row="4"
+                        x:Name="lbl4"
+                        FontSize="18"
+                        TextColor="Black"
+                        HorizontalOptions="Start"/>
+                <Button Grid.Row="5" Text="I Agree" VerticalOptions="End" Clicked="btnIAgree_Clicked" ></Button>
+                <ActivityIndicator x:Name="loader" Grid.Row="2" IsRunning="False" IsVisible="false" Color="{x:StaticResource CustodianppProgressBlue}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

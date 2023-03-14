@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Custodian.Pages.FacilityList"
+              xmlns:controls="clr-namespace:Custodian.Controls"
+             Title="FacilityList">
+    <ContentPage.Content>
+        <Grid RowDefinitions="auto,auto,*">
+            <controls:CustomStatusBar Grid.Row="0"/>
+            <controls:CustomNavBar x:Name="navBar" Grid.Row="1" Title="Facility List"/>
+            <Grid Grid.Row="2" Margin="20" RowDefinitions="auto,auto,*">
+                <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
+                <Frame  Grid.Row="1" CornerRadius="10" BackgroundColor="{StaticResource Gray100}" Padding="0,0,0,-5" Margin="0,15">
+                    <SearchBar  Placeholder="Search" PlaceholderColor="{StaticResource Gray600}"  >
+
+                    </SearchBar>
+                </Frame>
+                <CollectionView Grid.Row="2" x:Name="collection">
+                    <CollectionView.Header>
+                        <Grid>
+                            <Label   
+                                Text="Facility Name" 
+                                FontSize="14"
+                                TextColor="{StaticResource CustodianHeadingBlue}"
+                                VerticalOptions="Center" 
+                                FontAttributes="Bold"
+                                HorizontalOptions="Start" ></Label>
+                            <Label   
+                                Text="Map" 
+                                FontSize="14"
+                                TextColor="{StaticResource CustodianHeadingBlue}"
+                                VerticalOptions="Center" 
+                                FontAttributes="Bold"
+                                HorizontalOptions="End" ></Label>
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,10" ColumnDefinitions="auto,*">
+                                <VerticalStackLayout Grid.Column="0">
+                                    <Label  Text="{Binding LocaleName}" HorizontalOptions="Start" FontAttributes="Bold"></Label>
+                                    <Label  Text="Distance : 1.2 Miles" Opacity="0.7" ></Label>
+                                </VerticalStackLayout>
+                                <HorizontalStackLayout Grid.Column="1" Spacing="15" HorizontalOptions="End">
+                                    <VerticalStackLayout VerticalOptions="Center">
+                                        <Image  Source="arrow.png" HeightRequest="25" WidthRequest="25" ></Image>
+                                    </VerticalStackLayout>
+                                    <VerticalStackLayout>
+                                        <Image  Source="mapicon.png" HeightRequest="25" WidthRequest="25" ></Image>
+                                        <Label Text="Map"/>
+                                    </VerticalStackLayout>
+                                </HorizontalStackLayout>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" CommandParameter="{Binding .}"></TapGestureRecognizer>
+                                </Grid.GestureRecognizers>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <Label Text="No Facility available."></Label>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+                <ActivityIndicator x:Name="loader" Grid.Row="2" IsVisible="false" IsRunning="False"  Color="{x:StaticResource CustodianppProgressBlue}"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
