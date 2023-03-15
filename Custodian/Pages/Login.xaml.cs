@@ -15,6 +15,7 @@ public partial class Login : ContentPage
 {
     bool IsScanned = false;
     string badgeID = string.Empty;
+    static string CODE_TYPE = "CODE128";
 
     public Login(LoginViewModel vm) 
     {
@@ -28,23 +29,25 @@ public partial class Login : ContentPage
             {
                 MainThread.BeginInvokeOnMainThread(async () =>
                 {
-                   
+    
                     IsScanned = true;
-                    badgeID = args.Value.ToString();
-                    if (args.Value.Length == 12)
+                   
+                    if (args.Value.Type == CODE_TYPE)
                     {
-                        entryId1.Text = args.Value[0].ToString();
-                        entryId2.Text = args.Value[1].ToString();
-                        entryId3.Text = args.Value[2].ToString();
-                        entryId4.Text = args.Value[3].ToString();
-                        entryId5.Text = args.Value[4].ToString();
-                        entryId6.Text = args.Value[5].ToString();
-                        entryId7.Text = args.Value[6].ToString();
-                        entryId8.Text = args.Value[7].ToString();
-                        entryId9.Text = args.Value[8].ToString();
-                        entryId10.Text = args.Value[9].ToString();
-                        entryId11.Text = args.Value[10].ToString();
-                        entryId12.Text = args.Value[11].ToString();
+                        badgeID = args.Value.Data.ToString();
+
+                        entryId1.Text = badgeID[0].ToString();
+                        entryId2.Text = badgeID[1].ToString();
+                        entryId3.Text = badgeID[2].ToString();
+                        entryId4.Text = badgeID[3].ToString();
+                        entryId5.Text = badgeID[4].ToString();
+                        entryId6.Text = badgeID[5].ToString();
+                        entryId7.Text = badgeID[6].ToString();
+                        entryId8.Text = badgeID[7].ToString();
+                        entryId9.Text = badgeID[8].ToString();
+                        entryId10.Text = badgeID[9].ToString();
+                        entryId11.Text = badgeID[10].ToString();
+                        entryId12.Text = badgeID[11].ToString();
                         VerifyLogin(badgeID);
                     }
                     else

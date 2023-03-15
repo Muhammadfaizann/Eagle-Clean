@@ -15,12 +15,10 @@ namespace Custodian.Popups;
 public partial class EndRoutePopup : Popup
 {
     ILocationService _locationService;
-    IProofOfWorkService _proofOfWorkService;
-	public EndRoutePopup(bool IsComplete, ILocationService locationService, IProofOfWorkService proofOfWorkService)
+	public EndRoutePopup(bool IsComplete, ILocationService locationService)
 	{
 		InitializeComponent();
         _locationService = locationService;
-        _proofOfWorkService= proofOfWorkService;
         if (IsComplete)
         {
             lblButton.Text = "Complete";
@@ -66,8 +64,6 @@ public partial class EndRoutePopup : Popup
                 string guid = Utils.activeRouteFileName.Split("_")[0];
                 Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
                
-                //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                //_proofOfWorkService.SendWorkRecord(workRecord);
 
                 Utils.activeRouteFileName = string.Empty;
                 
@@ -89,8 +85,6 @@ public partial class EndRoutePopup : Popup
                 Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
                 var found = Utils.partialRoutes.FirstOrDefault(x => x.id == Guid.Parse(guid));
                 found.json = jsonRecord;
-                //var workRecord = new WorkRecord() { id = Utils.currentGuid, json = jsonRecord };
-                // _proofOfWorkService.SendWorkRecord(workRecord);
             }
 
             await Shell.Current.GoToAsync("..");

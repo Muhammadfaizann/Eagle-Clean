@@ -1,4 +1,5 @@
 using Android.Graphics.Drawables;
+using CommunityToolkit.Maui.Core.Extensions;
 using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
@@ -103,7 +104,10 @@ public partial class FacilityList : ContentPage
     {
         try
         {
-
+            if(e.NewTextValue.Length>=3)
+            collection.ItemsSource = facilities.Where(x => x.LocaleName.ToLower().Contains(e.NewTextValue.ToLower())).ToObservableCollection();
+            else
+                collection.ItemsSource = facilities;
         }
         catch (Exception ex)
         {

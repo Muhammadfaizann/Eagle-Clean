@@ -42,7 +42,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += (s, e) =>
             {
-                if (timer_date_time.Equals(plannedTime))
+                if (timer_date_time.Equals(plannedTime))  // if timer exceed planned time 
                 {
                     Color blueColor = Color.FromArgb("#224BA9");
                     Brush blueBrush = new SolidColorBrush(blueColor);
@@ -79,15 +79,16 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     {
         try
         {
+
+            base.OnAppearing();
             btnEndRoute.IsEnabled = true;
             btnAddPics.IsEnabled = true;
-            base.OnAppearing();
-            timer_date_time = new TimeSpan(0, 0, 0);
-            timerProgressBar.Progress = 0;
-            timer.Start();
+            
 
             if (_viewmodel.CleaningPlanList.Count == 0)
                 btnEndRoute.Text = "Complete Route";
+
+            DeviceDisplay.Current.KeepScreenOn = true;
         }
         catch(Exception ex )
         {
@@ -139,7 +140,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     }
 
     public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
+     {
         try
         {
             MergeRecord record;
@@ -148,31 +149,51 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             {
                 record = Utils.activeRouteRecord;
                 route = Utils.activeAssigment;
+                timer_date_time = new TimeSpan(0, 0, 0);
+                timerProgressBar.Progress = 0;
+                timer.Start();
+
             }
             else   // Continue as partial route
             {
                 record = query["param"] as MergeRecord;
+               
+                timer_date_time = new TimeSpan(0,0, int.Parse(record.actualTime));
                 Utils.activeRouteRecord = record;
                 route = JsonSerializer.Deserialize<Route>(record.startBarcode);
             }
-            route.taskList = new List<Models.Task>();
-            foreach (var task in record.tasksIncomplete)
-            {
-                var strings = task.Split('|');
-                route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = (int.Parse(strings[1])/60).ToString() });
-                
-            }
+
+
 
             TimeSpan estimatedTimeSpan = TimeSpan.FromSeconds(double.Parse(record.estimatedTime));
             route.plannedTime = estimatedTimeSpan.ToString("t");
 
-            routeTitle.Text = route.rte;
-            description.Text = route.desc;
-            _viewmodel.CleaningPlanList = route.taskList.ToObservableCollection();
             lblPlannedTime.Text = route.plannedTime;
             plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
             var seconds = plannedTime.TotalSeconds;
             progressPerSec = (1 / seconds) * 100;
+
+            if (query.Count != 0)   // Continue as partial route
+            {
+                timerProgressBar.Progress = int.Parse(record.actualTime)*progressPerSec;
+                timer.Start();
+            }
+
+            // populate Cleaning plan
+            route.taskList = new List<Models.Task>();
+
+            foreach (var task in record.tasksIncomplete)
+            {
+                var strings = task.Split('|');
+                route.taskList.Add(new Models.Task { Description = strings[0], PlannedTimeInMint = (int.Parse(strings[1]) / 60).ToString() });
+
+            }
+
+            routeTitle.Text = route.rte;
+            description.Text = route.desc;
+            _viewmodel.CleaningPlanList = route.taskList.ToObservableCollection();
+
+           
             
         }
         catch(Exception ex)
@@ -203,12 +224,12 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             btnEndRoute.IsEnabled = false;
             if (btnEndRoute.Text == "Complete Route")
             {
-                var popup = new EndRoutePopup(true, _locationService, _proofOfWorkService);
+                var popup = new EndRoutePopup(true, _locationService);
                 this.ShowPopup(popup);
             }
             else
             {
-                var popup = new EndRoutePopup(false, _locationService, _proofOfWorkService);
+                var popup = new EndRoutePopup(false, _locationService);
                 this.ShowPopup(popup);
             }
            
@@ -228,6 +249,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             WeakReferenceMessenger.Default.Unregister<EndRouteMessage>(this);
             WeakReferenceMessenger.Default.Unregister<StopTimerMessage>(this);
             WeakReferenceMessenger.Default.Unregister<TaskCompletedMessage>(this.BindingContext);
+            DeviceDisplay.Current.KeepScreenOn = false;
         }
         catch(Exception ex)
         {

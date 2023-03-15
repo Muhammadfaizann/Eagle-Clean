@@ -68,7 +68,7 @@ namespace Custodian.Helpers
                 {
                     using (StreamWriter writer = new StreamWriter(fs, Encoding.UTF8))
                     {
-                        string json = JsonSerializer.Serialize(new Config { Radius=10, APIBaseURL= "https://eagleclean-be.azurewebsites.net" });
+                        string json = JsonSerializer.Serialize(new Config { Radius=5000, APIBaseURL= "https://eagleclean-be.azurewebsites.net" });
                         await writer.WriteLineAsync(json);
                         writer.Close();
                         fs.Close();

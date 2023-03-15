@@ -18,6 +18,7 @@
             <Style x:Key="btnContinueStyle" TargetType="Button">
                 <Setter Property="Background"  Value="{x:StaticResource YellowGradient}"/>
                 <Setter Property="CornerRadius" Value="5"/>
+                <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="HorizontalOptions" Value="End"/>
                 <Setter Property="VerticalOptions" Value="Start"/>
                 <Setter Property="FontSize" Value="10"/>

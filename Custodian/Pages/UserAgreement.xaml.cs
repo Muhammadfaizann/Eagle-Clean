@@ -81,7 +81,21 @@ public partial class UserAgreement : ContentPage
             {
                 Logger.Log("2", "Info", "Storage Write Permission granted");
             }
+            var statusLocation = await Permissions.CheckStatusAsync<Permissions.LocationAlways>();
+            if (statusLocation != PermissionStatus.Granted)
+            {
+                if (Permissions.ShouldShowRationale<Permissions.LocationAlways>())
+                {
+                    // Prompt the user with additional information as to why the permission is needed
+                }
 
+                statusLocation = await Permissions.RequestAsync<Permissions.LocationAlways>();
+            }
+
+            if (statusLocation == PermissionStatus.Granted)
+            {
+                Logger.Log("2", "Info", "Location Permission granted");
+            }
         }
         catch (Exception e)
         {

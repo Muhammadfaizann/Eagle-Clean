@@ -23,7 +23,6 @@ namespace Custodian.ViewModels
     public partial class ProofOfWorkViewModel : ObservableObject
     {
         #region Properties
-        private IProofOfWorkService _proofOfWorkService;
         ILocationService _locationService;
         private TimeSpan prevTime;
         private Models.Task currentStep;
@@ -52,13 +51,12 @@ namespace Custodian.ViewModels
         }
         #endregion
 
-        public ProofOfWorkViewModel(ILocationService locationService, IProofOfWorkService proofOfWorkService)
+        public ProofOfWorkViewModel(ILocationService locationService)
         {
             ButtonText = "End Route";
             prevTime = TimeSpan.Zero;
             ActualTimeText = "--------";
             _locationService=locationService;
-            _proofOfWorkService=proofOfWorkService;
             WeakReferenceMessenger.Default.Register<TaskCompletedMessage>(this, TaskCompletedMessageReceived);
         }
 
@@ -77,15 +75,15 @@ namespace Custodian.ViewModels
 
                 if (Utils.activeRouteRecord.actualTime != null)
                 {
-                    int actualTime = int.Parse(Utils.activeRouteRecord.actualTime) + difference.Seconds;
+                    double actualTime = double.Parse(Utils.activeRouteRecord.actualTime) + difference.TotalSeconds;
                     Utils.activeRouteRecord.actualTime = actualTime.ToString();
                 }
                 else
                 {
-                    Utils.activeRouteRecord.actualTime = difference.Seconds.ToString();
+                    Utils.activeRouteRecord.actualTime = difference.TotalSeconds.ToString();
                 }
 
-                Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + int.Parse(currentStep.PlannedTimeInMint)*60 + "|" + difference.Seconds);
+                Utils.activeRouteRecord.tasksComplete.Add(currentStep.Description + "|" + int.Parse(currentStep.PlannedTimeInMint)*60 + "|" + difference.TotalSeconds);
                 _CleaningPlanList.Remove(currentStep);
                 if (_CleaningPlanList.Count == 0)
                 {
