@@ -23,7 +23,6 @@ public partial class Facility : ContentPage, IQueryAttributable
             BindingContext = vm;
             _client = client;
             _locationService = locationService;
-            routesCollection.ItemsSource = new List<string>() { "Route 001", "Route 002", "Route 003" };
         }
         catch (Exception ex)
         {

@@ -12,6 +12,7 @@ namespace Custodian.Models
         public string seq { get; set; }
         public string facilityid { get; set; }
         public string route { get; set; }
+        public string routeDescription { get; set; }
         public string startDate { get; set; }
         public string startTime { get; set; }
         public object endDate { get; set; }

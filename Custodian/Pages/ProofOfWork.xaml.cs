@@ -24,16 +24,14 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
     double progressPerSec;
     TimeSpan timer_date_time;
     ILocationService _locationService;
-    IProofOfWorkService _proofOfWorkService;
     bool IsBackgroundThreadRunning = true;
     ProofOfWorkViewModel _viewmodel;
-    public ProofOfWork(ProofOfWorkViewModel viewModel, ILocationService locationService, IProofOfWorkService proofOfWorkService)
+    public ProofOfWork(ProofOfWorkViewModel viewModel, ILocationService locationService )
 	{
         try
         {
             InitializeComponent();
             _locationService = locationService;
-            _proofOfWorkService = proofOfWorkService;
              this.BindingContext = _viewmodel  = viewModel;
             
             WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnEndRouteMessageReceived);

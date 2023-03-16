@@ -187,6 +187,7 @@ namespace Custodian.Helpers
                 record.seq = "1";
                 record.facilityid = route.fid;
                 record.route = route.rte;
+                record.routeDescription = route.desc;
                 record.startDate = DateTime.Now.ToString("MM/dd/yyyy");
                 record.startTime = DateTime.Now.ToString("HH:mm:ss");
                 record.endDate = null;

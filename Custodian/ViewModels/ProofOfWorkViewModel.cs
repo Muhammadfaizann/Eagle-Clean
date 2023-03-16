@@ -71,7 +71,7 @@ namespace Custodian.ViewModels
 
                 TimeSpan currentTime = TimeSpan.Parse(_TimerText);
                 TimeSpan difference = currentTime.Subtract(prevTime);
-                prevTime = currentTime;
+                prevTime = currentTime;  // prevTime is getting 00:00 on partial route 
 
                 if (Utils.activeRouteRecord.actualTime != null)
                 {

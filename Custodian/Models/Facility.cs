@@ -27,6 +27,7 @@ namespace Custodian.Models
             public double Latitude { get; set; }
             public double Longitude { get; set; }
             public string LocaleName { get; set; }
+            public string DistanceInMiles { get; set; }
        
     }
 }

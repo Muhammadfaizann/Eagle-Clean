@@ -11,5 +11,6 @@ namespace Custodian.Models
         public string Source { get; set; }
         public string Data { get; set; }
         public string Type { get; set; }
+
     }
 }

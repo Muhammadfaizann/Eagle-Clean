@@ -45,7 +45,7 @@
                         </Label>
                         <VerticalStackLayout Grid.Row="1">
                             <Label x:Name="lblFacility" Style="{x:StaticResource labelStyle}" FontSize="18" HorizontalOptions="Start"></Label>
-                            <Label x:Name="lblAddress" Text="3131 94th St, East Elmhurst, NY, 11369" Opacity=".7" ></Label>
+                            <Label x:Name="lblAddress"  Opacity=".7" ></Label>
                         </VerticalStackLayout>
                     </VerticalStackLayout>
                     <Image Grid.Column="1" Source="mapicon.png" HeightRequest="40" WidthRequest="40" VerticalOptions="Start" HorizontalOptions="EndAndExpand" ></Image>
@@ -71,7 +71,7 @@
                                             FontAttributes="Bold"
                                             HorizontalOptions="Start" />
                                     </HorizontalStackLayout>
-                                    <Label Text="Clean Offices and Workroom" FontAttributes="Bold"></Label>
+                                    <Label Text="{Binding routeDescription}" FontAttributes="Bold"></Label>
                                     <Label Text="Light Duty Specialist" Opacity=".7" ></Label>
                                 </VerticalStackLayout>
                                   <Button 
