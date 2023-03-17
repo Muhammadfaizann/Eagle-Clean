@@ -10,7 +10,7 @@ public partial class FacilityList : ContentPage
 {
     IFacilityService _facilityService;
     ILocationService _locationService;
-    static List<Models.Facility> facilities = new List<Models.Facility>();
+    static List<Models.Facility> facilities;
 
     public FacilityList(IFacilityService facilityService, ILocationService locationService)
 	{
@@ -48,10 +48,10 @@ public partial class FacilityList : ContentPage
         try
         {
             loader.IsRunning = loader.IsVisible = true;
-            
-            if (!facilities.Any())
-            {
-                Location userLocation = await _locationService.GetCurrentLocation();
+
+            facilities = new List<Models.Facility>();
+            Location userLocation = await _locationService.GetCurrentLocation();
+
                 if (userLocation == null)
                 {
                     userLocation = await _locationService.GetLastKnownLocation();
@@ -62,7 +62,7 @@ public partial class FacilityList : ContentPage
 
                     facility.DistanceInMiles = distance(userLocation.Latitude, userLocation.Longitude, facility.Latitude, facility.Longitude, 'M').ToString();
                 }
-            }
+            
             collection.ItemsSource = facilities;
             loader.IsRunning = loader.IsVisible = false;
         }
@@ -107,7 +107,8 @@ public partial class FacilityList : ContentPage
         try
         {
             if(e.NewTextValue.Length>=3)
-            collection.ItemsSource = facilities.Where(x => x.LocaleName.ToLower().Contains(e.NewTextValue.ToLower())).ToObservableCollection();
+            collection.ItemsSource = facilities.Where(x => x.LocaleName.ToLower().Contains(e.NewTextValue.ToLower()) ||
+                x.FacilityId.ToLower().Contains(e.NewTextValue.ToLower()) || x.FacilityType.ToLower().Contains(e.NewTextValue.ToLower())).ToObservableCollection();
             else
                 collection.ItemsSource = facilities;
         }

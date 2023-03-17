@@ -46,6 +46,7 @@
     <Color x:Key="Yellow200Accent">#FFAE1B</Color>
 
     <Color x:Key="Green100Accent">#10B981</Color>
+    <Color x:Key="Green200Accent">#19DE71</Color>
     
     <LinearGradientBrush
         x:Key="GradientStyle"

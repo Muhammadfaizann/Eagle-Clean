@@ -14,8 +14,8 @@ public partial class App : Application
         
         //AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnHandledException;
-        InitializeComponent();
-        //MainPage = new AppShell();
+        InitializeComponent(); 
+        //MainPage = new NavigationPage(new UserAgreement());
         _ = InitializeApp();
         WeakReferenceMessenger.Default.Register<LoginMessage>(this, (sender, args) => 
         {
@@ -56,7 +56,7 @@ public partial class App : Application
     private async Task InitializeApp()
 	{
         MainPage = new SplashScreen();
-        await Task.Delay(10000);
+        await Task.Delay(9000);
         MainPage = new NavigationPage(new UserAgreement());
        
     }

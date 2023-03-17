@@ -69,9 +69,19 @@ namespace Custodian.ViewModels
                 string task = $"{currentStep.Description }|{currentStep.PlannedTimeInSec}";
                 Utils.activeRouteRecord.tasksIncomplete.Remove(task);
 
+                if( Utils.activeRouteRecord.seq == "2" || Utils.activeRouteRecord.seq == "3") // if a partial route gets resume 
+                {
+                    if(Utils.activeRouteRecord.actualTime != null) 
+                    { 
+
+                        prevTime = TimeSpan.FromSeconds(int.Parse(Utils.activeRouteRecord.actualTime));  // converting it into the TimeSpan and assigning to prevTime
+                    }
+                }
+
+
                 TimeSpan currentTime = TimeSpan.Parse(_TimerText);
                 TimeSpan difference = currentTime.Subtract(prevTime);
-                prevTime = currentTime;  // prevTime is getting 00:00 on partial route 
+                prevTime = currentTime;  
 
                 if (Utils.activeRouteRecord.actualTime != null)
                 {
@@ -107,6 +117,10 @@ namespace Custodian.ViewModels
 
                 string guid = Utils.activeRouteFileName.Split("_")[0];
                 Utils.OfflineRecords.Add(new WorkRecord() { id = Guid.Parse(guid), filename = Utils.activeRouteFileName, json = jsonRecord });
+
+                var found = Utils.partialRoutes.FirstOrDefault(x => x.id == Guid.Parse(guid));
+                found.json = jsonRecord;
+
             }
             catch (Exception ex)
             {

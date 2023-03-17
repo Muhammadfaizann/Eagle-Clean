@@ -77,15 +77,19 @@
                                            ProgressFill="{StaticResource CustodianppProgressBlue}"
                                            ProgressThickness="15" >
                             <progressBar:SfCircularProgressBar.Content>
-                            
-                                <Label 
-                                     x:Name="lblTime"
-                                     Text="{Binding TimerText, Mode=TwoWay}"
-                                     Style="{StaticResource BlackHeadingLabel}" 
-                                     HorizontalTextAlignment="Center" 
-                                     VerticalTextAlignment="Center">
-                                </Label>
-
+                                <Grid RowDefinitions="auto" VerticalOptions="Center" >
+                                    <Label 
+                                         Grid.Row="0"
+                                         x:Name="lblTime"
+                                         Text="{Binding TimerText, Mode=TwoWay}"
+                                         FontAttributes="Bold"
+                                         FontSize="17"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                         VerticalTextAlignment="Center"
+                                         HorizontalTextAlignment="Center">
+                                    </Label>
+                                </Grid>
                             </progressBar:SfCircularProgressBar.Content>
                         </progressBar:SfCircularProgressBar>
                     </Grid>

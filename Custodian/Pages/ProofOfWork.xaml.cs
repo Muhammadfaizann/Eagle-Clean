@@ -36,6 +36,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             
             WeakReferenceMessenger.Default.Register<EndRouteMessage>(this, OnEndRouteMessageReceived);
             WeakReferenceMessenger.Default.Register<StopTimerMessage>(this, OnStopTimerMessageReceived);
+
             timer = Dispatcher.CreateTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += (s, e) =>
@@ -60,6 +61,8 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
             };
             prevTime = TimeSpan.Zero;
+            timer_date_time = new TimeSpan(0, 0, 0);
+
         }
         catch(Exception ex)
         {
@@ -81,12 +84,15 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             base.OnAppearing();
             btnEndRoute.IsEnabled = true;
             btnAddPics.IsEnabled = true;
-            
+            DeviceDisplay.Current.KeepScreenOn = true;
+
+            lblTime.Text = timer_date_time.ToString("t");
+
+            timer.Start();
 
             if (_viewmodel.CleaningPlanList.Count == 0)
                 btnEndRoute.Text = "Complete Route";
 
-            DeviceDisplay.Current.KeepScreenOn = true;
         }
         catch(Exception ex )
         {
@@ -149,14 +155,13 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
                 route = Utils.activeAssigment;
                 timer_date_time = new TimeSpan(0, 0, 0);
                 timerProgressBar.Progress = 0;
-                timer.Start();
+               
 
             }
             else   // Continue as partial route
             {
                 record = query["param"] as MergeRecord;
-               
-                timer_date_time = new TimeSpan(0,0, int.Parse(record.actualTime));
+                
                 Utils.activeRouteRecord = record;
                 route = JsonSerializer.Deserialize<Route>(record.startBarcode);
             }
@@ -169,13 +174,16 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             lblPlannedTime.Text = route.plannedTime;
             plannedTime = TimeSpan.ParseExact(lblPlannedTime.Text, "t", null);
             var seconds = plannedTime.TotalSeconds;
-            progressPerSec = (1 / seconds) * 100;
+            progressPerSec = (1 / seconds) * 100; 
 
-            if (query.Count != 0)   // Continue as partial route
+            if (record.actualTime != null) // restore the previous state of timer
             {
-                timerProgressBar.Progress = int.Parse(record.actualTime)*progressPerSec;
-                timer.Start();
+                timer_date_time = new TimeSpan(0, 0, int.Parse(record.actualTime));
+
+                timerProgressBar.Progress = int.Parse(record.actualTime) * progressPerSec;
+
             }
+
 
             // populate Cleaning plan
             route.taskList = new List<Models.Task>();
