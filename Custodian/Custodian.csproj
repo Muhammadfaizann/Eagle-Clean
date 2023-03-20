@@ -54,7 +54,14 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="PCLStorage" Version="1.0.2" />
 		<PackageReference Include="Syncfusion.Maui.ProgressBar" Version="20.4.54" />
+		<PackageReference Include="Syncfusion.Maui.SignaturePad" Version="20.4.54" />
 		<PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\SignaturePad.xaml.cs">
+	    <DependentUpon>SignaturePad.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -104,6 +111,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Login.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\SignaturePad.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Logout.xaml">

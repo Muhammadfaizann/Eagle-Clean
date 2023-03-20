@@ -28,11 +28,7 @@ public partial class UserAgreement : ContentPage
     {
         try 
         {
-            loader.IsRunning = loader.IsVisible = true;
-            Button btn = sender as Button;
-            btn.IsEnabled = false;
-            await Navigation.PushAsync(new Login(new ViewModels.LoginViewModel()));
-            loader.IsRunning = loader.IsVisible = false;
+            Navigation.PushAsync(new SignaturePad());
         }
         catch(Exception ex)
         {
