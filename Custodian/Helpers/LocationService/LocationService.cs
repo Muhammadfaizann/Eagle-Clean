@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Maui;
 using Custodian.ActivityLog;
+using Custodian.Models;
+using System.Text.Json;
+using Android.Hardware.Camera2;
 
 namespace Custodian.Helpers.LocationService
 {
@@ -14,24 +17,39 @@ namespace Custodian.Helpers.LocationService
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
 
-        //it gets Last known location 
-        public async Task<Location> GetLastKnownLocation()
+        static string root = Utils.ROOT_PATH;
+        static string mainFolder = "Custodian";
+        static string locationFolder = "Location";
+        static object Monitor = new object();
+
+        static string filename = string.Empty;
+
+        public LocationService()
         {
             try
             {
-                Location location = await Geolocation.Default.GetLastKnownLocationAsync();
 
-                return location;
+                string dirCustodian = Path.Combine(root, mainFolder);
+                if (!Directory.Exists(dirCustodian))
+                    Directory.CreateDirectory(dirCustodian);
+                string dirLocation = Path.Combine(dirCustodian, locationFolder);
+                if (!Directory.Exists(dirLocation))
+                    Directory.CreateDirectory(dirLocation);
+
+
+                string filePath = Path.Combine(root, mainFolder, locationFolder, "User_Location.json");
+                if (!File.Exists(filePath)) { File.Create(filePath); }
+
+                filename = filePath;
             }
             catch (Exception ex)
             {
-                Logger.Log("1", "Exception", ex.Message);
+
             }
-
-            return default(Location);
         }
+      
 
-        //it gets current location from GPS!
+        //it gets current location GPS!
         public async Task<Location> GetCurrentLocation()
         {
             try
@@ -44,6 +62,8 @@ namespace Custodian.Helpers.LocationService
 
                 Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
 
+                StoreLocation(location);
+
                 return location;
             }
             catch (Exception ex)
@@ -54,7 +74,46 @@ namespace Custodian.Helpers.LocationService
             {
                 _isCheckingLocation = false;
             }
-            return default(Location);
+            return RestorePreviousLocation();
+        }
+
+        public static void StoreLocation(Location location)
+        {
+            lock (Monitor)
+            {
+                try
+                {
+                    
+                    using (StreamWriter sw = File.CreateText(filename))
+                    {
+                        string locationString = JsonSerializer.Serialize(location);
+                        sw.WriteLine(locationString);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log("1", "Exception", ex.Message);
+                }
+            }
+        }
+
+        public static Location RestorePreviousLocation()
+        {
+            try
+            {
+
+                string locationString = File.ReadAllText(filename);
+                
+                Location location = JsonSerializer.Deserialize<Location>(locationString);
+
+                return location;
+               
+            }
+            catch (Exception ex)
+            {
+                Logger.Log("1", "Exception", ex.Message);
+                return null;
+            }
         }
 
         public void CancelRequest()

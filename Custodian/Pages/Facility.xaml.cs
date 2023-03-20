@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Helpers.LocationService;
@@ -78,10 +80,21 @@ public partial class Facility : ContentPage, IQueryAttributable
             RouteModel routeDetails = btn.CommandParameter as RouteModel;
 
             Location currentLocation = await _locationService.GetCurrentLocation();
-            
-            await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
-            
-            await Shell.Current.GoToAsync(nameof(ProofOfWork));
+            if (currentLocation != null)
+            {
+                await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
+
+                await Shell.Current.GoToAsync(nameof(ProofOfWork));
+            }
+            else
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                string text = "Location record is not available";
+                ToastDuration duration = ToastDuration.Short;
+                double fontSize = 12;
+                var toast = Toast.Make(text, duration, fontSize);
+                await toast.Show(cancellationTokenSource.Token);
+            }
             loader.IsRunning = loader.IsVisible = false;
         }
         catch(Exception ex)

@@ -188,8 +188,9 @@ public partial class Login : ContentPage
             if (Utils.IsBadgeValid(badgeID))
             {
                 Utils.BadgeID = badgeID;
-                var vm = BindingContext as LoginViewModel;
-                vm.LoginCommand.Execute(null);
+                await Navigation.PushAsync(new SignaturePad());
+                //var vm = BindingContext as LoginViewModel;
+                //vm.LoginCommand.Execute(null);
             }
             else
             {

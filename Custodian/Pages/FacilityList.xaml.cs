@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Core.Extensions;
 using Custodian.ActivityLog;
 using Custodian.Helpers;
@@ -52,16 +54,24 @@ public partial class FacilityList : ContentPage
             facilities = new List<Models.Facility>();
             Location userLocation = await _locationService.GetCurrentLocation();
 
-                if (userLocation == null)
-                {
-                    userLocation = await _locationService.GetLastKnownLocation();
-                }
+            if (userLocation != null)
+            {
                 facilities = await _facilityService.GetAllFacilities(userLocation.Latitude, userLocation.Longitude, Utils.config.Radius);
-                foreach(var facility in facilities)
+                foreach (var facility in facilities)
                 {
 
                     facility.DistanceInMiles = distance(userLocation.Latitude, userLocation.Longitude, facility.Latitude, facility.Longitude, 'M').ToString();
                 }
+            }
+            else
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                string text = "Location record is not available";
+                ToastDuration duration = ToastDuration.Short;
+                double fontSize = 12;
+                var toast = Toast.Make(text, duration, fontSize);
+                await toast.Show(cancellationTokenSource.Token);
+            }
             
             collection.ItemsSource = facilities;
             loader.IsRunning = loader.IsVisible = false;
@@ -167,5 +177,15 @@ public partial class FacilityList : ContentPage
     private double rad2deg(double rad)
     {
         return (rad / Math.PI * 180.0);
+    }
+
+    private async void Map_Tapped(object sender, TappedEventArgs e)
+    {
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        string text = "Map navigation coming soon!";
+        ToastDuration duration = ToastDuration.Short;
+        double fontSize = 12;
+        var toast = Toast.Make(text, duration, fontSize);
+        await toast.Show(cancellationTokenSource.Token);
     }
 }

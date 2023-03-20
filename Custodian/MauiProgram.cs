@@ -36,7 +36,7 @@ public static class MauiProgram
 
 
         builder.Services.AddSingleton<IApiClientService, ApiClientService>();
-        builder.Services.AddSingleton<ILocationService, LocationService>();
+        builder.Services.AddSingleton<ILocationService,LocationService>();
 
 
         builder.Services.AddSingleton<IProofOfWorkService, ProofOfWorkSerive>();

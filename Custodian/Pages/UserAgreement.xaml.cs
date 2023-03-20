@@ -2,33 +2,28 @@
 
 using Custodian.ActivityLog;
 using Custodian.Helpers;
+using Custodian.ViewModels;
 
 namespace Custodian.Pages;
 
 public partial class UserAgreement : ContentPage
 {
-   
 
     public UserAgreement()
 	{
 
 		InitializeComponent();
-		lbl1.Text = "This Mutual Non-Disclosure Agreement (\"Agreement\"), dated as of ________ (\"Effective Date\"), is agreed by and between [COMPANY 1], with primary offices located at [STREET ADDRESS] (“Company 1”), and [COMPANY 2], with primary offices located at [STREET ADDRESS] (\"Company 2\").";
-		lbl2.Text = "Company 1 and Company 2 are individually referred to herein as, the “Party”, and collectively as, the “Parties”.";
-		lbl3.Text = "RECITALS";
-        lbl4.Text = "WHEREAS, the Parties desire to explore and engage in discussions regarding a potential business opportunity of mutual interest (“Business Discussion”);";
-
+		lbl1.Text = "This is a US Government computer system and is intended for official and other authorized use only. Unauthorized access or use of the system may subject violators to administrative action, civil, and/or criminal prosecution under  the US Criminal Code (Title 18 USC 1030). All information on this computer system may be monitored, intercepted, recorded, read, copied, or captured and disclosed by and to authorized personnel for official purposes, including criminal prosecution.  You have no expectations of privacy regarding monitoring of this system. Any authorized or unauthorized use of this computer system signifies consent to and compliance with Postal Service policies and their terms.";
+		
         PrepareLocalEnvironment();
        
     }
 
-    
-
-    private async void btnIAgree_Clicked(object sender, EventArgs e)
+    private void btnIAgree_Clicked(object sender, EventArgs e)
     {
         try 
         {
-            Navigation.PushAsync(new SignaturePad());
+            Navigation.PushAsync(new Login(new LoginViewModel()));
         }
         catch(Exception ex)
         {
@@ -36,7 +31,6 @@ public partial class UserAgreement : ContentPage
             throw ;
         }
     }
-
 
     private async void PrepareLocalEnvironment()
     {

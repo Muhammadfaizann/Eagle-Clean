@@ -2,11 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Custodian.Pages.TimeClock"
+             xmlns:controls="clr-namespace:Custodian.Controls"
              Title="TimeClock">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="auto,auto,auto,*">
+        <controls:CustomStatusBar x:Name="key" Grid.Row="0"/>
+        <controls:CustomNavBar Grid.Row="1" Title="Time Clock" Icon="Navigation"/>
+        <Grid Grid.Row="2" Margin="20" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <controls:CustomPageHeader Grid.Row="0"></controls:CustomPageHeader>
+
+            <Grid Grid.Row="1" Padding="0,10" ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto" RowSpacing="15" ColumnSpacing="15">
+                <Button Grid.Column="0" Grid.Row="0" Text="Begin Tour"></Button>
+                <Button Grid.Column="1" Grid.Row="0" Text="End Tour"></Button>
+                <Button Grid.Column="0" Grid.Row="1" Text="Move"></Button>
+                <Button Grid.Column="1" Grid.Row="1" Text="Out For Lunch"></Button>
+                <Button Grid.Column="0" Grid.Row="2" Text="In From Lunch"></Button>
+                <Button Grid.Column="1" Grid.Row="2" Text="Travel"></Button>
+                <Button Grid.Column="0" Grid.Row="3" Text="Training"></Button>
+            </Grid>
+            
+        </Grid>
+    </Grid>
 </ContentPage>

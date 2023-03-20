@@ -36,11 +36,11 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
         <ShellContent Title="Home"
                       ContentTemplate="{DataTemplate pages:HomePage}"/>
-        <ShellContent Title="View Active Route"
+        <ShellContent Title="View Active Route" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:ActiveRoutePage}"/>
-        <ShellContent Title="Travel"
+        <ShellContent Title="Travel" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:TravelPage}"/>
-        <ShellContent Title="Ad-hoc Work"
+        <ShellContent Title="Ad-hoc Work" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
         <ShellContent Title="Nearby Facilities"
                       ContentTemplate="{DataTemplate pages:FacilityList}"/>
@@ -55,7 +55,7 @@
                        />
     </FlyoutItem>
     <Shell.FlyoutFooter>
-        <VerticalStackLayout HeightRequest="110" Background="{StaticResource GradientStyle}">
+        <VerticalStackLayout HeightRequest="275" Background="{StaticResource GradientStyle}">
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
 </Shell>

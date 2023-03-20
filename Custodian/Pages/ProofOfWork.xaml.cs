@@ -98,8 +98,10 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         {
             Logger.Log("1", "Exception", ex.Message);
         }
-        //RuntheBackGroundThread();
+        //RuntheBackGroundThread(); 
     }
+    //back ground thread on proof of work screen which updates the record every mint
+    /*
     private async void RuntheBackGroundThread()
     {
         await System.Threading.Tasks.Task.Run(async() =>
@@ -109,7 +111,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             while (IsBackgroundThreadRunning)
             {
                 Utils.activeRouteRecord.seq = "2";
-                Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy");
+                Utils.activeRouteRecord.endDate = DateTime.Now.ToString("MM/dd/yyyy"); 
                 Utils.activeRouteRecord.endTime = DateTime.Now.ToString("HH:mm:ss");
                 Location currentLocation = await _locationService.GetCurrentLocation();
                 Utils.activeRouteRecord.startLatitude = currentLocation.Latitude.ToString();
@@ -125,7 +127,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
 
             }
         });
-    }
+    }*/
     private void OnEndRouteMessageReceived(object recipient, EndRouteMessage message)
     {
         try

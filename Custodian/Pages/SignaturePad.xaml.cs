@@ -1,5 +1,7 @@
 using Android.Service.Voice;
+using CommunityToolkit.Mvvm.Messaging;
 using Custodian.ActivityLog;
+using Custodian.Messages;
 using Custodian.ViewModels;
 
 namespace Custodian.Pages;
@@ -14,13 +16,15 @@ public partial class SignaturePad : ContentPage
     {
         PadView.Clear();
     }
-    private async void confirm_Clicked(object sender, EventArgs e)
+    private void confirm_Clicked(object sender, EventArgs e)
     {       
+        
         //Stream image = await PadView.GetImageStreamAsync(SignatureImageFormat.Jpeg);    
         loader.IsRunning = loader.IsVisible = true;
         Button btn = sender as Button;
         btn.IsEnabled = false;
-        await Navigation.PushAsync(new Login(new ViewModels.LoginViewModel()));
+        WeakReferenceMessenger.Default.Send(new LoginMessage("Login"));
+        Logger.Log("2", "Info", "Logged in successful!");
         loader.IsRunning = loader.IsVisible = false;
     }
 }

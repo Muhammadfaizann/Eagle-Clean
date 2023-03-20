@@ -92,9 +92,11 @@ public partial class HomePage : ContentPage
             Logger.Log("1", "Exception", ex.Message);
         }
     } 
-    private void btnTimeClockClicked(object sender, TappedEventArgs e)
+    private async void btnTimeClockClicked(object sender, TappedEventArgs e)
     {
-
+        loader.IsRunning = loader.IsVisible = true;
+        await Shell.Current.GoToAsync(nameof(TimeClock));
+        loader.IsRunning = loader.IsVisible = false;
     } 
     private async void btnMyWorkClicked(object sender, TappedEventArgs e)
     {

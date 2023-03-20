@@ -16,6 +16,8 @@ public partial class AppShell : Shell
         Routing.RegisterRoute(nameof(MyWork), typeof(MyWork));
         Routing.RegisterRoute("Login", typeof(Login));
 
+        Routing.RegisterRoute(nameof(TimeClock), typeof(TimeClock));
+
         Routing.RegisterRoute(nameof(FacilityList), typeof(FacilityList));
 
         Routing.RegisterRoute(nameof(ScanJob), typeof(ScanJob));
