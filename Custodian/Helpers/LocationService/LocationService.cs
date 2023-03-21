@@ -54,7 +54,7 @@ namespace Custodian.Helpers.LocationService
         {
             try
             {
-                _isCheckingLocation = true;
+                _isCheckingLocation = true; 
 
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(1));
 
@@ -62,7 +62,7 @@ namespace Custodian.Helpers.LocationService
 
                 Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
 
-                StoreLocation(location);
+               // StoreLocation(location);
 
                 return location;
             }

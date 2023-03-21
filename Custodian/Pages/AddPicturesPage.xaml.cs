@@ -7,9 +7,10 @@ public partial class AddPicturesPage : ContentPage
 {
     private ObservableCollection<string> images = new ObservableCollection<string>();
 
-	public AddPicturesPage()
+	public AddPicturesPage(string routeTitle)
 	{
 		InitializeComponent();
+        lblTitle.Text=routeTitle;
     }
     protected override void OnAppearing()
     {

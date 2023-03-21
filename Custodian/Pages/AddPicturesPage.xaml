@@ -21,8 +21,8 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Label 
+                          x:Name="lblTitle"
                           Grid.Column="0"  
-                          Text="Anytown PO - Route 001"
                           FontSize="20" 
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"

@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <Grid RowDefinitions="auto,auto,*">
             <controls:CustomStatusBar Grid.Row="0"/>
-            <controls:CustomNavBar Grid.Row="1" Title="Active Cleaning Route" Icon="Navigation"/>
+            <controls:CustomNavBar Grid.Row="1" Title="Active Cleaning Route"/>
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -34,15 +34,14 @@
                         <VerticalStackLayout  Grid.Column="0"  >
                             <Label
                           x:Name="routeTitle"
-                          Text="Anytown PO - Route 001"
                           FontSize="20" 
                           FontAttributes="Bold"
                           TextColor="{StaticResource Black}"
                           VerticalOptions="Start" 
                           HorizontalOptions="Start" />
                             <Label x:Name="description"
-                                VerticalOptions="Start" 
-                          HorizontalOptions="Start"/>
+                                    VerticalOptions="Start" 
+                                    HorizontalOptions="Start"/>
                         </VerticalStackLayout>
                         <Image Grid.Column="1" Source="bluedlogo.png" HorizontalOptions="EndAndExpand" ></Image>
                         

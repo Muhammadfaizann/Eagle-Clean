@@ -5,17 +5,23 @@
              xmlns:controls="clr-namespace:Custodian.Controls"
              NavigationPage.HasNavigationBar="False"
              x:Class="Custodian.Pages.SignaturePad">
-    <Grid RowDefinitions="auto,*,50" Margin="10">
-        <Label Grid.Row="0" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="10"
+    <Grid RowDefinitions="120,*,50" Margin="10">
+        <Label Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center" Margin="0,20,0,0"
                FontSize="20" Text="Signature required for work completion record." FontAttributes="Bold"/>
         <Frame x:Name="pad" Grid.Row="1" BorderColor="Red" BackgroundColor="White" VerticalOptions="Center">
-            <sf:SfSignaturePad DrawCompleted="PadView_DrawCompleted" x:Name="PadView" Margin="15" StrokeColor="Black" HeightRequest="300" BackgroundColor="#F0F0F0"></sf:SfSignaturePad>
+            <Grid RowDefinitions="auto,auto" RowSpacing="-60" Margin="15" >
+                <sf:SfSignaturePad Grid.Row="0" DrawCompleted="PadView_DrawCompleted" x:Name="PadView"  StrokeColor="Black" HeightRequest="300" BackgroundColor="#F0F0F0"></sf:SfSignaturePad>
+                <Label  Grid.Row="1" Margin="15" Text="X_____________________________________________">
+                   
+                </Label>
+            </Grid>
         </Frame>
 
+        
         <Grid ColumnDefinitions="1*, 1*" Grid.Row="2" Margin="20">
                 <Button x:Name="clear" Clicked="clear_Clicked" Margin="0,0,5,0" Grid.Column="0" BackgroundColor="#C8C8C8" Text="Clear"></Button>
                 <Button x:Name="confirm" Clicked="confirm_Clicked" Margin="5,0,0,0" Grid.Column="1" BackgroundColor="#0275d8" Text="Confirm"></Button>
-            </Grid> 
+        </Grid> 
         
         <ActivityIndicator x:Name="loader" Grid.Row="1" IsRunning="False" IsVisible="false" Color="{x:StaticResource CustodianppProgressBlue}"
                            HorizontalOptions="Center"

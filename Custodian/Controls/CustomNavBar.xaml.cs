@@ -52,14 +52,9 @@ public partial class CustomNavBar : Grid
     public CustomNavBar()
 	{
 		InitializeComponent();
-      
-
     }
     private async void NavigateBack(object sender, TappedEventArgs e)
     {
-        if (Title == "Login")
-            await Navigation.PopAsync();
-        else
             await Shell.Current.GoToAsync("..");
     }
     private void OpenFlyoutMenu(object sender, TappedEventArgs e)

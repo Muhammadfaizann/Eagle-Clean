@@ -216,7 +216,7 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         {
             loader.IsRunning = loader.IsVisible = true;
             btnAddPics.IsEnabled = false;
-            Navigation.PushAsync(new AddPicturesPage());
+            Navigation.PushAsync(new AddPicturesPage(routeTitle.Text));
             loader.IsRunning = loader.IsVisible = false;
         }
         catch (Exception ex)
@@ -263,6 +263,10 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
         {
             Logger.Log("1", "Exception", ex.Message);
         }
+    }
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
     }
 
     private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
