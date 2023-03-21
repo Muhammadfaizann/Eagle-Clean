@@ -14,6 +14,7 @@ public partial class SignaturePad : ContentPage
     }
     private void clear_Clicked(object sender, EventArgs e)
     {
+        pad.BorderColor = Color.Parse("Red");
         PadView.Clear();
     }
     private void confirm_Clicked(object sender, EventArgs e)
@@ -26,5 +27,10 @@ public partial class SignaturePad : ContentPage
         WeakReferenceMessenger.Default.Send(new LoginMessage("Login"));
         Logger.Log("2", "Info", "Logged in successful!");
         loader.IsRunning = loader.IsVisible = false;
+    }
+
+    private void PadView_DrawCompleted(object sender, EventArgs e)
+    {
+        pad.BorderColor = Color.Parse("Green");
     }
 }
