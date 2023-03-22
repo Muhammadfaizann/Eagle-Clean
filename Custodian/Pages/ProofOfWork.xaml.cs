@@ -93,6 +93,8 @@ public partial class ProofOfWork : ContentPage, IQueryAttributable
             if (_viewmodel.CleaningPlanList.Count == 0)
                 btnEndRoute.Text = "Complete Route";
 
+            Logger.Log("2", "Info", "Proof Of Work Page Loaded!");
+
         }
         catch(Exception ex )
         {

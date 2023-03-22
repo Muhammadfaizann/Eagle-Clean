@@ -41,40 +41,83 @@ namespace Custodian.Helpers.LocationService
                 if (!File.Exists(filePath)) { File.Create(filePath); }
 
                 filename = filePath;
+
+                Thread thread1 = new Thread(RunBackgroundThreadAsync);
+                thread1.Start();
             }
             catch (Exception ex)
             {
 
             }
         }
-      
+
+        private async void RunBackgroundThreadAsync(object obj)
+        {
+            try
+            {
+                var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
+
+                while (await timer.WaitForNextTickAsync())
+                {
+                    try
+                    {
+                        _isCheckingLocation = true;
+
+                        GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(1));
+
+                        _cancelTokenSource = new CancellationTokenSource();
+
+                        Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+                        if (location != null)
+                            StoreLocation(location);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log("1", "Exception", ex.Message);
+                    }
+                    finally
+                    {
+                        _isCheckingLocation = false;
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+
 
         //it gets current location GPS!
         public async Task<Location> GetCurrentLocation()
         {
             try
             {
-                _isCheckingLocation = true; 
+                _isCheckingLocation = true;
 
                 GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(1));
 
                 _cancelTokenSource = new CancellationTokenSource();
 
                 Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
-
-               // StoreLocation(location);
+                if (location != null)
+                    StoreLocation(location);
+                else
+                    location = RestorePreviousLocation();
 
                 return location;
             }
             catch (Exception ex)
             {
                 Logger.Log("1", "Exception", ex.Message);
+                return RestorePreviousLocation();
             }
             finally
             {
                 _isCheckingLocation = false;
+
             }
-            return RestorePreviousLocation();
         }
 
         public static void StoreLocation(Location location)

@@ -1,4 +1,5 @@
 using CommunityToolkit.Maui.Core.Extensions;
+using Custodian.ActivityLog;
 using Custodian.Helpers;
 using Custodian.Models;
 using Custodian.ViewModels;
@@ -19,16 +20,27 @@ public partial class MyWork : ContentPage
 
     protected override void OnAppearing()
     {
-        base.OnAppearing();
-        List<MergeRecord> mergeRecords = new List<MergeRecord>();
-        foreach(var route in Utils.partialRoutes)
+        try
         {
+            base.OnAppearing();
 
-            MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(route.json);
-            record.filename = route.filename;
-            mergeRecords.Add(record);
+            List<MergeRecord> mergeRecords = new List<MergeRecord>();
+            foreach (var route in Utils.partialRoutes)
+            {
+
+                MergeRecord record = JsonSerializer.Deserialize<MergeRecord>(route.json);
+                record.filename = route.filename;
+                mergeRecords.Add(record);
+            }
+            ongoingAssigments.ItemsSource = mergeRecords.ToObservableCollection();
+
+
+            Logger.Log("2", "Info", "MyWork Page Loaded!");
         }
-        ongoingAssigments.ItemsSource = mergeRecords.ToObservableCollection();
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     void btnOngoing_Clicked(System.Object sender, System.EventArgs e)

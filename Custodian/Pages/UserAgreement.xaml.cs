@@ -24,6 +24,7 @@ public partial class UserAgreement : ContentPage
         try 
         {
             Navigation.PushAsync(new Login(new LoginViewModel()));
+
         }
         catch(Exception ex)
         {
@@ -36,6 +37,7 @@ public partial class UserAgreement : ContentPage
     {
         await CheckAndAskPermissionsAsync();
         Logger.init();
+        RecordLogger.init();
         Utils.createConfigFile();
 
         Logger.Log("2", "Info", "App launched.");

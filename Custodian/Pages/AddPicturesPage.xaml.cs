@@ -15,6 +15,7 @@ public partial class AddPicturesPage : ContentPage
     protected override void OnAppearing()
     {
         base.OnAppearing();
+        Logger.Log("2", "INFO", "Add Pictures Page Loaded!");
     }
     private void CameraButton_Clicked(object sender, EventArgs e)
     {

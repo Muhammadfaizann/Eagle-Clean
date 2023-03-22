@@ -1,4 +1,5 @@
 ﻿using Custodian.ActivityLog;
+using Custodian.Helpers;
 using Custodian.Models;
 using Custodian.Models.ServerModels;
 using Org.Json;
@@ -30,6 +31,7 @@ namespace Custodian.Services.Server
                         if (response.IsSuccessStatusCode)
                         {
                             string content = await response.Content.ReadAsStringAsync();
+                            RecordLogger.LogRcord("Download", content);
                             if (typeof(T) == typeof(string))
                                 return (T)Convert.ChangeType(content, typeof(T));
                             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -55,6 +57,8 @@ namespace Custodian.Services.Server
                 string url = Path.Combine(_baseUrl, endPoint);
                 using (var httpClient = new HttpClient())
                 {
+
+                    RecordLogger.LogRcord("Upload",JsonSerializer.Serialize<T>(obj));
                     HttpResponseMessage response = await httpClient.PostAsJsonAsync(url, obj);
                     if (response.IsSuccessStatusCode)
                     {

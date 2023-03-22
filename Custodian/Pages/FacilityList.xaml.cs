@@ -38,6 +38,7 @@ public partial class FacilityList : ContentPage
         {
             base.OnAppearing();
             LoadUpAllFacilities();
+            Logger.Log("2", "Info", "FacilityList Page Loaded!");
         }
         catch (Exception ex)
         {
@@ -100,17 +101,7 @@ public partial class FacilityList : ContentPage
         }
     }
 
-    private void SearchBar_Focused(object sender, FocusEventArgs e)
-    {
-        try
-        {
-
-        }
-        catch(Exception ex)
-        {
-            Logger.Log("1", "Exception", ex.Message);
-        }
-    }
+    
 
     private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -128,17 +119,7 @@ public partial class FacilityList : ContentPage
         }
     }
 
-    private void SearchBar_Unfocused(object sender, FocusEventArgs e)
-    {
-        try
-        {
-
-        }
-        catch (Exception ex)
-        {
-            Logger.Log("1", "Exception", ex.Message);
-        }
-    }
+   
     private double distance(double lat1, double lon1, double lat2, double lon2, char unit)
     {
         if ((lat1 == lat2) && (lon1 == lon2))

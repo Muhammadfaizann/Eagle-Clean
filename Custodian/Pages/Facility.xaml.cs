@@ -50,6 +50,7 @@ public partial class Facility : ContentPage, IQueryAttributable
     {
         base.OnAppearing();
         LoadAllRoutes();
+        Logger.Log("2", "INFO", "Facility -" + lblFacility.Text +" Loaded");
     }
 
     private async void LoadAllRoutes()
@@ -79,29 +80,62 @@ public partial class Facility : ContentPage, IQueryAttributable
             btn.IsEnabled = false;
             RouteModel routeDetails = btn.CommandParameter as RouteModel;
 
-            Location currentLocation = await _locationService.GetCurrentLocation();
-            if (currentLocation != null)
-            {
-                await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
+            Route route = JsonSerializer.Deserialize<Route>(routeDetails.json);
 
-                await Shell.Current.GoToAsync(nameof(ProofOfWork));
+            if (CheckIfRouteIsScheduledForToday(route.sched))
+            {
+
+                Location currentLocation = await _locationService.GetCurrentLocation();
+                if (currentLocation != null)
+                {
+                    await Utils.StartRoute(routeDetails.json, currentLocation.Latitude, currentLocation.Longitude, false);
+
+                    await Shell.Current.GoToAsync(nameof(ProofOfWork));
+                }
+                else
+                {
+                    CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                    string text = "Location record is not available";
+                    ToastDuration duration = ToastDuration.Short;
+                    double fontSize = 12;
+                    var toast = Toast.Make(text, duration, fontSize);
+                    await toast.Show(cancellationTokenSource.Token);
+                }
             }
             else
             {
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                string text = "Location record is not available";
+                string text = "Route is not scheduled for today.";
                 ToastDuration duration = ToastDuration.Short;
                 double fontSize = 12;
                 var toast = Toast.Make(text, duration, fontSize);
                 await toast.Show(cancellationTokenSource.Token);
             }
+            btn.IsEnabled = true;
             loader.IsRunning = loader.IsVisible = false;
         }
         catch(Exception ex)
         {
             Logger.Log("1", "Exception", ex.Message);
+            loader.IsRunning = loader.IsVisible = false;
         }
     }
 
-    
+    private bool CheckIfRouteIsScheduledForToday(string routeSchedule)
+    {
+        try
+        {
+            DayOfWeek day = DateTime.Today.DayOfWeek;
+            int index =  (int)System.Globalization.CultureInfo
+        .InvariantCulture.Calendar.GetDayOfWeek(DateTime.Now);
+            if (routeSchedule[index] == 'Y')
+                return true;
+           
+        }
+        catch (Exception ex) 
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
+        return false;
+    }
 }

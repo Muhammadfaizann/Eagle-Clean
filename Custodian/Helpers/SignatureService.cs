@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Custodian.ActivityLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,6 @@ namespace Custodian.Helpers
         static string root = Utils.ROOT_PATH;
         static string mainFolder = "Custodian";
         static string sigFolder = "Signatures";
-        static object Monitor = new object();
 
         static string filename = string.Empty;
 
@@ -33,7 +33,7 @@ namespace Custodian.Helpers
             }
             catch (Exception ex)
             {
-
+                Logger.Log("1", "Exception", ex.Message);
             }
         }
 
@@ -54,7 +54,7 @@ namespace Custodian.Helpers
                 }
                 catch (Exception ex)
                 {
-
+                    Logger.Log("1", "Exception", ex.Message);
                 }
             
         }

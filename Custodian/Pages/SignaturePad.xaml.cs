@@ -12,6 +12,7 @@ public partial class SignaturePad : ContentPage
     public SignaturePad()
     {
         InitializeComponent();
+        Logger.Log("2", "Info", "SignaturePad Page Loaded!");
     }
     private void clear_Clicked(object sender, EventArgs e)
     {

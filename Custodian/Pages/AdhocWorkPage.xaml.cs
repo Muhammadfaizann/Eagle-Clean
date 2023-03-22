@@ -9,7 +9,11 @@ public partial class AdhocWorkPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Logger.Log("2", "INFO", "Adhoc Work Page Loaded!");
+    }
     private void btnStartTimer_Clicked(object sender, EventArgs e)
     {
         try

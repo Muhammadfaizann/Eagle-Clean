@@ -1,3 +1,5 @@
+using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.Messaging;
 using Custodian.ActivityLog;
 using Custodian.Helpers;
@@ -14,18 +16,32 @@ public partial class ScanJob : ContentPage
 {
     ILocationService _locationService;
     IProofOfWorkService _proofOfWorkService;
-   
-    public ScanJob(ILocationService locationService,IProofOfWorkService proofOfWorkService)
-	{
-		InitializeComponent();
-       _locationService=locationService;
-       _proofOfWorkService= proofOfWorkService;
+
+    public ScanJob(ILocationService locationService, IProofOfWorkService proofOfWorkService)
+    {
+        try
+        {
+            InitializeComponent();
+            _locationService = locationService;
+            _proofOfWorkService = proofOfWorkService;
+        }
+        catch (Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
     protected override void OnAppearing()
     {
-        base.OnAppearing();
-        WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, OnStartRouteMessageReceived);
-      
+        try
+        {
+            base.OnAppearing();
+            WeakReferenceMessenger.Default.Register<StartRouteMessage>(this, OnStartRouteMessageReceived);
+            Logger.Log("2", "Info", "ScanJob Page Loaded!");
+        }
+        catch(Exception ex)
+        {
+            Logger.Log("1", "Exception", ex.Message);
+        }
     }
 
     private void OnStartRouteMessageReceived(object recipient, StartRouteMessage message)
@@ -40,8 +56,17 @@ public partial class ScanJob : ContentPage
                     var jsonString = message.Value.ToString();
 
                     Location currentLocation = await _locationService.GetCurrentLocation();
-                     await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude, true); 
-
+                    if(currentLocation != null)  
+                    await Utils.StartRoute(jsonString, currentLocation.Latitude, currentLocation.Longitude, true); 
+                    else
+                    {
+                        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                        string text = "Location record is not available";
+                        ToastDuration duration = ToastDuration.Short;
+                        double fontSize = 12;
+                        var toast = Toast.Make(text, duration, fontSize);
+                        await toast.Show(cancellationTokenSource.Token);
+                    }
 
                     await Navigate();
 

@@ -40,7 +40,7 @@
                       ContentTemplate="{DataTemplate pages:ActiveRoutePage}"/>
         <ShellContent Title="Travel" IsVisible="False"
                       ContentTemplate="{DataTemplate pages:TravelPage}"/>
-        <ShellContent Title="Ad-hoc Work" IsVisible="False"
+        <ShellContent Title="Ad-hoc Work" 
                       ContentTemplate="{DataTemplate pages:AdhocWorkPage}"/>
         <ShellContent Title="Nearby Facilities"
                       ContentTemplate="{DataTemplate pages:FacilityList}"/>
@@ -55,7 +55,7 @@
                        />
     </FlyoutItem>
     <Shell.FlyoutFooter>
-        <VerticalStackLayout HeightRequest="275" Background="{StaticResource GradientStyle}">
+        <VerticalStackLayout HeightRequest="220" Background="{StaticResource GradientStyle}">
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
 </Shell>

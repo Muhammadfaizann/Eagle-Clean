@@ -17,6 +17,7 @@ namespace Custodian.Models
         public string fac { get; set; }
         public string rte { get; set; }
         public string action { get; set; }
+        public string sched { get; set; }
         public string desc { get; set; }
         public List<string> tasks { get; set; }
         public List<Task> taskList { get; set; }
